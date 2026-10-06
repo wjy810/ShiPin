@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 1 屏 · 风格 C · 测绘图版</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        /* 思源黑体（Noto Sans SC），SIL OFL 1.1，已子集化为文案用字，许可见 assets/fonts/OFL.txt */
+        @font-face {
+          font-family: "Noto Sans SC";
+          src: url("assets/fonts/NotoSansSC-subset.woff2") format("woff2");
+          font-weight: 100 900;
+          font-display: block;
+        }
+        #screen-01 {
+          --bg: #e6ecef;
+          --ink: #1b2430;
+          --cobalt: #1f4ed8;
+          --white: #ffffff;
+        }
+        #screen-01 {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--bg);
+          font-family: "Noto Sans SC", sans-serif;
+          color: var(--ink);
+        }
+        #screen-01 * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        /* 背景：测绘方格，细格 48px，粗格 240px */
+        .grid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(to right, rgba(27, 36, 48, 0.13) 2px, transparent 2px),
+            linear-gradient(to bottom, rgba(27, 36, 48, 0.13) 2px, transparent 2px),
+            linear-gradient(to right, rgba(27, 36, 48, 0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(27, 36, 48, 0.06) 1px, transparent 1px);
+          background-size:
+            240px 240px,
+            240px 240px,
+            48px 48px,
+            48px 48px;
+          background-position: 96px 96px;
+        }
+        /* 图版：左上，16:9，原图只缩放不调色 */
+        .plate {
+          position: absolute;
+          left: 96px;
+          top: 96px;
+          width: 1088px;
+          height: 612px;
+          overflow: hidden;
+          clip-path: polygon(50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+        }
+        .plate img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        /* 局部放大：右上圆形放大镜，对准撞击坑边缘的弧形洼地（原图约 1190, 690 处，放大到原图的 1.13 倍） */
+        .loupe {
+          position: absolute;
+          left: 1320px;
+          top: 160px;
+          width: 440px;
+          height: 440px;
+          border-radius: 50%;
+          overflow: hidden;
+          background-color: var(--bg);
+          background-image: url("assets/images/crater_nasa.jpg");
+          background-repeat: no-repeat;
+          background-size: 2176px 1224px;
+          background-position: -1129px -562px;
+          clip-path: circle(0% at 50% 50%);
+        }
+        /* 线稿：图版边框、裁切角标、取景圈、引线、放大镜外圈 */
+        .linework {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: visible;
+        }
+        .linework .draw {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: square;
+          stroke-linejoin: miter;
+        }
+        .linework .ink {
+          stroke: var(--ink);
+          stroke-width: 3;
+        }
+        .linework .mark {
+          stroke: var(--cobalt);
+          stroke-width: 5;
+        }
+        .linework .lead {
+          stroke: var(--cobalt);
+          stroke-width: 3;
+        }
+        .linework .ring {
+          stroke: var(--cobalt);
+          stroke-width: 8;
+        }
+        /* 文字：右下，右对齐，逐字打出；每行用固定宽度的槽位，打字时右边缘不抖 */
+        .question {
+          position: absolute;
+          right: 96px;
+          bottom: 96px;
+          font-size: 88px;
+          font-weight: 900;
+          line-height: 1.3;
+          letter-spacing: 0;
+          text-align: right;
+          white-space: nowrap;
+        }
+        .line {
+          display: block;
+        }
+        .slot {
+          display: inline-block;
+          text-align: left;
+          vertical-align: top;
+        }
+        .slot-1 {
+          min-width: 12em;
+        }
+        .slot-2 {
+          min-width: 6em;
+        }
+        .chip {
+          display: inline-block;
+          vertical-align: top;
+          min-width: calc(2em + 28px);
+          margin-right: 16px;
+          padding: 0 14px;
+          text-align: left;
+          background: var(--cobalt);
+          color: var(--white);
+          visibility: hidden;
+        }
+      </style>
+
+      <div id="screen-01" data-composition-id="screen-01" data-width="1920" data-height="1080">
+        <div class="grid"></div>
+
+        <div class="plate" id="plate">
+          <img src="assets/images/crater_nasa.jpg" alt="" />
+        </div>
+
+        <div class="loupe" id="loupe"></div>
+
+        <svg class="linework" viewBox="0 0 1920 1080" aria-hidden="true">
+          <rect class="draw ink" id="plate-frame" x="96" y="96" width="1088" height="612" />
+          <path class="draw ink crop" d="M 80 60 L 80 80 L 60 80" />
+          <path class="draw ink crop" d="M 1200 60 L 1200 80 L 1220 80" />
+          <path class="draw ink crop" d="M 1200 744 L 1200 724 L 1220 724" />
+          <path class="draw ink crop" d="M 80 744 L 80 724 L 60 724" />
+          <circle class="draw mark" id="target" cx="770.3" cy="487" r="110" />
+          <path class="draw lead" id="lead-top" d="M 739.9 381.3 L 1479.2 168.6" />
+          <path class="draw lead" id="lead-bottom" d="M 769.9 597 L 1539.1 600" />
+          <circle class="draw ring" id="loupe-ring" cx="1540" cy="380" r="220" />
+        </svg>
+
+        <h1 class="question" id="question">
+          <span class="line line-1"><span class="chip" id="chip"></span><span class="slot slot-1" id="slot-1"></span></span>
+          <span class="line line-2"><span class="slot slot-2" id="slot-2"></span></span>
+        </h1>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+
+        // 线稿：svg-path-draw（stroke-dasharray/dashoffset，长度用 getTotalLength 实测）
+        const draw = (el, start, dur, ease) => {
+          const len = el.getTotalLength();
+          el.style.strokeDasharray = `${len}`;
+          // 开画前整条线隐藏（二值切换），避免方头线帽在起点留下一个小点
+          tl.set(el, { visibility: "visible" }, start);
+          tl.fromTo(el, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: dur, ease }, start);
+        };
+        document.querySelectorAll(".crop").forEach((el, i) => draw(el, 0.05 + i * 0.06, 0.22, "power2.out"));
+        draw(document.getElementById("plate-frame"), 0.1, 0.5, "power2.inOut");
+
+        // 图版：Clock Wipe（css-mechanical），像钟表指针扫过一圈
+        const T = 0.35;
+        const d = 0.14;
+        tl.set("#plate", { clipPath: "polygon(50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%)" }, 0);
+        tl.to("#plate", { clipPath: "polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 100% 50%, 100% 50%, 100% 50%, 100% 50%, 100% 50%)", duration: d, ease: "none" }, T);
+        tl.to("#plate", { clipPath: "polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 100%)", duration: d, ease: "none" }, T + d);
+        tl.to("#plate", { clipPath: "polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%, 0% 100%, 0% 50%, 0% 50%)", duration: d, ease: "none" }, T + d * 2);
+        tl.to("#plate", { clipPath: "polygon(50% 50%, 50% 0%, 100% 0%, 100% 50%, 100% 100%, 50% 100%, 0% 100%, 0% 50%, 0% 0%)", duration: d, ease: "none" }, T + d * 3);
+        tl.set("#plate", { clipPath: "none" }, T + d * 4 + 0.02);
+
+        // 局部放大：取景圈 → 两条引线 → 放大镜外圈，最后镜内画面像光圈一样张开
+        draw(document.getElementById("target"), 0.98, 0.3, "power2.out");
+        draw(document.getElementById("lead-top"), 1.18, 0.26, "power2.out");
+        draw(document.getElementById("lead-bottom"), 1.22, 0.26, "power2.out");
+        draw(document.getElementById("loupe-ring"), 1.38, 0.4, "power2.inOut");
+        tl.fromTo("#loupe", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(50% at 50% 50%)", duration: 0.4, ease: "power3.out" }, 1.5);
+
+        // 文字：打字机（smooth character slice），由时间轴驱动，任意时间点都能 seek
+        const parts = [
+          [document.getElementById("chip"), "猜："],
+          [document.getElementById("slot-1"), "小行星撞地球那场大灭绝，"],
+          [document.getElementById("slot-2"), "是多少年前？"],
+        ];
+        const total = parts.reduce((n, [, s]) => n + s.length, 0);
+        const TYPE_START = 1.55;
+        const TYPE_DUR = total * 0.07;
+        const chip = document.getElementById("chip");
+        const typed = { v: 0 };
+        const render = () => {
+          let n = Math.floor(typed.v);
+          parts.forEach(([el, s]) => {
+            el.textContent = s.substring(0, Math.max(0, Math.min(s.length, n)));
+            n -= s.length;
+          });
+          chip.style.visibility = typed.v >= 1 ? "visible" : "hidden";
+        };
+        tl.fromTo(
+          typed,
+          { v: 0 },
+          { v: total, duration: TYPE_DUR, ease: "none", onUpdate: render, onStart: render, onReverseComplete: render },
+          TYPE_START,
+        );
+
+        window.__timelines["screen-01"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
