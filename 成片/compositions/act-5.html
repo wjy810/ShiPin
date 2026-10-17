@@ -353,6 +353,9 @@
           tl.to("#a5-shovel", { y: 10, rotation: 4, duration: 3 * F, ease: "power2.inOut" }, at(134) + 3 * F);
           tl.set("#a5-dirt", { opacity: 1 }, at(134.5));
           tl.fromTo("#a5-dirt", { scale: 0.3, y: 30 }, { scale: 1, y: 0, duration: 4 * F, ease: "power3.out" }, at(134.5));
+          // 照片卡从 × 里弹出来的同一拍，铲子被抛走
+          tl.to("#a5-shovel", { y: -520, rotation: 24, duration: 7 * F, ease: "power2.in" }, at(136));
+          tl.set("#a5-shovel", { opacity: 0 }, at(136) + 7 * F);
           tl.set("#a5-card", { opacity: 1 }, at(136));
           tl.fromTo("#a5-card", { scale: 0 }, { scale: 1, duration: 10 * F, ease: "power3.out" }, at(136));
           tl.fromTo(".a5-tape", { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out", stagger: 2 * F }, at(136.5));

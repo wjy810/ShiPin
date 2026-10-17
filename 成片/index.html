@@ -49,6 +49,7 @@
       data-duration="126.5625"
       data-width="1920"
       data-height="1080"
+      data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;truepeak&quot;,&quot;id&quot;:&quot;n1&quot;,&quot;label&quot;:&quot;Delivery Ceiling&quot;,&quot;params&quot;:{&quot;ceiling&quot;:-1,&quot;lookahead&quot;:3,&quot;release&quot;:80}}]}"
     >
       <!-- 第 1 幕：屏 1–3，第 0–25 拍 -->
       <div
@@ -162,8 +163,8 @@
       <audio id="bgm-8" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="120.9375" data-duration="1.875" data-media-start="51.109" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
       <audio id="bgm-9" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="122.8125" data-duration="3.75" data-media-start="45.484" data-fade-in="0.008" data-fade-out="3.75" data-track-index="10"></audio>
 
-      <!-- 钟表滴答声：已按拍子排好的一整条（来源和许可见 assets/audio/说明.md） -->
-      <audio id="sfx-ticks" src="assets/audio/ticks.flac" data-start="0" data-duration="126.5625" data-volume="0.7" data-track-index="11"></audio>
+      <!-- 钟表滴答声：已按拍子排好、每段音量也已做进文件的一整条（来源、许可和做法见 assets/说明.md） -->
+      <audio id="sfx-ticks" src="assets/audio/ticks.flac" data-start="0" data-duration="126.5625" data-track-index="11"></audio>
     </div>
     <script>
       window.__timelines["main"] = gsap.timeline({ paused: true });

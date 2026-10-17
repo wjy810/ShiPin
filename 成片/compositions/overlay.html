@@ -315,6 +315,8 @@
           tl.set(ring, { visibility: "visible" }, at(34.5));
           tl.fromTo(ring, { strokeDashoffset: C }, { strokeDashoffset: 0, duration: 3.5 * T, ease: "power2.inOut" }, at(34.5));
           tl.fromTo("#ov-tlline", { x: 0 }, { x: 1224, duration: 3.5 * T, ease: "power2.inOut" }, at(34.5));
+          // 卷完以后时间轴整条收掉（否则左端那颗锈红点会在裁切边上露出半个）
+          tl.set("#ov-tlline", { opacity: 0 }, at(38));
 
           // —— 屏 6（第 38 拍）：24 根刻度从顶部顺时针依次出现，指针从 0 点走一整圈 ——
           gsap.utils.toArray("#overlay .ov-tick").forEach((el, i) => tl.set(el, { opacity: 1 }, at(38) + (i * T) / 24));
