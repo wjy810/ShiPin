@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 2 幕 · 屏 4–6 · 把生命史压成一天</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-subset.woff2") format("woff2");
+          font-weight: 200 900;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-1.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+539F, U+590D, U+793A;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-2.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+610F;
+          font-display: block;
+        }
+        #act-2 {
+          --paper: #f1ebdd;
+          --ink: #23201a;
+          --rust: #9a3412;
+          --card: #fbf8f1;
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Noto Serif SC", serif;
+          color: var(--ink);
+        }
+        #act-2 * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #act-2 .page {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--paper);
+          box-shadow: 0 30px 80px rgba(35, 32, 26, 0.35);
+        }
+        #act-2 .ruled {
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 53px,
+            rgba(35, 32, 26, 0.13) 53px,
+            rgba(35, 32, 26, 0.13) 55px
+          );
+        }
+        #act-2 .grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/paper-grain.png");
+        }
+        #act-2 .holes {
+          position: absolute;
+          left: 34px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 150px 0;
+        }
+        #act-2 .holes i {
+          display: block;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #d9d1bf;
+          box-shadow: inset 0 3px 6px rgba(35, 32, 26, 0.35);
+        }
+        #act-2 .cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 60% 45%;
+        }
+        /* 论文剪报：白边 12px，回形针代替胶带 */
+        #act-2 .tilt {
+          position: absolute;
+          left: 820px;
+          top: 112px;
+          width: 840px;
+          transform: rotate(-1.5deg);
+        }
+        #act-2 .card {
+          display: block;
+          width: 100%;
+          padding: 12px;
+          background: var(--card);
+          box-shadow: 0 18px 44px rgba(35, 32, 26, 0.28);
+          transform-origin: 50% 0%;
+          opacity: 0;
+        }
+        #act-2 .frame {
+          display: block;
+          width: 816px;
+          height: 459px;
+          overflow: hidden;
+        }
+        #act-2 .frame img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #act-2 .clip-wrap {
+          position: absolute;
+          left: 36px;
+          top: -46px;
+          width: 54px;
+          height: 120px;
+        }
+        #act-2 .say {
+          position: absolute;
+          left: 120px;
+          bottom: 118px;
+          font-size: 100px;
+          font-weight: 900;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+        #act-2 .line {
+          display: block;
+          white-space: nowrap;
+        }
+        #act-2 .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #act-2 .rust {
+          color: var(--rust);
+        }
+        #act-2 svg.ink {
+          position: absolute;
+          overflow: visible;
+        }
+        #act-2 svg.ink path {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+      </style>
+
+      <div id="act-2" data-composition-id="act-2" data-width="1920" data-height="1080">
+        <div class="page" id="a2-page">
+          <div class="ruled"></div>
+          <div class="grain"></div>
+          <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="cam" id="a2-cam">
+            <!-- 屏 4：Duda et al., PLoS ONE 2016, Fig. 3A（CC BY 4.0），只取照片本身，放大镜是比例参照 -->
+            <div class="tilt">
+              <div class="card" id="a2-card">
+                <div class="frame"><img src="assets/images/fig3a-print.jpg" alt="" /></div>
+                <div class="clip-wrap" id="a2-clip">
+                  <svg style="position: absolute; left: 0; top: 0; width: 54px; height: 120px; overflow: visible" viewBox="0 0 54 120" aria-hidden="true">
+                    <path d="M 16 98 L 16 22 C 16 8, 40 8, 40 22 L 40 96 C 40 112, 8 112, 8 96 L 8 36" style="fill: none; stroke: #6b6458; stroke-width: 6; stroke-linecap: round" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- 屏 4 -->
+            <h2 class="say" id="a2-s4">
+              <span class="line"><span class="w rust" id="a2-w1">约34亿年前，</span></span>
+              <span class="line"><span class="w" id="a2-w2">浅水里已有生命</span></span>
+            </h2>
+            <!-- 屏 5 -->
+            <h2 class="say" id="a2-s5">
+              <span class="line"><span class="w" id="a2-w3">34亿年太长？</span></span>
+              <span class="line"><span class="w" id="a2-w4">压缩成<span class="rust">一天</span></span></span>
+            </h2>
+            <!-- 屏 6 -->
+            <h2 class="say" id="a2-s6">
+              <span class="line"><span class="w" id="a2-w5"><span class="rust">0点</span>是34亿年前，</span></span>
+              <span class="line" style="position: relative"
+                ><span class="w" id="a2-w6"><span class="rust">24点</span>是现在</span
+                ><svg class="ink" style="left: -6px; bottom: -28px; width: 520px; height: 44px" viewBox="0 0 520 44" aria-hidden="true">
+                  <path id="a2-ul" d="M 8 30 C 110 18, 220 36, 330 24 S 470 20, 512 28" style="stroke: var(--rust); stroke-width: 9" /></svg
+              ></span>
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128;
+          const F = 1 / 30;
+          const B0 = 26; // 本幕第一拍
+          const END = 46; // 第 3 幕从这一拍推页进来
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+          const drop = (sel, b, dy = 60, f = 6) => {
+            tl.set(sel, { opacity: 1 }, typeof b === "number" ? at(b) : b.t);
+            tl.fromTo(sel, { y: dy }, { y: 0, duration: f * F, ease: "power4.out" }, typeof b === "number" ? at(b) : b.t);
+          };
+          const draw = (sel, b, beats = 1) => {
+            const p = document.querySelector(sel);
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = `${len}`;
+            tl.set(p, { visibility: "visible" }, at(b));
+            tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: beats * T, ease: "none" }, at(b));
+          };
+
+          // —— 推页入场（第 26 拍） ——
+          tl.fromTo("#a2-page", { x: 1920 }, { x: 0, duration: 8 * F, ease: "power4.out" }, 0);
+
+          // —— 屏 4（第 26–31 拍） ——
+          tl.set("#a2-card", { opacity: 1 }, at(26));
+          tl.fromTo("#a2-card", { scale: 0, y: 12 }, { scale: 1, y: 0, duration: 10 * F, ease: "power3.out" }, at(26));
+          tl.fromTo("#a2-clip", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 4 * F, ease: "power3.out" }, at(26.5));
+          drop("#a2-w1", 26);
+          drop("#a2-w2", { t: at(26) + 3 * F });
+          // 原曲第 8 小节后半的上扬：整页憋着往前推，下一拍高潮复位
+          tl.fromTo("#a2-cam", { scale: 1 }, { scale: 1.04, duration: 2 * T, ease: "power1.in" }, at(30));
+          tl.set("#a2-cam", { scale: 1 }, at(32));
+
+          // —— 屏 5（第 32 拍，第一段高潮第一拍）：剪报甩走，时间轴横扫（在覆盖层） ——
+          tl.to("#a2-card", { y: -80, rotation: -5, duration: 6 * F, ease: "power2.in" }, at(32));
+          tl.set("#a2-card", { opacity: 0 }, at(32) + 5 * F);
+          tl.set("#a2-s4", { opacity: 0 }, at(32));
+          drop("#a2-w3", 32);
+          drop("#a2-w4", 34);
+
+          // —— 屏 6（第 38 拍） ——
+          tl.set("#a2-s5", { opacity: 0 }, at(38));
+          drop("#a2-w5", 38);
+          drop("#a2-w6", 42);
+          draw("#a2-ul", 44, 1);
+
+          // —— 推页离场（第 46 拍） ——
+          tl.to("#a2-page", { x: -1920, duration: 8 * F, ease: "power4.out" }, at(END));
+
+          window.__timelines["act-2"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

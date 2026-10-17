@@ -1,2 +1,4 @@
-# 配乐是商业曲目，仓库公开，只放本地
-bgm.mp3
+# HyperFrames 本地缓存和检查截图
+成片/.hyperframes/
+成片/renders/
+node_modules/

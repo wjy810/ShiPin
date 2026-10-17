@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 6 幕下 · 屏 28–31 · 开头那题的答案</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-subset.woff2") format("woff2");
+          font-weight: 200 900;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-1.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+539F, U+590D, U+793A;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-2.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+610F;
+          font-display: block;
+        }
+        #act-6b {
+          --paper: #f1ebdd;
+          --ink: #23201a;
+          --rust: #9a3412;
+          --card: #fbf8f1;
+          --lead: #635d53;
+          --tape: rgba(216, 195, 154, 0.88);
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Noto Serif SC", serif;
+          color: var(--ink);
+        }
+        #act-6b * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #act-6b .page {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--paper);
+          box-shadow: 0 30px 80px rgba(35, 32, 26, 0.35);
+        }
+        #act-6b .ruled {
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 53px,
+            rgba(35, 32, 26, 0.13) 53px,
+            rgba(35, 32, 26, 0.13) 55px
+          );
+        }
+        #act-6b .grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/paper-grain.png");
+        }
+        #act-6b .holes {
+          position: absolute;
+          left: 34px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 150px 0;
+        }
+        #act-6b .holes i {
+          display: block;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #d9d1bf;
+          box-shadow: inset 0 3px 6px rgba(35, 32, 26, 0.35);
+        }
+        #act-6b .say {
+          position: absolute;
+          left: 120px;
+          bottom: 118px;
+          font-size: 96px;
+          font-weight: 900;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+        #act-6b .line {
+          display: block;
+          white-space: nowrap;
+        }
+        #act-6b .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #act-6b .rust {
+          color: var(--rust);
+        }
+        #act-6b svg.ink {
+          position: absolute;
+          overflow: visible;
+        }
+        #act-6b svg.ink path {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        /* 选项卡（和第 1 幕同一套） */
+        #act-6b .optw {
+          position: absolute;
+          top: 300px;
+          width: 420px;
+          height: 170px;
+        }
+        #act-6b .opt {
+          width: 420px;
+          height: 170px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          padding: 0 30px;
+          background: var(--card);
+          border-top: 8px solid var(--rust);
+          box-shadow: 0 14px 34px rgba(35, 32, 26, 0.25);
+        }
+        #act-6b .opt b {
+          font-size: 96px;
+          font-weight: 900;
+          color: var(--rust);
+          line-height: 1;
+        }
+        #act-6b .opt span {
+          white-space: nowrap;
+          font-size: 76px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.02em;
+        }
+        #act-6b .ring {
+          position: absolute;
+          left: -70px;
+          top: -60px;
+          width: 560px;
+          height: 290px;
+        }
+        #act-6b .ring path {
+          stroke-width: 9;
+        }
+      </style>
+
+      <div id="act-6b" data-composition-id="act-6b" data-width="1920" data-height="1080">
+        <!-- ===================== 第 6 幕下半：屏 28–31，翻回第一页 ===================== -->
+        <div class="page" id="a6b-page">
+          <div class="ruled"></div>
+          <div class="grain"></div>
+          <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+
+          <div class="optw" style="left: 230px; transform: rotate(-2deg)">
+            <div class="opt" id="a6-optA"><b>A</b><span>6500万</span></div>
+            <svg class="ink ring" viewBox="0 0 560 290" aria-hidden="true"><path class="a6-ringA" d="M 40 130 C 50 40, 470 20, 530 110 C 568 172, 470 262, 280 266 C 92 270, 8 206, 30 136 C 42 98, 120 58, 214 46" style="stroke: var(--rust)" /></svg>
+          </div>
+          <div class="optw" style="left: 750px; transform: rotate(1deg)">
+            <div class="opt" id="a6-optB"><b>B</b><span>6550万</span></div>
+            <svg class="ink ring" viewBox="0 0 560 290" aria-hidden="true"><path class="a6-ringB" d="M 44 126 C 60 38, 472 24, 528 106 C 566 168, 474 258, 282 264 C 96 270, 10 210, 28 140 C 38 100, 116 60, 210 48" style="stroke: var(--rust)" /></svg>
+          </div>
+          <div class="optw" style="left: 1270px; transform: rotate(-1deg)">
+            <div class="opt" id="a6-optC"><b>C</b><span>6600万</span></div>
+            <svg class="ink ring" viewBox="0 0 560 290" aria-hidden="true"><path class="a6-ringC" d="M 38 134 C 46 42, 468 18, 532 104 C 570 166, 476 260, 278 266 C 90 272, 6 204, 32 132 C 44 96, 124 56, 218 44" style="stroke: var(--rust)" /></svg>
+            <svg class="ink" style="left: 40px; top: 238px; width: 340px; height: 50px" viewBox="0 0 340 50" aria-hidden="true">
+              <path id="a6-ulC1" d="M 6 14 C 100 6, 220 20, 334 10" style="stroke: var(--rust); stroke-width: 8" />
+              <path id="a6-ulC2" d="M 16 38 C 110 30, 230 44, 324 34" style="stroke: var(--rust); stroke-width: 8" />
+            </svg>
+          </div>
+
+          <!-- 屏 28 -->
+          <h2 class="say" id="a6-s28">
+            <span class="line"><span class="w" id="a6-w11">开头那题：</span></span>
+            <span class="line"><span class="w" id="a6-w12">1980年说6500万年前</span></span>
+          </h2>
+          <!-- 屏 29 -->
+          <h2 class="say" id="a6-s29">
+            <span class="line"><span class="w" id="a6-w13">2010年说约6550万年前</span></span>
+          </h2>
+          <!-- 屏 30 -->
+          <h2 class="say" id="a6-s30" style="font-size: 100px">
+            <span class="line"><span class="w" id="a6-w14">现在的标准：</span></span>
+            <span class="line"><span class="w rust" id="a6-w15">6600万年前</span></span>
+          </h2>
+          <!-- 屏 31 -->
+          <h2 class="say" id="a6-s31" style="font-size: 100px">
+            <span class="line"><span class="w" id="a6-w16">三个选项，</span></span>
+            <span class="line"><span class="w" id="a6-w17">都曾是<span class="rust">“答案”</span></span></span>
+          </h2>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128;
+          const F = 1 / 30;
+          const B0 = 198; // 本页第一拍（最终高潮第一拍）
+          const END = 230; // 第 7 幕从这一拍推页进来（12 帧）
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+          const RUST = "#9a3412";
+          const LEAD = "#635d53";
+          const drop = (sel, t, dy = 60, f = 6) => {
+            tl.set(sel, { opacity: 1 }, t);
+            tl.fromTo(sel, { y: dy }, { y: 0, duration: f * F, ease: "power4.out" }, t);
+          };
+          const draw = (el, t, dur) => {
+            const list = typeof el === "string" ? document.querySelectorAll(el) : [el];
+            list.forEach((p) => {
+              const len = p.getTotalLength();
+              p.style.strokeDasharray = `${len}`;
+              tl.set(p, { visibility: "visible" }, t);
+              tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: dur, ease: "none" }, t);
+            });
+          };
+
+          // —— 屏 28（第 198 拍，最终高潮第一拍）：反向推页，翻回第一页；第 200 拍圈 A ——
+          tl.fromTo("#a6b-page", { x: -1920 }, { x: 0, duration: 8 * F, ease: "power4.out" }, at(198));
+          drop("#a6-w11", at(198));
+          drop("#a6-w12", at(198) + 3 * F);
+          draw(".a6-ringA", at(200), T);
+
+          // —— 屏 29（第 206 拍）：A 的圈变灰，圈 B ——
+          tl.set("#a6-s28", { opacity: 0 }, at(206));
+          drop("#a6-w13", at(206));
+          tl.set(".a6-ringA", { stroke: LEAD }, at(206));
+          draw(".a6-ringB", at(208), T);
+
+          // —— 屏 30（第 214 拍）：B 的圈变灰，圈 C、C 卡上抬、两道下划线 ——
+          tl.set("#a6-s29", { opacity: 0 }, at(214));
+          drop("#a6-w14", at(214));
+          drop("#a6-w15", at(214) + 3 * F);
+          tl.set(".a6-ringB", { stroke: LEAD }, at(214));
+          draw(".a6-ringC", at(216), T);
+          tl.to("#a6-optC", { y: -16, duration: 6 * F, ease: "power3.out" }, at(216));
+          draw("#a6-ulC1", at(218), 0.5 * T);
+          draw("#a6-ulC2", at(218.5), 0.5 * T);
+
+          // —— 屏 31（第 222 拍）：第 224 拍三个圈同一帧变回锈红，然后停住，让滚奏把话说完 ——
+          tl.set("#a6-s30", { opacity: 0 }, at(222));
+          drop("#a6-w16", at(222));
+          drop("#a6-w17", at(222) + 3 * F);
+          tl.set([".a6-ringA", ".a6-ringB"], { stroke: RUST }, at(224));
+
+          // —— 推页离场（第 230 拍，尾声，12 帧） ——
+          tl.to("#a6b-page", { x: -1920, duration: 12 * F, ease: "power4.out" }, at(END));
+
+          window.__timelines["act-6b"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

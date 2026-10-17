@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 6 幕上 · 屏 22–27 · 晚上 11 点半，撞击</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-subset.woff2") format("woff2");
+          font-weight: 200 900;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-1.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+539F, U+590D, U+793A;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-2.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+610F;
+          font-display: block;
+        }
+        #act-6 {
+          --paper: #f1ebdd;
+          --ink: #23201a;
+          --rust: #9a3412;
+          --card: #fbf8f1;
+          --lead: #635d53;
+          --tape: rgba(216, 195, 154, 0.88);
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Noto Serif SC", serif;
+          color: var(--ink);
+        }
+        #act-6 * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #act-6 .page {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--paper);
+          box-shadow: 0 30px 80px rgba(35, 32, 26, 0.35);
+        }
+        #act-6 .ruled {
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 53px,
+            rgba(35, 32, 26, 0.13) 53px,
+            rgba(35, 32, 26, 0.13) 55px
+          );
+        }
+        #act-6 .grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/paper-grain.png");
+        }
+        #act-6 .holes {
+          position: absolute;
+          left: 34px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 150px 0;
+        }
+        #act-6 .holes i {
+          display: block;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #d9d1bf;
+          box-shadow: inset 0 3px 6px rgba(35, 32, 26, 0.35);
+        }
+        #act-6 .tilt {
+          position: absolute;
+        }
+        #act-6 .card {
+          display: block;
+          width: 100%;
+          padding: 20px;
+          background: var(--card);
+          box-shadow: 0 18px 44px rgba(35, 32, 26, 0.28);
+          opacity: 0;
+        }
+        #act-6 .frame {
+          position: relative;
+          display: block;
+          overflow: hidden;
+        }
+        #act-6 .zoom {
+          position: absolute;
+          inset: 0;
+        }
+        #act-6 .zoom img,
+        #act-6 .frame > img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #act-6 .tape {
+          position: absolute;
+          top: -22px;
+          width: 150px;
+          height: 44px;
+        }
+        #act-6 .tape.left {
+          left: 36px;
+          transform: rotate(-7deg);
+        }
+        #act-6 .tape.right {
+          right: 36px;
+          transform: rotate(6deg);
+        }
+        #act-6 .tape i {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: var(--tape);
+          transform-origin: 0% 50%;
+        }
+        #act-6 .say {
+          position: absolute;
+          left: 120px;
+          bottom: 118px;
+          font-size: 96px;
+          font-weight: 900;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+        #act-6 .line {
+          display: block;
+          white-space: nowrap;
+        }
+        #act-6 .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #act-6 .rust {
+          color: var(--rust);
+        }
+        #act-6 .when {
+          font-size: 120px;
+          line-height: 1.15;
+        }
+        #act-6 .when small {
+          font-size: 80px;
+          color: var(--ink);
+        }
+        #act-6 svg.ink {
+          position: absolute;
+          overflow: visible;
+        }
+        #act-6 svg.ink path {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        #act-6 .beast {
+          position: absolute;
+          top: 560px;
+          width: 128px;
+          height: 96px;
+          opacity: 0;
+        }
+        #act-6 .beast svg {
+          display: block;
+          width: 128px;
+          height: 96px;
+          overflow: visible;
+        }
+        #act-6 .beast path {
+          fill: none;
+          stroke: var(--ink);
+          stroke-width: 5;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        #act-6 .stamp {
+          position: absolute;
+          padding: 6px 16px;
+          border: 4px solid var(--rust);
+          color: var(--rust);
+          font-size: 40px;
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: 0.06em;
+          background: rgba(251, 248, 241, 0.85);
+          opacity: 0;
+        }
+        #act-6 .bar {
+          position: absolute;
+          bottom: 360px;
+          width: 56px;
+          background: var(--rust);
+          border: 4px solid var(--ink);
+          transform-origin: 50% 100%;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="act-6" data-composition-id="act-6" data-width="1920" data-height="1080">
+        <!-- ===================== 第 6 幕上半：屏 22–27 ===================== -->
+        <div class="page" id="a6-pageA">
+          <div class="ruled"></div>
+          <div class="grain"></div>
+          <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+
+          <!-- 屏 22：屏 14 的 8 个剪影排成一排，逐个变灰（不画具体物种，不出现恐龙） -->
+          <div class="beast" style="left: 120px"><svg viewBox="0 0 120 90"><path d="M 20 45 C 20 15, 100 15, 100 45 C 100 75, 20 75, 20 45 Z M 40 22 Q 44 45 40 68 M 60 18 Q 64 45 60 72 M 80 22 Q 84 45 80 68 M 20 40 L 6 30 M 20 50 L 6 60" /></svg></div>
+          <div class="beast" style="left: 252px"><svg viewBox="0 0 120 90"><path d="M 8 60 C 30 20, 50 90, 70 50 S 100 30, 112 40 M 24 44 L 30 50 M 44 58 L 50 52 M 62 60 L 66 52 M 84 40 L 88 48" /></svg></div>
+          <div class="beast" style="left: 384px"><svg viewBox="0 0 120 90"><path d="M 40 85 L 30 20 Q 60 8 90 20 L 80 85 Z M 45 30 L 50 70 M 60 25 L 60 72 M 75 30 L 70 70" /></svg></div>
+          <div class="beast" style="left: 516px"><svg viewBox="0 0 120 90"><path d="M 20 50 Q 60 -5 100 50 Z M 35 50 Q 30 75 38 88 M 55 50 Q 52 78 58 90 M 75 50 Q 78 78 70 88 M 92 50 Q 96 72 88 84" /></svg></div>
+          <div class="beast" style="left: 648px"><svg viewBox="0 0 120 90"><path d="M 15 30 C 50 10, 95 25, 100 60 C 102 75, 90 82, 80 76 M 30 32 L 26 50 M 45 26 L 42 46 M 60 28 L 58 48 M 75 36 L 72 54" /></svg></div>
+          <div class="beast" style="left: 780px"><svg viewBox="0 0 120 90"><path d="M 60 88 L 60 20 M 60 30 Q 40 28 30 38 M 60 30 Q 80 28 90 38 M 60 45 Q 38 44 28 54 M 60 45 Q 82 44 92 54 M 60 60 Q 40 60 32 68 M 60 60 Q 80 60 88 68" /></svg></div>
+          <div class="beast" style="left: 912px"><svg viewBox="0 0 120 90"><path d="M 38 45 A 22 22 0 1 0 82 45 A 22 22 0 1 0 38 45 M 60 15 L 60 5 M 60 75 L 60 85 M 30 45 L 18 45 M 90 45 L 102 45 M 39 24 L 31 16 M 81 24 L 89 16 M 39 66 L 31 74 M 81 66 L 89 74" /></svg></div>
+          <div class="beast" style="left: 1044px"><svg viewBox="0 0 120 90"><path d="M 20 70 Q 60 5 100 70 Z M 60 70 L 60 25 M 60 70 L 40 32 M 60 70 L 80 32 M 60 70 L 28 50 M 60 70 L 92 50" /></svg></div>
+          <div class="stamp" id="a6-stamp22" style="left: 120px; top: 690px">示意</div>
+
+          <!-- 屏 24–25：意大利的白垩纪—古近纪界线露头（Biandh，CC BY 4.0），红箭头是拍摄者画的，原样保留；不写地名 -->
+          <div class="tilt" style="left: 900px; top: 100px; width: 446px; transform: rotate(-1.5deg)">
+            <div class="card" id="a6-card24">
+              <div class="frame" style="width: 406px; height: 560px">
+                <div class="zoom" id="a6-gzoom" style="transform-origin: 333.6px 380.8px"><img src="assets/images/gubbio-print.jpg" alt="" /></div>
+              </div>
+              <div class="tape left"><i class="a6-tape24"></i></div>
+              <div class="tape right"><i class="a6-tape24"></i></div>
+            </div>
+          </div>
+          <svg class="ink" style="left: 1356px; top: 462px; width: 60px; height: 80px" viewBox="0 0 60 80" aria-hidden="true">
+            <path id="a6-bracket" d="M 6 6 L 30 6 L 30 74 L 6 74 M 30 40 L 54 40" style="stroke: var(--rust); stroke-width: 9" />
+          </svg>
+          <!-- 屏 25：铱比背景值高约 30、160、20 倍（文章.md 第 8 节），不写数字和地名 -->
+          <svg class="ink" style="left: 1400px; top: 716px; width: 340px; height: 10px" viewBox="0 0 340 10" aria-hidden="true">
+            <path id="a6-base" d="M 4 4 L 336 4" style="stroke: var(--ink); stroke-width: 6" />
+          </svg>
+          <i class="bar" id="a6-bar1" style="left: 1420px; height: 94px"></i>
+          <i class="bar" id="a6-bar2" style="left: 1532px; height: 480px"></i>
+          <i class="bar" id="a6-bar3" style="left: 1644px; height: 64px"></i>
+          <div class="stamp" id="a6-stamp25" style="left: 1580px; top: 744px">示意</div>
+
+          <!-- 屏 26–27：撞击坑地形图（NASA/JPL，PIA03379），不调色 -->
+          <div class="tilt" style="left: 820px; top: 112px; width: 840px; transform: rotate(2deg)">
+            <div class="card" id="a6-card26">
+              <div class="frame" style="width: 800px; height: 450px"><img src="assets/images/crater.jpg" alt="" /></div>
+              <div class="tape left"><i class="a6-tape26"></i></div>
+              <div class="tape right"><i class="a6-tape26"></i></div>
+            </div>
+          </div>
+          <!-- 小行星（示意）：撞击点对准撞击坑弧线的圆心 (1192, 171) -->
+          <div id="a6-rock" style="position: absolute; left: 1132px; top: 111px; width: 120px; height: 120px; opacity: 0">
+            <svg style="position: absolute; left: 0; top: 0; width: 120px; height: 120px; overflow: visible" viewBox="0 0 120 120" aria-hidden="true">
+              <g style="fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round">
+                <path d="M 60 34 C 78 32, 88 46, 86 62 C 84 80, 70 88, 56 86 C 40 84, 32 70, 34 56 C 36 42, 46 35, 60 34 Z" style="fill: var(--card)" />
+                <path d="M 34 44 L -40 6 M 30 62 L -70 30 M 42 30 L -10 -18" />
+              </g>
+            </svg>
+          </div>
+          <svg class="ink" style="left: 1092px; top: 71px; width: 200px; height: 200px" viewBox="0 0 200 200" aria-hidden="true">
+            <g style="stroke: var(--rust); stroke-width: 8">
+              <path class="a6-burst" d="M 100 70 L 100 18" /><path class="a6-burst" d="M 121 79 L 158 42" /><path class="a6-burst" d="M 130 100 L 182 100" />
+              <path class="a6-burst" d="M 121 121 L 158 158" /><path class="a6-burst" d="M 100 130 L 100 182" /><path class="a6-burst" d="M 79 121 L 42 158" />
+              <path class="a6-burst" d="M 70 100 L 18 100" /><path class="a6-burst" d="M 79 79 L 42 42" />
+            </g>
+          </svg>
+          <div class="stamp" id="a6-stamp26" style="left: 1480px; top: 560px">示意</div>
+
+          <!-- 屏 27：天平（示意）。41 位作者 / 3 篇商榷评论，见 文章.md 第 8 节；盘上不写字 -->
+          <div id="a6-scale" style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; opacity: 0">
+            <svg style="position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible" viewBox="0 0 1920 1080" aria-hidden="true">
+              <g style="fill: none; stroke: var(--ink); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round">
+                <path id="a6-post" d="M 1250 268 L 1250 640 M 1130 640 L 1370 640 M 1225 268 L 1275 268" />
+              </g>
+              <g id="a6-beam">
+                <path d="M 950 260 L 1550 260" style="fill: none; stroke: var(--ink); stroke-width: 9; stroke-linecap: round" />
+                <circle cx="1250" cy="260" r="14" style="fill: var(--ink)" />
+              </g>
+              <g id="a6-panL">
+                <path d="M 950 260 L 870 450 M 950 260 L 1030 450" style="fill: none; stroke: var(--ink); stroke-width: 4" />
+                <path d="M 850 450 L 1050 450 Q 1040 500 950 500 Q 860 500 850 450 Z" style="fill: var(--card); stroke: var(--ink); stroke-width: 7; stroke-linejoin: round" />
+                <g transform="translate(950 446)" style="fill: var(--ink)">
+                  <circle class="a6-ld" cx="-76.0" cy="-8" r="7" /> <circle class="a6-ld" cx="-57.0" cy="-8" r="7" /> <circle class="a6-ld" cx="-38.0" cy="-8" r="7" /> <circle class="a6-ld" cx="-19.0" cy="-8" r="7" /> <circle class="a6-ld" cx="0.0" cy="-8" r="7" /> <circle class="a6-ld" cx="19.0" cy="-8" r="7" /> <circle class="a6-ld" cx="38.0" cy="-8" r="7" /> <circle class="a6-ld" cx="57.0" cy="-8" r="7" /> <circle class="a6-ld" cx="76.0" cy="-8" r="7" />
+                  <circle class="a6-ld" cx="-63.5" cy="-23" r="7" /> <circle class="a6-ld" cx="-44.5" cy="-23" r="7" /> <circle class="a6-ld" cx="-25.5" cy="-23" r="7" /> <circle class="a6-ld" cx="-6.5" cy="-23" r="7" /> <circle class="a6-ld" cx="12.5" cy="-23" r="7" /> <circle class="a6-ld" cx="31.5" cy="-23" r="7" /> <circle class="a6-ld" cx="50.5" cy="-23" r="7" /> <circle class="a6-ld" cx="69.5" cy="-23" r="7" />
+                  <circle class="a6-ld" cx="-66.5" cy="-38" r="7" /> <circle class="a6-ld" cx="-47.5" cy="-38" r="7" /> <circle class="a6-ld" cx="-28.5" cy="-38" r="7" /> <circle class="a6-ld" cx="-9.5" cy="-38" r="7" /> <circle class="a6-ld" cx="9.5" cy="-38" r="7" /> <circle class="a6-ld" cx="28.5" cy="-38" r="7" /> <circle class="a6-ld" cx="47.5" cy="-38" r="7" /> <circle class="a6-ld" cx="66.5" cy="-38" r="7" />
+                  <circle class="a6-ld" cx="-54.0" cy="-53" r="7" /> <circle class="a6-ld" cx="-35.0" cy="-53" r="7" /> <circle class="a6-ld" cx="-16.0" cy="-53" r="7" /> <circle class="a6-ld" cx="3.0" cy="-53" r="7" /> <circle class="a6-ld" cx="22.0" cy="-53" r="7" /> <circle class="a6-ld" cx="41.0" cy="-53" r="7" /> <circle class="a6-ld" cx="60.0" cy="-53" r="7" />
+                  <circle class="a6-ld" cx="-38.0" cy="-68" r="7" /> <circle class="a6-ld" cx="-19.0" cy="-68" r="7" /> <circle class="a6-ld" cx="0.0" cy="-68" r="7" /> <circle class="a6-ld" cx="19.0" cy="-68" r="7" /> <circle class="a6-ld" cx="38.0" cy="-68" r="7" />
+                  <circle class="a6-ld" cx="-16.0" cy="-83" r="7" /> <circle class="a6-ld" cx="3.0" cy="-83" r="7" /> <circle class="a6-ld" cx="22.0" cy="-83" r="7" />
+                  <circle class="a6-ld" cx="0.0" cy="-98" r="7" />
+                </g>
+              </g>
+              <g id="a6-panR">
+                <path d="M 1550 260 L 1470 450 M 1550 260 L 1630 450" style="fill: none; stroke: var(--ink); stroke-width: 4" />
+                <path d="M 1450 450 L 1650 450 Q 1640 500 1550 500 Q 1460 500 1450 450 Z" style="fill: var(--card); stroke: var(--ink); stroke-width: 7; stroke-linejoin: round" />
+                <g transform="translate(1550 446)" style="fill: var(--ink)">
+                  <circle class="a6-rd" cx="-19" cy="-8" r="7" /> <circle class="a6-rd" cx="0" cy="-8" r="7" /> <circle class="a6-rd" cx="19" cy="-8" r="7" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="stamp" id="a6-stamp27" style="left: 1500px; top: 680px">示意</div>
+
+          <!-- 屏 22 -->
+          <h2 class="say when" id="a6-s22">
+            <span class="line"><span class="w" id="a6-w1"><span class="rust">晚上11点半</span><small>｜大批生物消失</small></span></span>
+          </h2>
+          <!-- 屏 23：文字卡，不用人物照片 -->
+          <h2 class="say" id="a6-s23" style="top: 340px; bottom: auto; font-size: 110px">
+            <span class="line"
+              ><span class="w" id="a6-w2"
+                ><span style="position: relative; display: inline-block"
+                  >1980年<svg class="ink" style="left: -18px; top: -6px; width: calc(100% + 36px); height: calc(100% + 12px)" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"
+                    ><path id="a6-box" d="M 4 8 L 97 3 L 96 95 L 3 97 L 5 2" style="stroke: var(--rust); stroke-width: 7; vector-effect: non-scaling-stroke" /></svg></span
+                >，</span
+              ></span
+            >
+            <span class="line"><span class="w" id="a6-w3">一对父子和同事</span></span>
+          </h2>
+          <!-- 屏 24 -->
+          <h2 class="say" id="a6-s24" style="font-size: 100px">
+            <span class="line"><span class="w" id="a6-w4">在大灭绝那层岩石里</span></span>
+          </h2>
+          <!-- 屏 25 -->
+          <h2 class="say" id="a6-s25" style="font-size: 88px">
+            <span class="line"><span class="w" id="a6-w5">发现“铱”这种物质</span></span>
+            <span class="line"><span class="w" id="a6-w6">多出<span class="rust">几十上百倍</span></span></span>
+          </h2>
+          <!-- 屏 26 -->
+          <h2 class="say" id="a6-s26">
+            <span class="line"><span class="w" id="a6-w7"><span class="rust">他们提出：</span>约10公里的</span></span>
+            <span class="line"><span class="w" id="a6-w8">小行星撞了地球</span></span>
+          </h2>
+          <!-- 屏 27 -->
+          <h2 class="say" id="a6-s27">
+            <span class="line"><span class="w" id="a6-w9">2010年41位学者支持，</span></span>
+            <span class="line"><span class="w" id="a6-w10">也有人商榷</span></span>
+          </h2>
+        </div>
+
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128;
+          const F = 1 / 30;
+          const B0 = 150; // 本幕第一拍（重低音段第一拍）
+          const END = 198; // 下半页从这一拍反向推回来
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+          const RUST = "#9a3412";
+          const LEAD = "#635d53";
+          const drop = (sel, t, dy = 60, f = 6) => {
+            tl.set(sel, { opacity: 1 }, t);
+            tl.fromTo(sel, { y: dy }, { y: 0, duration: f * F, ease: "power4.out" }, t);
+          };
+          const draw = (el, t, dur) => {
+            const list = typeof el === "string" ? document.querySelectorAll(el) : [el];
+            list.forEach((p) => {
+              const len = p.getTotalLength();
+              p.style.strokeDasharray = `${len}`;
+              tl.set(p, { visibility: "visible" }, t);
+              tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: dur, ease: "none" }, t);
+            });
+          };
+          const pop = (sel, b, f = 10) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scale: 0, y: 12 }, { scale: 1, y: 0, duration: f * F, ease: "power3.out" }, at(b));
+          };
+          const tapes = (sel, b) =>
+            tl.fromTo(sel, { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out", stagger: 2 * F }, at(b));
+          const stamp = (sel, b) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scale: 1.35, rotation: -4 }, { scale: 1, rotation: -4, duration: 4 * F, ease: "power2.out" }, at(b));
+          };
+          const flick = (sel, b, dir = 1) => {
+            tl.to(sel, { y: -80, rotation: 5 * dir, duration: 6 * F, ease: "power2.in" }, at(b));
+            tl.set(sel, { opacity: 0 }, at(b) + 5 * F);
+          };
+
+          // —— 推页入场（第 150 拍，重低音段第一拍） ——
+          tl.fromTo("#a6-pageA", { x: 1920 }, { x: 0, duration: 8 * F, ease: "power4.out" }, 0);
+
+          // —— 屏 22（第 150–157 拍）：时间大字；第 154 拍 8 个剪影同时出现，之后每半拍变灰一个 ——
+          drop("#a6-w1", at(150), 90, 8);
+          const beasts = gsap.utils.toArray("#act-6 .beast");
+          beasts.forEach((el, i) => {
+            tl.set(el, { opacity: 1 }, at(154));
+            tl.fromTo(el, { y: 24 }, { y: 0, duration: 6 * F, ease: "power3.out" }, at(154));
+            tl.set(el.querySelector("path"), { stroke: LEAD }, at(154.5 + 0.5 * i));
+          });
+          stamp("#a6-stamp22", 156);
+
+          // —— 屏 23（第 158–165 拍）：文字卡，锈红方框框住「1980年」 ——
+          tl.set(["#a6-s22", "#a6-stamp22"], { opacity: 0 }, at(158));
+          beasts.forEach((el) => tl.set(el, { opacity: 0 }, at(158)));
+          drop("#a6-w2", at(158), 70);
+          drop("#a6-w3", at(158) + 3 * F, 70);
+          draw("#a6-box", at(160), T);
+
+          // —— 屏 24（第 166–171 拍）：界线露头竖幅照片；方括号标出那一层的高度（画在照片外） ——
+          tl.set("#a6-s23", { opacity: 0 }, at(166));
+          drop("#a6-w4", at(166));
+          pop("#a6-card24", 166);
+          tapes(".a6-tape24", 166.5);
+          draw("#a6-bracket", at(168), T);
+
+          // —— 屏 25（第 172–181 拍）：推近界线；三根柱子一拍一根猛涨 ——
+          tl.set("#a6-s24", { opacity: 0 }, at(172));
+          drop("#a6-w5", at(172));
+          drop("#a6-w6", at(172) + 3 * F);
+          tl.fromTo("#a6-gzoom", { scale: 1 }, { scale: 1.5, duration: 2 * T, ease: "power3.inOut" }, at(172));
+          draw("#a6-base", at(174), 0.5 * T);
+          [
+            ["#a6-bar1", 176],
+            ["#a6-bar2", 177],
+            ["#a6-bar3", 178],
+          ].forEach(([sel, b]) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scaleY: 0 }, { scaleY: 1, duration: 5 * F, ease: "power4.out" }, at(b));
+          });
+          stamp("#a6-stamp25", 180);
+
+          // —— 屏 26（第 182–189 拍）：撞击坑照片砸进来；小行星斜飞，第 184 拍撞上 ——
+          tl.set(["#a6-s25", "#a6-stamp25", "#a6-bracket"], { opacity: 0 }, at(182));
+          flick("#a6-card24", 182, -1);
+          ["#a6-bar1", "#a6-bar2", "#a6-bar3", "#a6-base"].forEach((sel) => tl.set(sel, { opacity: 0 }, at(182)));
+          tl.set("#a6-card26", { opacity: 1 }, at(182));
+          tl.fromTo("#a6-card26", { scale: 1.15 }, { scale: 1, duration: 6 * F, ease: "power3.in" }, at(182));
+          tapes(".a6-tape26", 182.5);
+          drop("#a6-w7", at(182));
+          drop("#a6-w8", at(182) + 3 * F);
+          tl.set("#a6-rock", { opacity: 1 }, at(182.5));
+          tl.fromTo("#a6-rock", { x: -780, y: -260, scale: 0.7 }, { x: 0, y: 0, scale: 1, duration: 1.5 * T, ease: "power2.in" }, at(182.5));
+          tl.set("#a6-rock", { opacity: 0 }, at(184));
+          tl.to("#a6-card26", { y: 10, duration: 1 * F, ease: "none" }, at(184));
+          tl.to("#a6-card26", { y: -8, duration: 1 * F, ease: "none" }, at(184) + 1 * F);
+          tl.to("#a6-card26", { y: 0, duration: 1 * F, ease: "none" }, at(184) + 2 * F);
+          draw(".a6-burst", at(184), 6 * F);
+          stamp("#a6-stamp26", 185);
+
+          // —— 屏 27（第 190–197 拍）：天平；左盘落 41 个墨点，右盘落 3 个，横梁一直没停稳 ——
+          tl.set(["#a6-s26", "#a6-stamp26"], { opacity: 0 }, at(190));
+          flick("#a6-card26", 190, 1);
+          tl.set(".a6-burst", { opacity: 0 }, at(190));
+          drop("#a6-w9", at(190));
+          drop("#a6-w10", at(190) + 3 * F);
+          tl.set("#a6-scale", { opacity: 1 }, at(190));
+          tl.fromTo("#a6-scale", { y: 40 }, { y: 0, duration: 8 * F, ease: "power3.out" }, at(190));
+          tl.set([".a6-ld", ".a6-rd"], { opacity: 0 }, at(190));
+          // 41 个墨点在 1 拍内落进左盘
+          gsap.utils.toArray("#act-6 .a6-ld").forEach((d, i) => {
+            const t = at(192) + (i * T) / 41;
+            tl.set(d, { opacity: 1 }, t);
+            tl.fromTo(d, { y: -120 }, { y: 0, duration: 4 * F, ease: "power2.in" }, t);
+          });
+          // 横梁左倾：转角 θ，两盘上下移动 300·sin θ
+          const tilt = (deg, t, dur, ease) => {
+            const dy = 300 * Math.sin((deg * Math.PI) / 180);
+            tl.to("#a6-beam", { rotation: deg, svgOrigin: "1250 260", duration: dur, ease }, t);
+            tl.to("#a6-panL", { y: -dy, duration: dur, ease }, t);
+            tl.to("#a6-panR", { y: dy, duration: dur, ease }, t);
+          };
+          tilt(-9, at(192.5), 0.75 * T, "power2.out");
+          gsap.utils.toArray("#act-6 .a6-rd").forEach((d, i) => {
+            const t = at(194) + i * 3 * F;
+            tl.set(d, { opacity: 1 }, t);
+            tl.fromTo(d, { y: -120 }, { y: 0, duration: 4 * F, ease: "power2.in" }, t);
+          });
+          tilt(-6, at(194.5), 0.5 * T, "power2.out");
+          // 小幅晃动到本屏结束（有限次数）
+          tilt(-7, at(195), 0.5 * T, "sine.inOut");
+          tilt(-5.5, at(195.5), 0.5 * T, "sine.inOut");
+          tilt(-6.8, at(196), 0.5 * T, "sine.inOut");
+          tilt(-5.8, at(196.5), 0.5 * T, "sine.inOut");
+          tilt(-6.5, at(197), 0.5 * T, "sine.inOut");
+          tilt(-6, at(197.5), 0.5 * T, "sine.inOut");
+          stamp("#a6-stamp27", 196);
+
+          // —— 第 198 拍（最终高潮第一拍）：向右推走，第 6 幕下半（act-6b）从左边推回第一页 ——
+          tl.to("#a6-pageA", { x: 1920, duration: 8 * F, ease: "power4.out" }, at(198));
+
+          window.__timelines["act-6"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

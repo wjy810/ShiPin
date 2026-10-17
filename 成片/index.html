@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>这道题的答案，一直在变</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #cfc6b2;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        /* 桌面色：只在屏 34 整页拉远时露出来 */
+        background: #cfc6b2;
+      }
+      [data-composition-id="main"] > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+      /* 小钟和常驻问号压在所有纸页上面 */
+      #overlay {
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      全片的拍子：128 BPM，1 拍 = 0.46875 秒。全片第 n 拍（从 0 数）的起点 = n × 0.46875 秒。
+      每一幕是一页笔记本（一个子合成），翻页时前后两页重叠 8 帧（第 6→7 幕 12 帧）。
+      详细分镜见仓库根目录 分镜.md。
+    -->
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="126.5625"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- 第 1 幕：屏 1–3，第 0–25 拍 -->
+      <div
+        id="act-1"
+        data-composition-id="act-1"
+        data-composition-src="compositions/act-1.html"
+        data-start="0"
+        data-duration="12.454167"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <!-- 第 2 幕：屏 4–6，第 26–45 拍 -->
+      <div
+        id="act-2"
+        data-composition-id="act-2"
+        data-composition-src="compositions/act-2.html"
+        data-start="12.1875"
+        data-duration="9.641667"
+        data-track-index="2"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <!-- 第 3 幕：屏 7–12，第 46–85 拍 -->
+      <div
+        id="act-3"
+        data-composition-id="act-3"
+        data-composition-src="compositions/act-3.html"
+        data-start="21.5625"
+        data-duration="19.016667"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <!-- 第 4 幕：屏 13–16，第 86–113 拍 -->
+      <div
+        id="act-4"
+        data-composition-id="act-4"
+        data-composition-src="compositions/act-4.html"
+        data-start="40.3125"
+        data-duration="13.391667"
+        data-track-index="2"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <!-- 第 5 幕：屏 17–21，第 114–149 拍 -->
+      <div
+        id="act-5"
+        data-composition-id="act-5"
+        data-composition-src="compositions/act-5.html"
+        data-start="53.4375"
+        data-duration="17.141667"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <!-- 第 6 幕上：屏 22–27，第 150–197 拍 -->
+      <div
+        id="act-6"
+        data-composition-id="act-6"
+        data-composition-src="compositions/act-6.html"
+        data-start="70.3125"
+        data-duration="22.766667"
+        data-track-index="2"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <!-- 第 6 幕下：屏 28–31，第 198–229 拍（反向推页，翻回第一页） -->
+      <div
+        id="act-6b"
+        data-composition-id="act-6b"
+        data-composition-src="compositions/act-6b.html"
+        data-start="92.8125"
+        data-duration="15.4"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <!-- 第 7 幕：屏 32–36，第 230–269 拍 -->
+      <div
+        id="act-7"
+        data-composition-id="act-7"
+        data-composition-src="compositions/act-7.html"
+        data-start="107.8125"
+        data-duration="18.75"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- 小钟和常驻问号：屏 5 起到屏 35，第 32–263 拍 -->
+      <div
+        id="overlay"
+        data-composition-id="overlay"
+        data-composition-src="compositions/overlay.html"
+        data-start="15"
+        data-duration="108.75"
+        data-track-index="5"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <!-- 配乐：同一个 bgm.mp3 按段落剪成 9 段；31.875–32.8125 秒故意空着，是屏 10 的“骤停” -->
+      <audio id="bgm-1" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="0" data-duration="30" data-media-start="0.484" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
+      <audio id="bgm-2" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="30" data-duration="1.875" data-media-start="58.609" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
+      <audio id="bgm-3" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="32.8125" data-duration="5.625" data-media-start="45.484" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
+      <audio id="bgm-4" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="38.4375" data-duration="1.875" data-media-start="58.609" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
+      <audio id="bgm-5" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="40.3125" data-duration="45" data-media-start="75.484" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
+      <audio id="bgm-6" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="85.3125" data-duration="22.5" data-media-start="127.984" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
+      <audio id="bgm-7" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="107.8125" data-duration="13.125" data-media-start="45.484" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
+      <audio id="bgm-8" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="120.9375" data-duration="1.875" data-media-start="51.109" data-fade-in="0.008" data-fade-out="0.008" data-track-index="10"></audio>
+      <audio id="bgm-9" data-timeline-role="music" src="assets/audio/bgm.mp3" data-start="122.8125" data-duration="3.75" data-media-start="45.484" data-fade-in="0.008" data-fade-out="3.75" data-track-index="10"></audio>
+
+      <!-- 钟表滴答声：已按拍子排好的一整条（来源和许可见 assets/audio/说明.md） -->
+      <audio id="sfx-ticks" src="assets/audio/ticks.flac" data-start="0" data-duration="126.5625" data-volume="0.7" data-track-index="11"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

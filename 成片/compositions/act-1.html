@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 1 幕 · 屏 1–3 · 猜题</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        /* 思源宋体（Noto Serif SC），SIL OFL 1.1；子集只含片中用字，许可见 assets/fonts/OFL.txt */
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-subset.woff2") format("woff2");
+          font-weight: 200 900;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-1.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+539F, U+590D, U+793A;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-2.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+610F;
+          font-display: block;
+        }
+        #act-1 {
+          --paper: #f1ebdd;
+          --ink: #23201a;
+          --rust: #9a3412;
+          --card: #fbf8f1;
+          --tape: rgba(216, 195, 154, 0.88);
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Noto Serif SC", serif;
+          color: var(--ink);
+        }
+        #act-1 * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        /* —— 纸页 —— */
+        #act-1 .page {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--paper);
+          box-shadow: 0 30px 80px rgba(35, 32, 26, 0.35);
+        }
+        #act-1 .ruled {
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 53px,
+            rgba(35, 32, 26, 0.13) 53px,
+            rgba(35, 32, 26, 0.13) 55px
+          );
+        }
+        #act-1 .grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/paper-grain.png");
+        }
+        #act-1 .holes {
+          position: absolute;
+          left: 34px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 150px 0;
+        }
+        #act-1 .holes i {
+          display: block;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #d9d1bf;
+          box-shadow: inset 0 3px 6px rgba(35, 32, 26, 0.35);
+        }
+        #act-1 .cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+        /* —— 照片卡（样图同款：右上，倾斜 2.2°） —— */
+        #act-1 .tilt {
+          position: absolute;
+          right: 120px;
+          top: 112px;
+          width: 860px;
+          transform: rotate(2.2deg);
+        }
+        #act-1 .card {
+          display: block;
+          width: 100%;
+          padding: 20px;
+          background: var(--card);
+          box-shadow: 0 18px 44px rgba(35, 32, 26, 0.28);
+          transform-origin: 50% 0%;
+        }
+        #act-1 .frame {
+          display: block;
+          width: 820px;
+          height: 461px;
+          overflow: hidden;
+        }
+        #act-1 .frame img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #act-1 .tape {
+          position: absolute;
+          top: -22px;
+          width: 168px;
+          height: 46px;
+        }
+        #act-1 .tape.left {
+          left: 40px;
+          transform: rotate(-7deg);
+        }
+        #act-1 .tape.right {
+          right: 40px;
+          transform: rotate(6deg);
+        }
+        #act-1 .tape i {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: var(--tape);
+          transform-origin: 0% 50%;
+        }
+        /* —— 字 —— */
+        #act-1 .say {
+          position: absolute;
+          left: 120px;
+          bottom: 118px;
+          font-size: 100px;
+          font-weight: 900;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+        #act-1 .line {
+          display: block;
+          white-space: nowrap;
+        }
+        #act-1 .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #act-1 .rust {
+          color: var(--rust);
+        }
+        #act-1 svg.ink {
+          position: absolute;
+          overflow: visible;
+        }
+        #act-1 svg.ink path {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        /* —— 选项卡（屏 2–3；屏 28 起在第 6 幕再出现一次） —— */
+        #act-1 .opts {
+          position: absolute;
+          left: 120px;
+          top: 780px;
+          width: 1340px;
+          height: 170px;
+          transform-origin: 0% 0%;
+        }
+        #act-1 .optw {
+          position: absolute;
+          top: 0;
+          width: 420px;
+          height: 170px;
+        }
+        #act-1 .opt {
+          width: 420px;
+          height: 170px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          padding: 0 30px;
+          background: var(--card);
+          border-top: 8px solid var(--rust);
+          box-shadow: 0 14px 34px rgba(35, 32, 26, 0.25);
+          opacity: 0;
+        }
+        #act-1 .opt b {
+          font-size: 96px;
+          font-weight: 900;
+          color: var(--rust);
+          line-height: 1;
+        }
+        #act-1 .opt span {
+          white-space: nowrap;
+          font-size: 76px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.02em;
+        }
+        #act-1 .dot {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: var(--ink);
+          opacity: 0;
+        }
+      </style>
+
+      <div id="act-1" data-composition-id="act-1" data-width="1920" data-height="1080">
+        <div class="page" id="a1-page">
+          <div class="ruled"></div>
+          <div class="grain"></div>
+          <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="cam" id="a1-cam">
+            <!-- 撞击坑地形图：NASA/JPL（PIA03379），公有领域；颜色代表海拔，不调色 -->
+            <div class="tilt">
+              <div class="card" id="a1-card">
+                <div class="frame"><img id="a1-crater" src="assets/images/crater.jpg" alt="" /></div>
+                <div class="tape left"><i class="a1-tape"></i></div>
+                <div class="tape right"><i class="a1-tape"></i></div>
+              </div>
+            </div>
+
+            <!-- 屏 1 -->
+            <h1 class="say" id="a1-s1">
+              <span class="line"><span class="w rust" id="a1-w1">猜：</span><span class="w" id="a1-w2">小行星撞地球</span><span class="w" id="a1-w3">那场大灭绝，</span></span>
+              <span class="line" style="position: relative"
+                ><span class="w" id="a1-w4">是多少年前？</span
+                ><svg class="ink" style="left: -6px; bottom: -30px; width: 620px; height: 44px" viewBox="0 0 620 44" aria-hidden="true">
+                  <path id="a1-ul1" d="M 8 30 C 130 18, 260 36, 390 24 S 560 20, 612 28" style="stroke: var(--rust); stroke-width: 9" /></svg
+              ></span>
+            </h1>
+
+            <!-- 屏 2–3：三张选项卡 -->
+            <div class="opts" id="a1-opts">
+              <div class="optw" style="left: 0; transform: rotate(-2deg)"><div class="opt" id="a1-optA"><b>A</b><span>6500万</span></div></div>
+              <div class="optw" style="left: 460px; transform: rotate(1deg)"><div class="opt" id="a1-optB"><b>B</b><span>6550万</span></div></div>
+              <div class="optw" style="left: 920px; transform: rotate(-1deg)"><div class="opt" id="a1-optC"><b>C</b><span>6600万</span></div></div>
+            </div>
+
+            <!-- 屏 3 -->
+            <h2 class="say" id="a1-s3">
+              <span class="line"><span class="w" id="a1-w5">评论区选一个，</span></span>
+              <span class="line"><span class="w" id="a1-w6">答案在最后</span></span>
+            </h2>
+            <svg class="ink" style="left: 860px; top: 738px; width: 190px; height: 150px" viewBox="0 0 190 150" aria-hidden="true">
+              <path id="a1-bubble" d="M 30 18 L 160 18 C 174 18, 180 26, 180 40 L 180 92 C 180 106, 174 114, 160 114 L 82 114 L 46 140 L 52 114 L 30 114 C 16 114, 10 106, 10 92 L 10 40 C 10 26, 16 18, 30 18 Z" style="stroke: var(--ink); stroke-width: 6" />
+            </svg>
+            <i class="dot" id="a1-d1" style="left: 908px; top: 794px"></i>
+            <i class="dot" id="a1-d2" style="left: 948px; top: 794px"></i>
+            <i class="dot" id="a1-d3" style="left: 988px; top: 794px"></i>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128; // 1 拍 = 0.46875 秒
+          const F = 1 / 30; // 1 帧
+          const B0 = 0; // 本幕第一拍在全片的拍号
+          const END = 26; // 下一幕从这一拍推页进来
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+
+          const drop = (sel, b, dy = 60, f = 6) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { y: dy }, { y: 0, duration: f * F, ease: "power4.out" }, at(b));
+          };
+          const draw = (sel, b, beats = 1) => {
+            const p = document.querySelector(sel);
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = `${len}`;
+            tl.set(p, { visibility: "visible" }, at(b));
+            tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: len * 0, duration: beats * T, ease: "none" }, at(b));
+          };
+
+          // 整幕的慢推（让纸面一直有一点点生气）
+          tl.fromTo("#a1-cam", { scale: 1 }, { scale: 1.012, duration: at(END), ease: "none" }, 0);
+          tl.fromTo("#a1-crater", { scale: 1 }, { scale: 1.04, duration: at(END), ease: "none" }, 0);
+
+          // —— 屏 1（第 0–9 拍）——
+          tl.fromTo("#a1-card", { scale: 0, opacity: 0, y: 12 }, { scale: 1, opacity: 1, y: 0, duration: 12 * F, ease: "power3.out" }, at(0));
+          tl.fromTo(".a1-tape", { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out", stagger: 2 * F }, at(0.5));
+          drop("#a1-w1", 1, 80);
+          drop("#a1-w2", 1.5, 50);
+          drop("#a1-w3", 2, 45);
+          drop("#a1-w4", 3, 70);
+          draw("#a1-ul1", 4, 1);
+
+          // —— 屏 2（第 10–19 拍）：选项卡隔两拍弹一张 ——
+          tl.set("#a1-s1", { opacity: 0 }, at(10));
+          ["#a1-optA", "#a1-optB", "#a1-optC"].forEach((sel, i) => {
+            tl.set(sel, { opacity: 1 }, at(10 + 2 * i));
+            tl.fromTo(sel, { y: 40, scale: 0.6 }, { y: 0, scale: 1, duration: 10 * F, ease: "power3.out" }, at(10 + 2 * i));
+          });
+
+          // —— 屏 3（第 20–25 拍）：卡片缩到左上角，问句和评论气泡 ——
+          tl.to("#a1-opts", { scale: 0.42, y: -660, duration: 8 * F, ease: "power3.out" }, at(20));
+          drop("#a1-w5", 20, 60);
+          tl.set("#a1-w6", { opacity: 1 }, at(20) + 3 * F);
+          tl.fromTo("#a1-w6", { y: 60 }, { y: 0, duration: 6 * F, ease: "power4.out" }, at(20) + 3 * F);
+          draw("#a1-bubble", 21, 1);
+          ["#a1-d1", "#a1-d2", "#a1-d3"].forEach((sel, i) => {
+            tl.set(sel, { opacity: 1 }, at(22 + 0.5 * i));
+            tl.fromTo(sel, { scale: 0 }, { scale: 1, duration: 4 * F, ease: "power3.out" }, at(22 + 0.5 * i));
+          });
+
+          // —— 推页离场：第 26 拍，和第 2 幕的推入同一帧、同一缓动 ——
+          tl.to("#a1-page", { x: -1920, duration: 8 * F, ease: "power4.out" }, at(END));
+
+          window.__timelines["act-1"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

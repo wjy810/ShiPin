@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 3 幕 · 屏 7–12 · 0 点，最早的生命，和一次反转</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-subset.woff2") format("woff2");
+          font-weight: 200 900;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-1.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+539F, U+590D, U+793A;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-2.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+610F;
+          font-display: block;
+        }
+        #act-3 {
+          --paper: #f1ebdd;
+          --ink: #23201a;
+          --rust: #9a3412;
+          --card: #fbf8f1;
+          --tape: rgba(216, 195, 154, 0.88);
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Noto Serif SC", serif;
+          color: var(--ink);
+        }
+        #act-3 * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #act-3 .page {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--paper);
+          box-shadow: 0 30px 80px rgba(35, 32, 26, 0.35);
+        }
+        #act-3 .ruled {
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 53px,
+            rgba(35, 32, 26, 0.13) 53px,
+            rgba(35, 32, 26, 0.13) 55px
+          );
+        }
+        #act-3 .grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/paper-grain.png");
+        }
+        #act-3 .holes {
+          position: absolute;
+          left: 34px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 150px 0;
+        }
+        #act-3 .holes i {
+          display: block;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #d9d1bf;
+          box-shadow: inset 0 3px 6px rgba(35, 32, 26, 0.35);
+        }
+        #act-3 .cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 40% 50%;
+        }
+        /* 照片卡：右上（避开右上角的小钟） */
+        #act-3 .tilt {
+          position: absolute;
+          left: 820px;
+          top: 112px;
+          width: 840px;
+        }
+        #act-3 .card {
+          display: block;
+          width: 100%;
+          padding: 20px;
+          background: var(--card);
+          box-shadow: 0 18px 44px rgba(35, 32, 26, 0.28);
+          transform-origin: 50% 0%;
+          opacity: 0;
+        }
+        #act-3 .frame {
+          position: relative;
+          display: block;
+          width: 800px;
+          height: 450px;
+          overflow: hidden;
+        }
+        #act-3 .frame img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #act-3 .tape {
+          position: absolute;
+          top: -22px;
+          width: 160px;
+          height: 44px;
+        }
+        #act-3 .tape.left {
+          left: 40px;
+          transform: rotate(-7deg);
+        }
+        #act-3 .tape.right {
+          right: 40px;
+          transform: rotate(6deg);
+        }
+        #act-3 .tape i {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: var(--tape);
+          transform-origin: 0% 50%;
+        }
+        #act-3 .say {
+          position: absolute;
+          left: 120px;
+          bottom: 118px;
+          font-size: 96px;
+          font-weight: 900;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+        #act-3 .line {
+          display: block;
+          white-space: nowrap;
+        }
+        #act-3 .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #act-3 .rust {
+          color: var(--rust);
+        }
+        #act-3 svg.ink {
+          position: absolute;
+          overflow: visible;
+        }
+        #act-3 svg.ink path {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        /* 屏 9 那块字：屏 10 起褪成铅灰、缩到左上角，屏 12 回来 */
+        #act-3 #a3-s9 {
+          top: 380px;
+          bottom: auto;
+          font-size: 110px;
+          transform-origin: 0% 0%;
+        }
+        #act-3 .stamp {
+          position: absolute;
+          padding: 6px 16px;
+          border: 4px solid var(--rust);
+          color: var(--rust);
+          font-size: 40px;
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: 0.06em;
+          background: rgba(251, 248, 241, 0.85);
+          opacity: 0;
+        }
+      </style>
+
+      <div id="act-3" data-composition-id="act-3" data-width="1920" data-height="1080">
+        <div class="page" id="a3-page">
+          <div class="ruled"></div>
+          <div class="grain"></div>
+          <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="cam" id="a3-cam">
+            <!-- 屏 7：斯特雷利池叠层石切面（James St. John，CC BY 2.0），锈红铅笔沿 3 条纹层描线 -->
+            <div class="tilt" style="transform: rotate(1.8deg)">
+              <div class="card" id="a3-card7">
+                <div class="frame">
+                  <img src="assets/images/strelley-print.jpg" alt="" style="transform: scale(1.03); transform-origin: 50% 100%" />
+                  <svg class="ink" style="left: 0; top: 0; width: 800px; height: 450px" viewBox="0 0 800 450" aria-hidden="true">
+                    <g id="a3-lam" style="stroke-width: 11; stroke: #fbf8f1; opacity: 0.85">
+                      <path class="a3-lam1" d="M -12.0 144.9 Q 0.9 142.3 7.3 140.1 Q 13.8 138.0 20.2 135.7 Q 26.6 133.3 33.1 131.3 Q 39.5 129.2 45.9 127.2 Q 52.4 125.2 58.8 123.9 Q 65.3 122.7 71.7 121.9 Q 78.1 121.0 84.6 120.4 Q 91.0 119.7 97.4 119.0 Q 103.9 118.3 110.3 116.9 Q 116.7 115.5 123.2 113.6 Q 129.6 111.7 136.1 109.6 Q 142.5 107.5 148.9 105.4 Q 155.4 103.3 161.8 101.2 Q 168.2 99.2 174.7 97.1 Q 181.1 94.9 187.6 92.6 Q 194.0 90.2 200.4 87.8 Q 206.9 85.3 213.3 83.6 Q 219.8 81.9 226.2 81.2 Q 232.6 80.5 239.1 79.7 Q 245.5 79.0 251.9 78.0 Q 258.4 77.0 264.8 75.2 Q 271.2 73.4 277.7 71.1 Q 284.1 68.8 290.6 67.2 Q 297.0 65.6 303.4 64.7 Q 309.9 63.8 316.3 63.4 Q 322.8 63.0 329.2 63.0 Q 335.6 63.1 342.1 63.6 Q 348.5 64.0 354.9 64.8 Q 361.4 65.6 367.8 66.8 Q 374.3 68.1 380.7 70.0 Q 387.1 71.9 393.6 74.5 Q 400.0 77.2 406.4 80.5 Q 412.9 83.9 419.3 87.6 Q 425.8 91.4 432.2 95.4 Q 438.6 99.3 445.1 103.3 Q 451.5 107.3 457.9 110.7 Q 464.4 114.1 470.8 117.0 Q 477.3 119.9 483.7 122.3 Q 490.1 124.6 496.6 126.5 Q 503.0 128.3 509.4 129.8 Q 515.9 131.2 522.3 131.9 L 528.8 132.5" />
+                      <path class="a3-lam2" d="M -12.0 181.9 Q 0.9 179.7 7.3 178.2 Q 13.8 176.6 20.2 174.7 Q 26.6 172.7 33.1 170.9 Q 39.5 169.0 45.9 167.3 Q 52.4 165.6 58.8 164.5 Q 65.3 163.4 71.7 162.2 Q 78.1 161.0 84.6 159.8 Q 91.0 158.7 97.4 157.4 Q 103.9 156.1 110.3 154.3 Q 116.7 152.6 123.2 151.1 Q 129.6 149.5 136.1 147.7 Q 142.5 145.8 148.9 143.7 Q 155.4 141.5 161.8 139.2 Q 168.2 136.8 174.7 134.2 Q 181.1 131.6 187.6 129.3 Q 194.0 126.9 200.4 125.8 Q 206.9 124.8 213.3 124.4 Q 219.8 124.1 226.2 123.6 Q 232.6 123.1 239.1 122.4 Q 245.5 121.7 251.9 119.4 Q 258.4 117.1 264.8 114.6 Q 271.2 112.0 277.7 109.6 Q 284.1 107.3 290.6 105.2 Q 297.0 103.1 303.4 101.6 Q 309.9 100.1 316.3 99.3 Q 322.8 98.5 329.2 98.8 Q 335.6 99.0 342.1 99.8 Q 348.5 100.7 354.9 101.8 Q 361.4 103.0 367.8 104.6 Q 374.3 106.2 380.7 108.4 Q 387.1 110.6 393.6 113.3 Q 400.0 116.0 406.4 117.8 Q 412.9 119.7 419.3 121.2 Q 425.8 122.7 432.2 124.3 Q 438.6 125.9 445.1 127.5 Q 451.5 129.2 457.9 131.3 Q 464.4 133.5 470.8 135.9 Q 477.3 138.4 483.7 140.4 Q 490.1 142.3 496.6 143.6 Q 503.0 144.8 509.4 146.0 Q 515.9 147.2 522.3 147.6 L 528.8 147.9" />
+                      <path class="a3-lam3" d="M -12.0 204.0 Q 0.9 201.1 7.3 199.5 Q 13.8 197.8 20.2 195.9 Q 26.6 193.9 33.1 192.1 Q 39.5 190.4 45.9 188.7 Q 52.4 187.0 58.8 185.4 Q 65.3 183.8 71.7 182.3 Q 78.1 180.9 84.6 179.6 Q 91.0 178.4 97.4 177.2 Q 103.9 175.9 110.3 174.1 Q 116.7 172.3 123.2 170.3 Q 129.6 168.3 136.1 166.2 Q 142.5 164.1 148.9 161.8 Q 155.4 159.6 161.8 157.6 Q 168.2 155.6 174.7 153.2 Q 181.1 150.7 187.6 148.8 Q 194.0 146.9 200.4 146.5 Q 206.9 146.1 213.3 146.2 Q 219.8 146.4 226.2 146.6 Q 232.6 146.8 239.1 146.1 Q 245.5 145.4 251.9 143.5 Q 258.4 141.5 264.8 139.0 Q 271.2 136.6 277.7 134.4 Q 284.1 132.3 290.6 130.2 Q 297.0 128.2 303.4 126.8 Q 309.9 125.5 316.3 124.7 Q 322.8 124.0 329.2 123.6 Q 335.6 123.3 342.1 123.5 Q 348.5 123.7 354.9 124.4 Q 361.4 125.1 367.8 126.4 Q 374.3 127.7 380.7 130.3 Q 387.1 132.8 393.6 134.7 Q 400.0 136.7 406.4 138.0 Q 412.9 139.4 419.3 140.6 Q 425.8 141.7 432.2 142.9 Q 438.6 144.0 445.1 146.4 Q 451.5 148.8 457.9 151.9 Q 464.4 155.0 470.8 158.4 Q 477.3 161.8 483.7 165.4 Q 490.1 169.0 496.6 171.9 Q 503.0 174.8 509.4 176.9 Q 515.9 179.0 522.3 180.1 L 528.8 181.3" />
+                    </g>
+                    <g style="stroke-width: 5; stroke: var(--rust)">
+                      <path class="a3-lam1" d="M -12.0 144.9 Q 0.9 142.3 7.3 140.1 Q 13.8 138.0 20.2 135.7 Q 26.6 133.3 33.1 131.3 Q 39.5 129.2 45.9 127.2 Q 52.4 125.2 58.8 123.9 Q 65.3 122.7 71.7 121.9 Q 78.1 121.0 84.6 120.4 Q 91.0 119.7 97.4 119.0 Q 103.9 118.3 110.3 116.9 Q 116.7 115.5 123.2 113.6 Q 129.6 111.7 136.1 109.6 Q 142.5 107.5 148.9 105.4 Q 155.4 103.3 161.8 101.2 Q 168.2 99.2 174.7 97.1 Q 181.1 94.9 187.6 92.6 Q 194.0 90.2 200.4 87.8 Q 206.9 85.3 213.3 83.6 Q 219.8 81.9 226.2 81.2 Q 232.6 80.5 239.1 79.7 Q 245.5 79.0 251.9 78.0 Q 258.4 77.0 264.8 75.2 Q 271.2 73.4 277.7 71.1 Q 284.1 68.8 290.6 67.2 Q 297.0 65.6 303.4 64.7 Q 309.9 63.8 316.3 63.4 Q 322.8 63.0 329.2 63.0 Q 335.6 63.1 342.1 63.6 Q 348.5 64.0 354.9 64.8 Q 361.4 65.6 367.8 66.8 Q 374.3 68.1 380.7 70.0 Q 387.1 71.9 393.6 74.5 Q 400.0 77.2 406.4 80.5 Q 412.9 83.9 419.3 87.6 Q 425.8 91.4 432.2 95.4 Q 438.6 99.3 445.1 103.3 Q 451.5 107.3 457.9 110.7 Q 464.4 114.1 470.8 117.0 Q 477.3 119.9 483.7 122.3 Q 490.1 124.6 496.6 126.5 Q 503.0 128.3 509.4 129.8 Q 515.9 131.2 522.3 131.9 L 528.8 132.5" />
+                      <path class="a3-lam2" d="M -12.0 181.9 Q 0.9 179.7 7.3 178.2 Q 13.8 176.6 20.2 174.7 Q 26.6 172.7 33.1 170.9 Q 39.5 169.0 45.9 167.3 Q 52.4 165.6 58.8 164.5 Q 65.3 163.4 71.7 162.2 Q 78.1 161.0 84.6 159.8 Q 91.0 158.7 97.4 157.4 Q 103.9 156.1 110.3 154.3 Q 116.7 152.6 123.2 151.1 Q 129.6 149.5 136.1 147.7 Q 142.5 145.8 148.9 143.7 Q 155.4 141.5 161.8 139.2 Q 168.2 136.8 174.7 134.2 Q 181.1 131.6 187.6 129.3 Q 194.0 126.9 200.4 125.8 Q 206.9 124.8 213.3 124.4 Q 219.8 124.1 226.2 123.6 Q 232.6 123.1 239.1 122.4 Q 245.5 121.7 251.9 119.4 Q 258.4 117.1 264.8 114.6 Q 271.2 112.0 277.7 109.6 Q 284.1 107.3 290.6 105.2 Q 297.0 103.1 303.4 101.6 Q 309.9 100.1 316.3 99.3 Q 322.8 98.5 329.2 98.8 Q 335.6 99.0 342.1 99.8 Q 348.5 100.7 354.9 101.8 Q 361.4 103.0 367.8 104.6 Q 374.3 106.2 380.7 108.4 Q 387.1 110.6 393.6 113.3 Q 400.0 116.0 406.4 117.8 Q 412.9 119.7 419.3 121.2 Q 425.8 122.7 432.2 124.3 Q 438.6 125.9 445.1 127.5 Q 451.5 129.2 457.9 131.3 Q 464.4 133.5 470.8 135.9 Q 477.3 138.4 483.7 140.4 Q 490.1 142.3 496.6 143.6 Q 503.0 144.8 509.4 146.0 Q 515.9 147.2 522.3 147.6 L 528.8 147.9" />
+                      <path class="a3-lam3" d="M -12.0 204.0 Q 0.9 201.1 7.3 199.5 Q 13.8 197.8 20.2 195.9 Q 26.6 193.9 33.1 192.1 Q 39.5 190.4 45.9 188.7 Q 52.4 187.0 58.8 185.4 Q 65.3 183.8 71.7 182.3 Q 78.1 180.9 84.6 179.6 Q 91.0 178.4 97.4 177.2 Q 103.9 175.9 110.3 174.1 Q 116.7 172.3 123.2 170.3 Q 129.6 168.3 136.1 166.2 Q 142.5 164.1 148.9 161.8 Q 155.4 159.6 161.8 157.6 Q 168.2 155.6 174.7 153.2 Q 181.1 150.7 187.6 148.8 Q 194.0 146.9 200.4 146.5 Q 206.9 146.1 213.3 146.2 Q 219.8 146.4 226.2 146.6 Q 232.6 146.8 239.1 146.1 Q 245.5 145.4 251.9 143.5 Q 258.4 141.5 264.8 139.0 Q 271.2 136.6 277.7 134.4 Q 284.1 132.3 290.6 130.2 Q 297.0 128.2 303.4 126.8 Q 309.9 125.5 316.3 124.7 Q 322.8 124.0 329.2 123.6 Q 335.6 123.3 342.1 123.5 Q 348.5 123.7 354.9 124.4 Q 361.4 125.1 367.8 126.4 Q 374.3 127.7 380.7 130.3 Q 387.1 132.8 393.6 134.7 Q 400.0 136.7 406.4 138.0 Q 412.9 139.4 419.3 140.6 Q 425.8 141.7 432.2 142.9 Q 438.6 144.0 445.1 146.4 Q 451.5 148.8 457.9 151.9 Q 464.4 155.0 470.8 158.4 Q 477.3 161.8 483.7 165.4 Q 490.1 169.0 496.6 171.9 Q 503.0 174.8 509.4 176.9 Q 515.9 179.0 522.3 180.1 L 528.8 181.3" />
+                    </g>
+                  </svg>
+                </div>
+                <div class="tape left"><i class="a3-tape7"></i></div>
+                <div class="tape right"><i class="a3-tape7"></i></div>
+              </div>
+            </div>
+
+            <!-- 屏 8：格陵兰伊苏阿的岩石标本（James St. John，CC BY 2.0）。只用这一屏，屏 9 第一帧前离场 -->
+            <div class="tilt" style="transform: rotate(-2deg)">
+              <div class="card" id="a3-card8">
+                <div class="frame"><img id="a3-isua" src="assets/images/isua-print.jpg" alt="" /></div>
+                <div class="tape left"><i class="a3-tape8"></i></div>
+                <div class="tape right"><i class="a3-tape8"></i></div>
+              </div>
+            </div>
+
+            <!-- 屏 11：左边真的叠层石（复用），右边墨线画平直岩层被挤弯 -->
+            <div class="tilt" style="left: 150px; top: 300px; width: 660px; transform: rotate(-1.5deg)">
+              <div class="card" id="a3-card11">
+                <div class="frame" style="width: 620px; height: 349px"><img src="assets/images/strelley-print.jpg" alt="" style="transform: scale(1.03); transform-origin: 50% 100%" /></div>
+                <div class="tape left"><i class="a3-tape11"></i></div>
+                <div class="tape right"><i class="a3-tape11"></i></div>
+              </div>
+            </div>
+            <div id="a3-fold" style="position: absolute; left: 1000px; top: 300px; width: 640px; height: 360px; transform-origin: 50% 50%">
+              <svg class="ink" style="left: 0; top: 0; width: 640px; height: 360px" viewBox="0 0 640 360" aria-hidden="true">
+                <g style="stroke: var(--ink); stroke-width: 6">
+                  <path class="a3-layer" id="a3-L0" d="M 0 60 C 53 60 107 60 160 60 C 213 60 267 60 320 60 C 373 60 427 60 480 60 C 533 60 587 60 640 60" />
+                  <path class="a3-layer" id="a3-L1" d="M 0 120 C 53 120 107 120 160 120 C 213 120 267 120 320 120 C 373 120 427 120 480 120 C 533 120 587 120 640 120" />
+                  <path class="a3-layer" id="a3-L2" d="M 0 180 C 53 180 107 180 160 180 C 213 180 267 180 320 180 C 373 180 427 180 480 180 C 533 180 587 180 640 180" />
+                  <path class="a3-layer" id="a3-L3" d="M 0 240 C 53 240 107 240 160 240 C 213 240 267 240 320 240 C 373 240 427 240 480 240 C 533 240 587 240 640 240" />
+                  <path class="a3-layer" id="a3-L4" d="M 0 300 C 53 300 107 300 160 300 C 213 300 267 300 320 300 C 373 300 427 300 480 300 C 533 300 587 300 640 300" />
+                </g>
+                <g style="stroke: var(--rust); stroke-width: 9">
+                  <path class="a3-arrow" d="M -96 180 L -26 180 M -50 156 L -24 180 L -50 204" />
+                  <path class="a3-arrow" d="M 736 180 L 666 180 M 690 156 L 664 180 L 690 204" />
+                </g>
+              </svg>
+              <div class="stamp" id="a3-stamp11" style="right: -10px; bottom: -64px">示意</div>
+            </div>
+
+            <!-- 屏 7 -->
+            <h2 class="say" id="a3-s7">
+              <span class="line"><span class="w" id="a3-w1"><span class="rust">0点</span>｜叠层石：</span></span>
+              <span class="line"><span class="w" id="a3-w2">微生物一层层堆出的石头</span></span>
+            </h2>
+            <!-- 屏 8 -->
+            <h2 class="say" id="a3-s8">
+              <span class="line"><span class="w rust" id="a3-w3">更早的？</span><span class="w" id="a3-w4">2016年，</span></span>
+              <span class="line"><span class="w" id="a3-w5">格陵兰传来消息</span></span>
+            </h2>
+            <!-- 屏 9：屏 10 起褪色、缩到左上，屏 12 回来被画上问号 -->
+            <h2 class="say" id="a3-s9">
+              <span class="line"><span class="w" id="a3-w6">约<span class="rust">37亿</span>年前的</span></span>
+              <span class="line"><span class="w" id="a3-w7"><span class="rust">“</span>叠层石<span class="rust">”</span>！</span></span>
+            </h2>
+            <!-- 屏 10 -->
+            <h2 class="say" id="a3-s10">
+              <span class="line"><span class="w" id="a3-w8">两年后，</span></span>
+              <span class="line"><span class="w" id="a3-w9">科学家重新检查</span></span>
+            </h2>
+            <!-- 屏 11 -->
+            <h2 class="say" id="a3-s11">
+              <span class="line"><span class="w" id="a3-w10">它们更可能是</span></span>
+              <span class="line"><span class="w" id="a3-w11">岩石变形形成的</span></span>
+            </h2>
+            <!-- 屏 12 -->
+            <h2 class="say" id="a3-s12">
+              <span class="line"><span class="w" id="a3-w12">而不是生命留下的——</span></span>
+              <span class="line"><span class="w rust" id="a3-w13">争议还在</span></span>
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128;
+          const F = 1 / 30;
+          const B0 = 46; // 本幕第一拍
+          const END = 86; // 第 4 幕从这一拍推页进来
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+          const LEAD = "#635d53";
+          const drop = (sel, t, dy = 60, f = 6) => {
+            tl.set(sel, { opacity: 1 }, t);
+            tl.fromTo(sel, { y: dy }, { y: 0, duration: f * F, ease: "power4.out" }, t);
+          };
+          const draw = (sel, b, beats = 1) => {
+            document.querySelectorAll(sel).forEach((p) => {
+              const len = p.getTotalLength();
+              p.style.strokeDasharray = `${len}`;
+              tl.set(p, { visibility: "visible" }, at(b));
+              tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: beats * T, ease: "none" }, at(b));
+            });
+          };
+          const pop = (sel, b, f = 10) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scale: 0, y: 12 }, { scale: 1, y: 0, duration: f * F, ease: "power3.out" }, at(b));
+          };
+          const tapes = (sel, b) =>
+            tl.fromTo(sel, { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out", stagger: 2 * F }, at(b));
+          const flick = (sel, b, dir = 1) => {
+            tl.to(sel, { y: -80, rotation: 5 * dir, duration: 6 * F, ease: "power2.in" }, at(b));
+            tl.set(sel, { opacity: 0 }, at(b) + 5 * F);
+          };
+
+          // —— 推页入场（第 46 拍） ——
+          tl.fromTo("#a3-page", { x: 1920 }, { x: 0, duration: 8 * F, ease: "power4.out" }, 0);
+
+          // —— 屏 7（第 46–53 拍）：叠层石，第 50/51/52 拍各描一条纹层 ——
+          pop("#a3-card7", 46);
+          tapes(".a3-tape7", 46.5);
+          drop("#a3-w1", at(46));
+          drop("#a3-w2", at(46) + 3 * F);
+          draw(".a3-lam1", 50);
+          draw(".a3-lam2", 51);
+          draw(".a3-lam3", 52);
+
+          // —— 屏 8（第 54–61 拍）：伊苏阿，缓慢推近，屏末撕走 ——
+          tl.set("#a3-s7", { opacity: 0 }, at(54));
+          tl.to("#a3-card7", { x: -900, rotation: -8, duration: 6 * F, ease: "power2.in" }, at(54));
+          tl.set("#a3-card7", { opacity: 0 }, at(54) + 6 * F);
+          tl.set("#a3-card8", { opacity: 1 }, at(54));
+          tl.fromTo("#a3-card8", { x: 700, rotation: 6 }, { x: 0, rotation: 0, duration: 10 * F, ease: "power3.out" }, at(54));
+          tapes(".a3-tape8", 54.5);
+          tl.fromTo("#a3-isua", { scale: 1 }, { scale: 1.06, duration: 7.5 * T, ease: "none" }, at(54.5));
+          drop("#a3-w3", at(54));
+          drop("#a3-w4", at(54) + 2 * F);
+          drop("#a3-w5", at(54) + 4 * F);
+          // 屏 9 第一帧前已经离场
+          tl.to("#a3-card8", { y: -760, rotation: -10, duration: 5 * F, ease: "power2.in" }, at(62) - 6 * F);
+          tl.set("#a3-card8", { opacity: 0 }, at(62) - 1 * F);
+
+          // —— 屏 9（第 62–67 拍）：只有字和钟（钟在覆盖层）；整页随滚奏轻推 ——
+          tl.set("#a3-s8", { opacity: 0 }, at(62));
+          drop("#a3-w6", at(62), 80);
+          drop("#a3-w7", at(62) + 3 * F, 80);
+          tl.fromTo("#a3-cam", { scale: 1 }, { scale: 1.03, duration: 3.5 * T, ease: "power1.in" }, at(62.5));
+
+          // —— 屏 10（第 68 拍）：骤停。不动，只褪色；「两年后，」直接出现 ——
+          tl.to(["#a3-s9", "#a3-s9 .rust"], { color: LEAD, duration: 2 * T, ease: "none" }, at(68));
+          tl.set("#a3-w8", { opacity: 1 }, at(68));
+          // 第 70 拍音乐回来
+          drop("#a3-w9", at(70));
+          tl.to("#a3-s9", { scale: 0.5, y: -260, duration: 8 * F, ease: "power3.out" }, at(70));
+
+          // —— 屏 11（第 74–79 拍）：左真右示意 ——
+          tl.set("#a3-s10", { opacity: 0 }, at(74));
+          tl.set("#a3-cam", { scale: 1 }, at(74));
+          drop("#a3-w10", at(74));
+          drop("#a3-w11", at(74) + 3 * F);
+          pop("#a3-card11", 74);
+          tapes(".a3-tape11", 74.5);
+          draw(".a3-layer", 75, 1);
+          draw(".a3-arrow", 76, 0.5);
+          document.querySelectorAll(".a3-layer").forEach((p) => tl.set(p, { strokeDasharray: "none" }, at(76.5)));
+          const folds = [
+            "M 0 60 C 53 60 107 17 160 17 C 213 17 267 95 320 95 C 373 95 427 17 480 17 C 533 17 587 60 640 60",
+            "M 0 120 C 53 120 107 71 160 71 C 213 71 267 160 320 160 C 373 160 427 71 480 71 C 533 71 587 120 640 120",
+            "M 0 180 C 53 180 107 124 160 124 C 213 124 267 226 320 226 C 373 226 427 124 480 124 C 533 124 587 180 640 180",
+            "M 0 240 C 53 240 107 191 160 191 C 213 191 267 280 320 280 C 373 280 427 191 480 191 C 533 191 587 240 640 240",
+            "M 0 300 C 53 300 107 257 160 257 C 213 257 267 335 320 335 C 373 335 427 257 480 257 C 533 257 587 300 640 300",
+          ];
+          folds.forEach((d, i) => tl.to(`#a3-L${i}`, { attr: { d }, duration: 2.5 * T, ease: "power2.inOut" }, at(76.5)));
+          tl.fromTo("#a3-fold", { scaleX: 1 }, { scaleX: 0.84, duration: 2.5 * T, ease: "power2.inOut" }, at(76.5));
+          tl.set("#a3-stamp11", { opacity: 1 }, at(78));
+          tl.fromTo("#a3-stamp11", { scale: 1.35, rotation: -4 }, { scale: 1, rotation: -4, duration: 4 * F, ease: "power2.out" }, at(78));
+
+          // —— 屏 12（第 80–85 拍）：两图甩走，灰字回到左侧中部（问号在覆盖层） ——
+          tl.set("#a3-s11", { opacity: 0 }, at(80));
+          flick("#a3-card11", 80, -1);
+          tl.to("#a3-fold", { y: -80, rotation: 4, duration: 6 * F, ease: "power2.in" }, at(80));
+          tl.set("#a3-fold", { opacity: 0 }, at(80) + 5 * F);
+          tl.to("#a3-s9", { scale: 1, y: 0, duration: 8 * F, ease: "power3.out" }, at(80));
+          drop("#a3-w12", at(80));
+          drop("#a3-w13", at(80) + 3 * F);
+
+          // —— 推页离场（第 86 拍，第二段高潮第一拍） ——
+          tl.to("#a3-page", { x: -1920, duration: 8 * F, ease: "power4.out" }, at(END));
+
+          window.__timelines["act-3"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

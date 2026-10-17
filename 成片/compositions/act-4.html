@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 4 幕 · 屏 13–16 · 晚上 8 点多，动物登场</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-subset.woff2") format("woff2");
+          font-weight: 200 900;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-1.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+539F, U+590D, U+793A;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-2.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+610F;
+          font-display: block;
+        }
+        #act-4 {
+          --paper: #f1ebdd;
+          --ink: #23201a;
+          --rust: #9a3412;
+          --card: #fbf8f1;
+          --tape: rgba(216, 195, 154, 0.88);
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Noto Serif SC", serif;
+          color: var(--ink);
+        }
+        #act-4 * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #act-4 .page {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--paper);
+          box-shadow: 0 30px 80px rgba(35, 32, 26, 0.35);
+        }
+        #act-4 .ruled {
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 53px,
+            rgba(35, 32, 26, 0.13) 53px,
+            rgba(35, 32, 26, 0.13) 55px
+          );
+        }
+        #act-4 .grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/paper-grain.png");
+        }
+        #act-4 .holes {
+          position: absolute;
+          left: 34px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 150px 0;
+        }
+        #act-4 .holes i {
+          display: block;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #d9d1bf;
+          box-shadow: inset 0 3px 6px rgba(35, 32, 26, 0.35);
+        }
+        #act-4 .cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+        #act-4 .tilt {
+          position: absolute;
+          left: 820px;
+          top: 112px;
+          width: 840px;
+        }
+        #act-4 .card {
+          display: block;
+          width: 100%;
+          padding: 20px;
+          background: var(--card);
+          box-shadow: 0 18px 44px rgba(35, 32, 26, 0.28);
+          transform-origin: 50% 0%;
+          opacity: 0;
+        }
+        #act-4 .frame {
+          position: relative;
+          display: block;
+          width: 800px;
+          height: 450px;
+          overflow: hidden;
+        }
+        #act-4 .frame img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #act-4 .tape {
+          position: absolute;
+          top: -22px;
+          width: 160px;
+          height: 44px;
+        }
+        #act-4 .tape.left {
+          left: 40px;
+          transform: rotate(-7deg);
+        }
+        #act-4 .tape.right {
+          right: 40px;
+          transform: rotate(6deg);
+        }
+        #act-4 .tape i {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: var(--tape);
+          transform-origin: 0% 50%;
+        }
+        #act-4 .say {
+          position: absolute;
+          left: 120px;
+          bottom: 118px;
+          font-size: 96px;
+          font-weight: 900;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+        #act-4 .line {
+          display: block;
+          white-space: nowrap;
+        }
+        #act-4 .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #act-4 .rust {
+          color: var(--rust);
+        }
+        /* 时间跳转：「晚上8点多」120px 锈红，「｜约5.2亿年前」80px */
+        #act-4 .when {
+          font-size: 120px;
+          line-height: 1.15;
+        }
+        #act-4 .when small {
+          font-size: 80px;
+          color: var(--ink);
+        }
+        #act-4 svg.ink {
+          position: absolute;
+          overflow: visible;
+        }
+        #act-4 svg.ink path {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        #act-4 .beast {
+          position: absolute;
+          width: 150px;
+          height: 112px;
+          opacity: 0;
+        }
+        #act-4 .beast svg {
+          display: block;
+          width: 150px;
+          height: 112px;
+          overflow: visible;
+        }
+        #act-4 .beast path {
+          fill: none;
+          stroke: var(--ink);
+          stroke-width: 5;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        #act-4 .stamp {
+          position: absolute;
+          padding: 6px 16px;
+          border: 4px solid var(--rust);
+          color: var(--rust);
+          font-size: 40px;
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: 0.06em;
+          background: rgba(251, 248, 241, 0.85);
+          opacity: 0;
+        }
+      </style>
+
+      <div id="act-4" data-composition-id="act-4" data-width="1920" data-height="1080">
+        <div class="page" id="a4-page">
+          <div class="ruled"></div>
+          <div class="grain"></div>
+          <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="cam" id="a4-cam">
+            <!-- 屏 13–15：云南澄江帽天山页岩露头（Martin Smith，CC BY-SA 4.0）。照片不是 1984 年拍的，画面上不加年份 -->
+            <div class="tilt" style="transform: rotate(2deg)">
+              <div class="card" id="a4-card13">
+                <div class="frame"><img id="a4-mao" src="assets/images/maotianshan-print.jpg" alt="" /></div>
+                <div class="tape left"><i class="a4-tape13"></i></div>
+                <div class="tape right"><i class="a4-tape13"></i></div>
+              </div>
+            </div>
+            <!-- 屏 16：澄江的纳罗虫属化石（Woudloper，CC BY-SA 4.0），同属另一种，作示意 -->
+            <div class="tilt" style="transform: rotate(-1.8deg)">
+              <div class="card" id="a4-card16">
+                <div class="frame">
+                  <img src="assets/images/naraoia-print.jpg" alt="" />
+                  <svg class="ink" style="left: 0; top: 0; width: 800px; height: 450px" viewBox="0 0 800 450" aria-hidden="true">
+                    <defs>
+                      <mask id="a4-oval-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="450">
+                        <path id="a4-oval-reveal" d="M 385 22 C 450 22, 487 110, 487 208 C 487 316, 447 395, 385 395 C 323 395, 283 316, 283 208 C 283 110, 320 22, 385 22" style="visibility: visible; fill: none; stroke: #fff; stroke-width: 16; stroke-linecap: round" />
+                      </mask>
+                    </defs>
+                    <path id="a4-oval" mask="url(#a4-oval-mask)" d="M 385 22 C 450 22, 487 110, 487 208 C 487 316, 447 395, 385 395 C 323 395, 283 316, 283 208 C 283 110, 320 22, 385 22" style="stroke: var(--rust); stroke-width: 6; stroke-dasharray: 16 12" />
+                  </svg>
+                </div>
+                <div class="tape left"><i class="a4-tape16"></i></div>
+                <div class="tape right"><i class="a4-tape16"></i></div>
+                <div class="stamp" id="a4-stamp16" style="right: 26px; bottom: 30px">示意</div>
+              </div>
+            </div>
+
+            <!-- 屏 14：8 个泛化的寒武纪海洋动物墨线外形（示意，不画具体物种、不标名字） -->
+            <div class="beast" style="left: 170px; top: 130px"><svg viewBox="0 0 120 90"><path d="M 20 45 C 20 15, 100 15, 100 45 C 100 75, 20 75, 20 45 Z M 40 22 Q 44 45 40 68 M 60 18 Q 64 45 60 72 M 80 22 Q 84 45 80 68 M 20 40 L 6 30 M 20 50 L 6 60" /></svg></div>
+            <div class="beast" style="left: 410px; top: 170px"><svg viewBox="0 0 120 90"><path d="M 8 60 C 30 20, 50 90, 70 50 S 100 30, 112 40 M 24 44 L 30 50 M 44 58 L 50 52 M 62 60 L 66 52 M 84 40 L 88 48" /></svg></div>
+            <div class="beast" style="left: 630px; top: 120px"><svg viewBox="0 0 120 90"><path d="M 40 85 L 30 20 Q 60 8 90 20 L 80 85 Z M 45 30 L 50 70 M 60 25 L 60 72 M 75 30 L 70 70" /></svg></div>
+            <div class="beast" style="left: 220px; top: 360px"><svg viewBox="0 0 120 90"><path d="M 20 50 Q 60 -5 100 50 Z M 35 50 Q 30 75 38 88 M 55 50 Q 52 78 58 90 M 75 50 Q 78 78 70 88 M 92 50 Q 96 72 88 84" /></svg></div>
+            <div class="beast" style="left: 470px; top: 400px"><svg viewBox="0 0 120 90"><path d="M 15 30 C 50 10, 95 25, 100 60 C 102 75, 90 82, 80 76 M 30 32 L 26 50 M 45 26 L 42 46 M 60 28 L 58 48 M 75 36 L 72 54" /></svg></div>
+            <div class="beast" style="left: 650px; top: 330px"><svg viewBox="0 0 120 90"><path d="M 60 88 L 60 20 M 60 30 Q 40 28 30 38 M 60 30 Q 80 28 90 38 M 60 45 Q 38 44 28 54 M 60 45 Q 82 44 92 54 M 60 60 Q 40 60 32 68 M 60 60 Q 80 60 88 68" /></svg></div>
+            <div class="beast" style="left: 980px; top: 630px"><svg viewBox="0 0 120 90"><path d="M 38 45 A 22 22 0 1 0 82 45 A 22 22 0 1 0 38 45 M 60 15 L 60 5 M 60 75 L 60 85 M 30 45 L 18 45 M 90 45 L 102 45 M 39 24 L 31 16 M 81 24 L 89 16 M 39 66 L 31 74 M 81 66 L 89 74" /></svg></div>
+            <div class="beast" style="left: 1300px; top: 640px"><svg viewBox="0 0 120 90"><path d="M 20 70 Q 60 5 100 70 Z M 60 70 L 60 25 M 60 70 L 40 32 M 60 70 L 80 32 M 60 70 L 28 50 M 60 70 L 92 50" /></svg></div>
+            <div class="stamp" id="a4-stamp14" style="left: 1500px; top: 650px">示意</div>
+
+            <!-- 屏 13 -->
+            <h2 class="say when" id="a4-s13">
+              <span class="line"><span class="w" id="a4-w1"><span class="rust">晚上8点多</span><small>｜约5.2亿年前</small></span></span>
+            </h2>
+            <!-- 屏 14 -->
+            <h2 class="say" id="a4-s14">
+              <span class="line"><span class="w" id="a4-w2">许多动物在化石里</span></span>
+              <span class="line"><span class="w rust" id="a4-w3">迅速出现</span></span>
+            </h2>
+            <!-- 屏 15：字放左下，和照片拉开距离，不能看起来像照片的图注 -->
+            <h2 class="say" id="a4-s15">
+              <span class="line"><span class="w rust" id="a4-w4">1984年，</span></span>
+              <span class="line"><span class="w" id="a4-w5">侯先光在云南澄江</span></span>
+            </h2>
+            <!-- 屏 16 -->
+            <h2 class="say" id="a4-s16">
+              <span class="line"><span class="w" id="a4-w6">找到一块连软身体</span></span>
+              <span class="line"><span class="w" id="a4-w7">都保存下来的化石</span></span>
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128;
+          const F = 1 / 30;
+          const B0 = 86; // 本幕第一拍（第二段高潮第一拍）
+          const END = 114; // 第 5 幕从这一拍推页进来
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+          const drop = (sel, t, dy = 60, f = 6) => {
+            tl.set(sel, { opacity: 1 }, t);
+            tl.fromTo(sel, { y: dy }, { y: 0, duration: f * F, ease: "power4.out" }, t);
+          };
+          const pop = (sel, b, f = 10) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scale: 0, y: 12 }, { scale: 1, y: 0, duration: f * F, ease: "power3.out" }, at(b));
+          };
+          const tapes = (sel, b) =>
+            tl.fromTo(sel, { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out", stagger: 2 * F }, at(b));
+          const stamp = (sel, b) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scale: 1.35, rotation: -4 }, { scale: 1, rotation: -4, duration: 4 * F, ease: "power2.out" }, at(b));
+          };
+
+          // —— 推页入场（第 86 拍，和第二段高潮同一帧） ——
+          tl.fromTo("#a4-page", { x: 1920 }, { x: 0, duration: 8 * F, ease: "power4.out" }, 0);
+
+          // —— 屏 13（第 86–93 拍）：时间大字砸下（钟在覆盖层放大定格）；第 90 拍帽天山照片弹出 ——
+          drop("#a4-w1", at(86), 90, 8);
+          pop("#a4-card13", 90);
+          tapes(".a4-tape13", 90.5);
+          tl.fromTo("#a4-mao", { scale: 1 }, { scale: 1.08, duration: at(106) - at(90), ease: "none" }, at(90));
+
+          // —— 屏 14（第 94–99 拍）：8 个剪影每半拍蹦出一个 ——
+          tl.set("#a4-s13", { opacity: 0 }, at(94));
+          drop("#a4-w2", at(94));
+          drop("#a4-w3", at(94) + 3 * F);
+          gsap.utils.toArray("#act-4 .beast").forEach((el, i) => {
+            const b = 95 + 0.5 * i;
+            tl.set(el, { opacity: 1 }, at(b));
+            tl.fromTo(el, { scale: 0, rotation: i % 2 ? 12 : -12 }, { scale: 1, rotation: 0, duration: 5 * F, ease: "power3.out" }, at(b));
+          });
+          stamp("#a4-stamp14", 99);
+
+          // —— 屏 15（第 100–105 拍）：剪影甩走 ——
+          tl.set("#a4-s14", { opacity: 0 }, at(100));
+          gsap.utils.toArray("#act-4 .beast").forEach((el, i) => {
+            tl.to(el, { y: -60, rotation: i % 2 ? 10 : -10, duration: 4 * F, ease: "power2.in" }, at(100) + i * F);
+            tl.set(el, { opacity: 0 }, at(100) + (i + 4) * F);
+          });
+          tl.to("#a4-stamp14", { y: -60, duration: 4 * F, ease: "power2.in" }, at(100));
+          tl.set("#a4-stamp14", { opacity: 0 }, at(100) + 4 * F);
+          drop("#a4-w4", at(100));
+          drop("#a4-w5", at(100) + 3 * F);
+
+          // —— 屏 16（第 106–113 拍）：换纳罗虫，锈红虚线描软体外轮廓，盖章 ——
+          tl.set("#a4-s15", { opacity: 0 }, at(106));
+          tl.to("#a4-card13", { x: -900, rotation: -8, duration: 6 * F, ease: "power2.in" }, at(106));
+          tl.set("#a4-card13", { opacity: 0 }, at(106) + 6 * F);
+          tl.set("#a4-card16", { opacity: 1 }, at(106));
+          tl.fromTo("#a4-card16", { x: 700, rotation: 6 }, { x: 0, rotation: 0, duration: 10 * F, ease: "power3.out" }, at(106));
+          tapes(".a4-tape16", 106.5);
+          drop("#a4-w6", at(106));
+          drop("#a4-w7", at(106) + 3 * F);
+          // 虚线沿轮廓“描”出来：虚线本身不动，遮罩里的实线按长度画出
+          const reveal = document.getElementById("a4-oval-reveal");
+          const len = reveal.getTotalLength();
+          reveal.style.strokeDasharray = `${len}`;
+          tl.set("#a4-oval", { visibility: "visible" }, at(108));
+          tl.fromTo(reveal, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: 1.5 * T, ease: "none" }, at(108));
+          stamp("#a4-stamp16", 110);
+
+          // —— 推页离场（第 114 拍） ——
+          tl.to("#a4-page", { x: -1920, duration: 8 * F, ease: "power4.out" }, at(END));
+
+          window.__timelines["act-4"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

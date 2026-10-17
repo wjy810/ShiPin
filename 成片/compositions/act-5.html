@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 5 幕 · 屏 17–21 · 晚上 9 点多，鱼要上岸</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-subset.woff2") format("woff2");
+          font-weight: 200 900;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-1.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+539F, U+590D, U+793A;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-extra-2.woff2") format("woff2");
+          font-weight: 200 900;
+          unicode-range: U+610F;
+          font-display: block;
+        }
+        #act-5 {
+          --paper: #f1ebdd;
+          --ink: #23201a;
+          --rust: #9a3412;
+          --card: #fbf8f1;
+          --tape: rgba(216, 195, 154, 0.88);
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Noto Serif SC", serif;
+          color: var(--ink);
+        }
+        #act-5 * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #act-5 .page {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--paper);
+          box-shadow: 0 30px 80px rgba(35, 32, 26, 0.35);
+        }
+        #act-5 .ruled {
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 53px,
+            rgba(35, 32, 26, 0.13) 53px,
+            rgba(35, 32, 26, 0.13) 55px
+          );
+        }
+        #act-5 .grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/paper-grain.png");
+        }
+        #act-5 .holes {
+          position: absolute;
+          left: 34px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 150px 0;
+        }
+        #act-5 .holes i {
+          display: block;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #d9d1bf;
+          box-shadow: inset 0 3px 6px rgba(35, 32, 26, 0.35);
+        }
+        #act-5 .tilt {
+          position: absolute;
+          left: 820px;
+          top: 112px;
+          width: 840px;
+          transform: rotate(1.5deg);
+        }
+        #act-5 .card {
+          display: block;
+          width: 100%;
+          padding: 20px;
+          background: var(--card);
+          box-shadow: 0 18px 44px rgba(35, 32, 26, 0.28);
+          opacity: 0;
+        }
+        #act-5 .frame {
+          position: relative;
+          display: block;
+          width: 800px;
+          height: 450px;
+          overflow: hidden;
+        }
+        #act-5 .zoom {
+          position: absolute;
+          inset: 0;
+          transform-origin: 389.6px 304.2px;
+        }
+        #act-5 .zoom img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #act-5 .tape {
+          position: absolute;
+          top: -22px;
+          width: 160px;
+          height: 44px;
+        }
+        #act-5 .tape.left {
+          left: 40px;
+          transform: rotate(-7deg);
+        }
+        #act-5 .tape.right {
+          right: 40px;
+          transform: rotate(6deg);
+        }
+        #act-5 .tape i {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: var(--tape);
+          transform-origin: 0% 50%;
+        }
+        #act-5 .say {
+          position: absolute;
+          left: 120px;
+          bottom: 118px;
+          font-size: 96px;
+          font-weight: 900;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+        #act-5 .line {
+          display: block;
+          white-space: nowrap;
+        }
+        #act-5 .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #act-5 .rust {
+          color: var(--rust);
+        }
+        #act-5 .when {
+          font-size: 120px;
+          line-height: 1.15;
+        }
+        #act-5 .when small {
+          font-size: 80px;
+          color: var(--ink);
+        }
+        #act-5 svg.ink {
+          position: absolute;
+          overflow: visible;
+        }
+        #act-5 svg.ink path {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        #act-5 .stamp {
+          position: absolute;
+          padding: 6px 16px;
+          border: 4px solid var(--rust);
+          color: var(--rust);
+          font-size: 40px;
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: 0.06em;
+          background: rgba(251, 248, 241, 0.85);
+          opacity: 0;
+        }
+      </style>
+
+      <div id="act-5" data-composition-id="act-5" data-width="1920" data-height="1080">
+        <div class="page" id="a5-page">
+          <div class="ruled"></div>
+          <div class="grain"></div>
+          <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+
+          <!-- 屏 18：墨线地层剖面（示意） -->
+          <div id="a5-strata" style="position: absolute; left: 860px; top: 140px; width: 740px; height: 480px; transform-origin: 0% 0%">
+            <svg class="ink" style="left: 0; top: 0; width: 740px; height: 480px" viewBox="0 0 740 480" aria-hidden="true">
+              <g style="stroke: var(--ink); stroke-width: 6">
+                <path class="a5-st" d="M 20 460 C 200 452, 520 466, 720 456" />
+                <path class="a5-st" d="M 20 392 C 220 380, 500 400, 720 386" />
+                <path class="a5-st" d="M 20 322 C 180 312, 540 330, 720 316" />
+                <path class="a5-st" d="M 20 248 C 240 238, 480 258, 720 244" />
+                <path class="a5-st" d="M 20 176 C 200 166, 520 184, 720 172" />
+                <path class="a5-st" d="M 20 104 C 220 96, 500 112, 720 100" />
+              </g>
+              <g style="stroke: var(--ink); stroke-width: 3; opacity: 0.55">
+                <path class="a5-hatch" d="M 60 432 L 80 412 M 140 434 L 160 414 M 220 434 L 240 414 M 300 436 L 320 416 M 380 436 L 400 416 M 460 436 L 480 416 M 540 434 L 560 414 M 620 432 L 640 412" />
+                <path class="a5-hatch" d="M 60 286 L 62 286 M 110 280 L 112 280 M 170 288 L 172 288 M 240 282 L 242 282 M 310 290 L 312 290 M 380 284 L 382 284 M 450 292 L 452 292 M 520 286 L 522 286 M 590 290 L 592 290 M 660 284 L 662 284" />
+                <path class="a5-hatch" d="M 50 140 L 120 140 M 170 136 L 240 136 M 290 142 L 360 142 M 410 138 L 480 138 M 530 142 L 600 142 M 640 136 L 700 136" />
+              </g>
+              <path id="a5-ring4" d="M 30 212 C 30 180, 330 172, 520 176 C 740 182, 760 214, 712 236 C 650 262, 200 266, 70 254 C 34 250, 28 232, 40 220" style="stroke: var(--rust); stroke-width: 9" />
+            </svg>
+            <div class="stamp" id="a5-stamp18" style="right: 0; bottom: -70px">示意</div>
+          </div>
+
+          <!-- 屏 19–20：藏宝图（比方，不盖章） -->
+          <div id="a5-map" style="position: absolute; left: 860px; top: 130px; width: 760px; height: 500px">
+            <svg class="ink" style="left: 0; top: 0; width: 760px; height: 500px" viewBox="0 0 760 500" aria-hidden="true">
+              <path id="a5-coast" d="M 30 70 C 120 40, 160 120, 250 90 S 380 30, 450 80 S 560 150, 620 110 S 720 60, 740 130 C 750 210, 660 230, 690 300 S 740 420, 640 460 C 540 490, 470 420, 380 450 S 220 490, 150 430 S 40 380, 60 300 S 10 160, 30 70" style="stroke: var(--ink); stroke-width: 6" />
+              <path id="a5-route" d="M 120 380 C 200 330, 230 360, 290 330 S 330 260, 390 290" style="stroke: var(--ink); stroke-width: 5; stroke-dasharray: 14 12" />
+              <path id="a5-x1" d="M 360 260 L 420 320" style="stroke: var(--rust); stroke-width: 12" />
+              <path id="a5-x2" d="M 420 260 L 360 320" style="stroke: var(--rust); stroke-width: 12" />
+            </svg>
+          </div>
+          <!-- 铲子：铲尖落在 × 上 (1250, 420) -->
+          <div id="a5-shovel" style="position: absolute; left: 1180px; top: 40px; width: 150px; height: 380px; opacity: 0; transform-origin: 70px 380px">
+            <svg style="position: absolute; left: 0; top: 0; width: 150px; height: 380px; overflow: visible" viewBox="0 0 150 380" aria-hidden="true">
+              <path d="M 70 10 L 70 250 M 40 10 L 100 10" style="fill: none; stroke: var(--ink); stroke-width: 10; stroke-linecap: round" />
+              <path d="M 30 250 L 110 250 L 108 320 Q 70 386 32 320 Z" style="fill: var(--card); stroke: var(--ink); stroke-width: 8; stroke-linejoin: round" />
+            </svg>
+          </div>
+          <div id="a5-dirt" style="position: absolute; left: 1150px; top: 360px; width: 200px; height: 90px; opacity: 0">
+            <svg style="position: absolute; left: 0; top: 0; width: 200px; height: 90px; overflow: visible" viewBox="0 0 200 90" aria-hidden="true">
+              <g style="fill: var(--ink)">
+                <circle cx="20" cy="60" r="7" /><circle cx="46" cy="30" r="5" /><circle cx="70" cy="12" r="6" /><circle cx="132" cy="14" r="6" />
+                <circle cx="156" cy="34" r="5" /><circle cx="182" cy="62" r="7" /><circle cx="96" cy="4" r="4" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- 屏 20–21：提塔利克鱼（Ghedoghedo，CC BY-SA 3.0），不写“真化石”“原件”，不标骨骼名称 -->
+          <div id="a5-move" style="position: absolute; left: 820px; top: 112px; width: 840px; height: 500px; transform-origin: 0% 0%">
+          <div class="tilt" style="left: 0; top: 0">
+            <div class="card" id="a5-card" style="transform-origin: 430px 308px">
+              <div class="frame">
+                <div class="zoom" id="a5-zoom">
+                  <img src="assets/images/tiktaalik-print.jpg" alt="" />
+                  <svg class="ink" style="left: 0; top: 0; width: 800px; height: 450px" viewBox="0 0 800 450" aria-hidden="true">
+                    <path id="a5-fin" d="M 300 300 C 296 252, 370 226, 418 232 C 482 240, 498 300, 480 338 C 462 378, 388 392, 334 368 C 304 354, 292 326, 306 298" style="stroke: #fbf8f1; stroke-width: 12; opacity: 0.85" />
+                    <path id="a5-fin2" d="M 300 300 C 296 252, 370 226, 418 232 C 482 240, 498 300, 480 338 C 462 378, 388 392, 334 368 C 304 354, 292 326, 306 298" style="stroke: var(--rust); stroke-width: 6" />
+                  </svg>
+                </div>
+              </div>
+              <div class="tape left"><i class="a5-tape"></i></div>
+              <div class="tape right"><i class="a5-tape"></i></div>
+            </div>
+          </div>
+          </div>
+
+          <!-- 屏 17 -->
+          <h2 class="say when" id="a5-s17">
+            <span class="line"><span class="w" id="a5-w1"><span class="rust">晚上9点多</span><small>｜约3.75亿年前</small></span></span>
+          </h2>
+          <!-- 屏 18 -->
+          <h2 class="say" id="a5-s18">
+            <span class="line"><span class="w rust" id="a5-w2">鱼怎么上岸？</span></span>
+            <span class="line"><span class="w" id="a5-w3">科学家先推算岩层年代</span></span>
+          </h2>
+          <!-- 屏 19 -->
+          <h2 class="say" id="a5-s19">
+            <span class="line"><span class="w" id="a5-w4">像先画好藏宝图，</span></span>
+            <span class="line"><span class="w" id="a5-w5">再去挖宝</span></span>
+          </h2>
+          <!-- 屏 20 -->
+          <h2 class="say" id="a5-s20">
+            <span class="line"><span class="w" id="a5-w6">2004年，</span></span>
+            <span class="line"><span class="w" id="a5-w7">在加拿大北极<span class="rust">找到了</span></span></span>
+          </h2>
+          <!-- 屏 21 -->
+          <h2 class="say" id="a5-s21">
+            <span class="line"><span class="w" id="a5-w8">提塔利克鱼：</span></span>
+            <span class="line" style="position: relative"
+              ><span class="w" id="a5-w9">有鳍，也有<span class="rust">“手腕”</span></span
+              ><svg class="ink" style="left: 486px; bottom: -26px; width: 300px; height: 40px" viewBox="0 0 300 40" aria-hidden="true">
+                <path id="a5-ul" d="M 6 26 C 80 16, 170 32, 294 20" style="stroke: var(--rust); stroke-width: 9" /></svg
+            ></span>
+          </h2>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128;
+          const F = 1 / 30;
+          const B0 = 114; // 本幕第一拍
+          const END = 150; // 第 6 幕从这一拍推页进来
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+          const drop = (sel, t, dy = 60, f = 6) => {
+            tl.set(sel, { opacity: 1 }, t);
+            tl.fromTo(sel, { y: dy }, { y: 0, duration: f * F, ease: "power4.out" }, t);
+          };
+          const draw = (el, t, dur) => {
+            const p = typeof el === "string" ? document.querySelector(el) : el;
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = `${len}`;
+            tl.set(p, { visibility: "visible" }, t);
+            tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: dur, ease: "none" }, t);
+          };
+          const stamp = (sel, b) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scale: 1.35, rotation: -4 }, { scale: 1, rotation: -4, duration: 4 * F, ease: "power2.out" }, at(b));
+          };
+
+          // —— 推页入场（第 114 拍，滚奏小节第一拍） ——
+          tl.fromTo("#a5-page", { x: 1920 }, { x: 0, duration: 8 * F, ease: "power4.out" }, 0);
+
+          // —— 屏 17（第 114–119 拍）：时间大字（钟在覆盖层一拍跳一格） ——
+          drop("#a5-w1", at(114), 90, 8);
+
+          // —— 屏 18（第 120–127 拍）：地层从下往上每半拍画一层；第 124 拍圈住第 4 层 ——
+          tl.set("#a5-s17", { opacity: 0 }, at(120));
+          drop("#a5-w2", at(120));
+          drop("#a5-w3", at(120) + 3 * F);
+          gsap.utils.toArray("#act-5 .a5-st").forEach((p, i) => draw(p, at(120 + 0.5 * i), 5 * F));
+          gsap.utils.toArray("#act-5 .a5-hatch").forEach((p, i) => draw(p, at(121 + 0.5 * i), 6 * F));
+          draw("#a5-ring4", at(124), T);
+          stamp("#a5-stamp18", 126);
+
+          // —— 屏 19（第 128–133 拍）：地层滑到左上缩小，藏宝图画出，× 两笔，铲子砸下 ——
+          tl.set("#a5-s18", { opacity: 0 }, at(128));
+          tl.to("#a5-strata", { x: -710, y: -10, scale: 0.42, duration: 8 * F, ease: "power3.inOut" }, at(128));
+          drop("#a5-w4", at(128));
+          drop("#a5-w5", at(128) + 3 * F);
+          draw("#a5-coast", at(128), T);
+          tl.set("#a5-route", { visibility: "visible" }, at(129));
+          tl.fromTo("#a5-route", { opacity: 0 }, { opacity: 1, duration: 4 * F, ease: "none" }, at(129));
+          draw("#a5-x1", at(130), 5 * F);
+          draw("#a5-x2", at(130.5), 5 * F);
+          tl.set("#a5-shovel", { opacity: 1 }, at(132));
+          tl.fromTo("#a5-shovel", { y: -320 }, { y: 0, duration: 4 * F, ease: "power4.in" }, at(132));
+
+          // —— 屏 20（第 134–141 拍）：一铲下去，照片卡从 × 的位置弹出来 ——
+          tl.set("#a5-s19", { opacity: 0 }, at(134));
+          drop("#a5-w6", at(134));
+          drop("#a5-w7", at(134) + 3 * F);
+          tl.to("#a5-shovel", { y: 26, rotation: -6, duration: 3 * F, ease: "power3.out" }, at(134));
+          tl.to("#a5-shovel", { y: 10, rotation: 4, duration: 3 * F, ease: "power2.inOut" }, at(134) + 3 * F);
+          tl.set("#a5-dirt", { opacity: 1 }, at(134.5));
+          tl.fromTo("#a5-dirt", { scale: 0.3, y: 30 }, { scale: 1, y: 0, duration: 4 * F, ease: "power3.out" }, at(134.5));
+          tl.set("#a5-card", { opacity: 1 }, at(136));
+          tl.fromTo("#a5-card", { scale: 0 }, { scale: 1, duration: 10 * F, ease: "power3.out" }, at(136));
+          tl.fromTo(".a5-tape", { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out", stagger: 2 * F }, at(136.5));
+
+          // —— 屏 21（第 142–149 拍）：照片放大移到中间，推近到鳍；第 144 拍圈鳍，第 146 拍划「手腕」 ——
+          tl.set(["#a5-s20", "#a5-map", "#a5-shovel", "#a5-dirt", "#a5-strata"], { opacity: 0 }, at(142));
+          drop("#a5-w8", at(142));
+          drop("#a5-w9", at(142) + 3 * F);
+          tl.to("#a5-move", { x: -260, y: -12, scale: 1.25, duration: 2 * T, ease: "power3.inOut" }, at(142));
+          tl.fromTo("#a5-zoom", { scale: 1 }, { scale: 1.8, duration: 2 * T, ease: "power3.inOut" }, at(142));
+          draw("#a5-fin", at(144), T);
+          draw("#a5-fin2", at(144), T);
+          draw("#a5-ul", at(146), T);
+          tl.to("#a5-zoom", { scale: 1.95, duration: 4 * T, ease: "power1.inOut" }, at(146));
+
+          // —— 推页离场（第 150 拍，重低音段第一拍） ——
+          tl.to("#a5-page", { x: -1920, duration: 8 * F, ease: "power4.out" }, at(END));
+
+          window.__timelines["act-5"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

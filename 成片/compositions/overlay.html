@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>覆盖层 · 小钟和常驻问号（屏 5–35）</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        #overlay {
+          --ink: #23201a;
+          --rust: #9a3412;
+          --card: #fbf8f1;
+          --lead: #635d53;
+          --tape: rgba(216, 195, 154, 0.88);
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        #overlay * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #overlay svg {
+          position: absolute;
+          overflow: visible;
+        }
+        /* —— 屏 5：时间轴 —— */
+        #ov-tlclip {
+          position: absolute;
+          left: 0;
+          top: 236px;
+          width: 1320px;
+          height: 48px;
+          overflow: hidden;
+        }
+        #ov-tlline {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1320px;
+          height: 48px;
+          opacity: 0;
+        }
+        /* —— 钟：基准位置圆心 (1320, 520)，直径 520 —— */
+        #ov-clock {
+          position: absolute;
+          inset: 0;
+          transform-origin: 1320px 520px;
+        }
+        #ov-ring {
+          fill: none;
+          stroke: var(--ink);
+          stroke-width: 6;
+          stroke-linecap: round;
+          visibility: hidden;
+        }
+        #overlay .ov-tick {
+          stroke: var(--ink);
+          stroke-linecap: round;
+          opacity: 0;
+        }
+        #ov-earth {
+          position: absolute;
+          left: 1110px;
+          top: 310px;
+          width: 420px;
+          height: 420px;
+          border-radius: 50%;
+          border: 10px solid var(--card);
+          box-shadow: 0 12px 30px rgba(35, 32, 26, 0.3);
+          overflow: hidden;
+          opacity: 0;
+        }
+        #ov-earth img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transform: scale(1.04);
+        }
+        #ov-earth-tape {
+          position: absolute;
+          left: 1440px;
+          top: 300px;
+          width: 120px;
+          height: 38px;
+          transform: rotate(38deg);
+        }
+        #ov-earth-tape i {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: var(--tape);
+          transform-origin: 0% 50%;
+        }
+        #ov-hand {
+          position: absolute;
+          left: 1317px;
+          top: 330px;
+          width: 6px;
+          height: 190px;
+          border-radius: 3px;
+          background: var(--rust);
+          box-shadow: 0 0 0 2px var(--card);
+          transform-origin: 50% 100%;
+          opacity: 0;
+        }
+        #ov-tip {
+          position: absolute;
+          left: -6px;
+          top: -9px;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: var(--rust);
+          box-shadow: 0 0 0 2px var(--card);
+        }
+        #ov-pin {
+          position: absolute;
+          left: 1308px;
+          top: 508px;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: var(--ink);
+          box-shadow: 0 0 0 3px var(--card);
+          opacity: 0;
+        }
+        /* 屏 34：叠层石从钟心铺开 */
+        #ov-iris {
+          position: absolute;
+          left: 1050px;
+          top: 250px;
+          width: 540px;
+          height: 540px;
+          border-radius: 50%;
+          overflow: hidden;
+          clip-path: circle(0% at 50% 50%);
+        }
+        #ov-iris img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        /* —— 屏 32：放大镜，最后 8 秒 —— */
+        #ov-loupe {
+          position: absolute;
+          left: 1030px;
+          top: 150px;
+          width: 200px;
+          height: 200px;
+          opacity: 0;
+        }
+        #ov-loupe .lens {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          overflow: hidden;
+          background: var(--card);
+          border: 6px solid var(--ink);
+        }
+        #ov-needle {
+          position: absolute;
+          left: 23px;
+          top: 92px;
+          width: 4px;
+          height: 120px;
+          background: var(--rust);
+          border-radius: 2px;
+        }
+        /* —— 问号：屏 12 画出，常驻右上角，屏 35 落进字里 —— */
+        #ov-q {
+          position: absolute;
+          left: 640px;
+          top: 330px;
+          width: 192px;
+          height: 320px;
+          transform-origin: 50% 50%;
+        }
+        #ov-q-hook {
+          fill: none;
+          stroke: var(--rust);
+          stroke-width: 16;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          visibility: hidden;
+        }
+        #ov-q-dot {
+          fill: var(--rust);
+          opacity: 0;
+        }
+      </style>
+
+      <div id="overlay" data-composition-id="overlay" data-width="1920" data-height="1080">
+        <!-- 屏 5：一条带 24 个刻度的时间轴，左端锈红点 -->
+        <div id="ov-tlclip">
+          <div id="ov-tlline">
+            <svg style="left: 0; top: 0; width: 1320px; height: 48px" viewBox="0 0 1320 48" aria-hidden="true">
+              <line x1="96" y1="24" x2="1330" y2="24" style="stroke: var(--ink); stroke-width: 6; stroke-linecap: round" />
+              <g style="stroke: var(--ink); stroke-width: 4; stroke-linecap: round">
+                <line x1="147" y1="14" x2="147" y2="34" /><line x1="198" y1="14" x2="198" y2="34" /><line x1="249" y1="14" x2="249" y2="34" />
+                <line x1="300" y1="14" x2="300" y2="34" /><line x1="351" y1="14" x2="351" y2="34" /><line x1="402" y1="8" x2="402" y2="40" />
+                <line x1="453" y1="14" x2="453" y2="34" /><line x1="504" y1="14" x2="504" y2="34" /><line x1="555" y1="14" x2="555" y2="34" />
+                <line x1="606" y1="14" x2="606" y2="34" /><line x1="657" y1="14" x2="657" y2="34" /><line x1="708" y1="8" x2="708" y2="40" />
+                <line x1="759" y1="14" x2="759" y2="34" /><line x1="810" y1="14" x2="810" y2="34" /><line x1="861" y1="14" x2="861" y2="34" />
+                <line x1="912" y1="14" x2="912" y2="34" /><line x1="963" y1="14" x2="963" y2="34" /><line x1="1014" y1="8" x2="1014" y2="40" />
+                <line x1="1065" y1="14" x2="1065" y2="34" /><line x1="1116" y1="14" x2="1116" y2="34" /><line x1="1167" y1="14" x2="1167" y2="34" />
+                <line x1="1218" y1="14" x2="1218" y2="34" /><line x1="1269" y1="14" x2="1269" y2="34" />
+              </g>
+              <circle cx="96" cy="24" r="11" style="fill: var(--rust)" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- 钟（地球是阿波罗 17 号照片，NASA，公有领域；不调色） -->
+        <div id="ov-clock">
+          <div id="ov-earth"><img src="assets/images/earth.jpg" alt="" /></div>
+          <div id="ov-earth-tape"><i id="ov-earth-tape-i"></i></div>
+          <svg style="left: 0; top: 0; width: 1920px; height: 1080px" viewBox="0 0 1920 1080" aria-hidden="true">
+            <path id="ov-ring" d="M 1320 260 A 260 260 0 1 1 1319.99 260" />
+            <g id="ov-ticks">
+              <line class="ov-tick" x1="1320.0" y1="308.0" x2="1320.0" y2="270.0" stroke-width="7" />
+              <line class="ov-tick" x1="1380.0" y1="295.9" x2="1384.7" y2="278.5" stroke-width="5" />
+              <line class="ov-tick" x1="1436.0" y1="319.1" x2="1445.0" y2="303.5" stroke-width="5" />
+              <line class="ov-tick" x1="1484.0" y1="356.0" x2="1496.8" y2="343.2" stroke-width="5" />
+              <line class="ov-tick" x1="1520.9" y1="404.0" x2="1536.5" y2="395.0" stroke-width="5" />
+              <line class="ov-tick" x1="1544.1" y1="460.0" x2="1561.5" y2="455.3" stroke-width="5" />
+              <line class="ov-tick" x1="1532.0" y1="520.0" x2="1570.0" y2="520.0" stroke-width="7" />
+              <line class="ov-tick" x1="1544.1" y1="580.0" x2="1561.5" y2="584.7" stroke-width="5" />
+              <line class="ov-tick" x1="1520.9" y1="636.0" x2="1536.5" y2="645.0" stroke-width="5" />
+              <line class="ov-tick" x1="1484.0" y1="684.0" x2="1496.8" y2="696.8" stroke-width="5" />
+              <line class="ov-tick" x1="1436.0" y1="720.9" x2="1445.0" y2="736.5" stroke-width="5" />
+              <line class="ov-tick" x1="1380.0" y1="744.1" x2="1384.7" y2="761.5" stroke-width="5" />
+              <line class="ov-tick" x1="1320.0" y1="732.0" x2="1320.0" y2="770.0" stroke-width="7" />
+              <line class="ov-tick" x1="1260.0" y1="744.1" x2="1255.3" y2="761.5" stroke-width="5" />
+              <line class="ov-tick" x1="1204.0" y1="720.9" x2="1195.0" y2="736.5" stroke-width="5" />
+              <line class="ov-tick" x1="1156.0" y1="684.0" x2="1143.2" y2="696.8" stroke-width="5" />
+              <line class="ov-tick" x1="1119.1" y1="636.0" x2="1103.5" y2="645.0" stroke-width="5" />
+              <line class="ov-tick" x1="1095.9" y1="580.0" x2="1078.5" y2="584.7" stroke-width="5" />
+              <line class="ov-tick" x1="1108.0" y1="520.0" x2="1070.0" y2="520.0" stroke-width="7" />
+              <line class="ov-tick" x1="1095.9" y1="460.0" x2="1078.5" y2="455.3" stroke-width="5" />
+              <line class="ov-tick" x1="1119.1" y1="404.0" x2="1103.5" y2="395.0" stroke-width="5" />
+              <line class="ov-tick" x1="1156.0" y1="356.0" x2="1143.2" y2="343.2" stroke-width="5" />
+              <line class="ov-tick" x1="1204.0" y1="319.1" x2="1195.0" y2="303.5" stroke-width="5" />
+              <line class="ov-tick" x1="1260.0" y1="295.9" x2="1255.3" y2="278.5" stroke-width="5" />
+            </g>
+          </svg>
+          <div id="ov-hand"><i id="ov-tip"></i></div>
+          <i id="ov-pin"></i>
+          <div id="ov-iris"><img src="assets/images/strelley-print.jpg" alt="" /></div>
+        </div>
+
+        <!-- 屏 32：放大镜里是钟顶部最后 8 个秒刻度 -->
+        <svg id="ov-leader" style="left: 1222px; top: 240px; width: 180px; height: 40px" viewBox="0 0 180 40" aria-hidden="true">
+          <path id="ov-leader-path" d="M 4 14 L 176 26" style="fill: none; stroke: var(--ink); stroke-width: 4; stroke-linecap: round; visibility: hidden" />
+        </svg>
+        <div id="ov-loupe">
+          <div class="lens">
+            <svg style="left: 0; top: 0; width: 188px; height: 188px" viewBox="0 0 188 188" aria-hidden="true">
+              <path d="M -10 112 Q 94 92 198 112" style="fill: none; stroke: var(--ink); stroke-width: 5" />
+              <g style="stroke: var(--ink); stroke-width: 4; stroke-linecap: round">
+                <line x1="25" y1="106" x2="25" y2="86" /><line x1="43" y1="104" x2="43" y2="84" /><line x1="61" y1="102" x2="61" y2="82" />
+                <line x1="79" y1="101" x2="79" y2="81" /><line x1="97" y1="101" x2="97" y2="81" /><line x1="115" y1="101" x2="115" y2="81" />
+                <line x1="133" y1="102" x2="133" y2="82" /><line x1="151" y1="104" x2="151" y2="84" />
+              </g>
+              <line x1="169" y1="107" x2="169" y2="68" style="stroke: var(--rust); stroke-width: 7; stroke-linecap: round" />
+            </svg>
+            <i id="ov-needle"></i>
+          </div>
+        </div>
+
+        <!-- 问号（手写笔迹） -->
+        <svg id="ov-q" viewBox="0 0 120 200" aria-hidden="true">
+          <path id="ov-q-hook" d="M 24 62 C 22 22, 98 12, 98 58 C 98 94, 60 96, 60 136" />
+          <circle id="ov-q-dot" cx="60" cy="178" r="11" />
+        </svg>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128; // 1 拍
+          const F = 1 / 30; // 1 帧
+          const B0 = 32; // 覆盖层从全片第 32 拍（屏 5）开始
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+          const RUST = "#9a3412";
+          const LEAD = "#635d53";
+
+          // 钟的三个位置：基准（屏 5–6、34）、右上角常驻、放大到右侧中部
+          const BASE = { x: 0, y: 0, scale: 1 };
+          const CORNER = { x: 432, y: -352, scale: 144 / 520 };
+          const HERO = { x: 80, y: -50, scale: 420 / 520 };
+          const moveClock = (pos, b, f = 6, ease = "power3.out") =>
+            tl.to("#ov-clock", { ...pos, duration: f * F, ease }, at(b));
+          const flash = (b) =>
+            tl.fromTo("#ov-tip", { scale: 1 }, { scale: 1.9, duration: 3 * F, ease: "power2.out", yoyo: true, repeat: 1 }, at(b));
+          // 指针跳格：每格 3 帧急停
+          const step = (to, b) => tl.to("#ov-hand", { rotation: to, duration: 3 * F, ease: "power4.out" }, at(b));
+
+          // —— 屏 5（第 32 拍，高潮第一拍）：时间轴 4 帧横扫全屏 ——
+          tl.set("#ov-tlline", { opacity: 1 }, at(32));
+          tl.fromTo("#ov-tlline", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 4 * F, ease: "none" }, at(32));
+          // 第 34 拍：地球贴片弹出，胶带贴上
+          tl.set("#ov-earth", { opacity: 1 }, at(34));
+          tl.fromTo("#ov-earth", { scale: 0 }, { scale: 1, duration: 8 * F, ease: "power3.out" }, at(34));
+          tl.fromTo("#ov-earth-tape-i", { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out" }, at(34.5));
+          // 第 34.5–38 拍：时间轴被拉进圆里，圆从顶部顺时针画出来（同一缓动、同一时长）
+          const ring = document.getElementById("ov-ring");
+          const C = ring.getTotalLength();
+          ring.style.strokeDasharray = `${C}`;
+          tl.set(ring, { visibility: "visible" }, at(34.5));
+          tl.fromTo(ring, { strokeDashoffset: C }, { strokeDashoffset: 0, duration: 3.5 * T, ease: "power2.inOut" }, at(34.5));
+          tl.fromTo("#ov-tlline", { x: 0 }, { x: 1224, duration: 3.5 * T, ease: "power2.inOut" }, at(34.5));
+
+          // —— 屏 6（第 38 拍）：24 根刻度从顶部顺时针依次出现，指针从 0 点走一整圈 ——
+          gsap.utils.toArray("#overlay .ov-tick").forEach((el, i) => tl.set(el, { opacity: 1 }, at(38) + (i * T) / 24));
+          tl.set(["#ov-hand", "#ov-pin"], { opacity: 1 }, at(38));
+          tl.fromTo("#ov-hand", { scaleY: 0, rotation: 0 }, { scaleY: 1, rotation: 0, duration: 6 * F, ease: "power3.out" }, at(38));
+          tl.to("#ov-hand", { rotation: 360, duration: 4 * T, ease: "none" }, at(40));
+          flash(44);
+
+          // —— 屏 7（第 46 拍）：缩到右上角常驻 ——
+          moveClock(CORNER, 46, 8);
+
+          // —— 屏 9（第 62 拍）：放大；第 64–67.5 拍指针逆时针倒走 8 跳，停在 0 点左侧 28.3° ——
+          moveClock(HERO, 62);
+          for (let k = 1; k <= 8; k++) step(360 - (28.3 * k) / 8, 64 + 0.5 * (k - 1));
+
+          // —— 屏 10（第 68 拍）：骤停。指针褪成铅灰；第 70 拍缩回角落 ——
+          tl.to(["#ov-hand", "#ov-tip"], { backgroundColor: LEAD, duration: 2 * T, ease: "none" }, at(68));
+          moveClock(CORNER, 70, 8);
+
+          // —— 屏 12：第 81 拍大问号压在灰字上画出；第 82 拍飞到钟下面，常驻 ——
+          const hook = document.getElementById("ov-q-hook");
+          const H = hook.getTotalLength();
+          hook.style.strokeDasharray = `${H}`;
+          tl.set(hook, { visibility: "visible" }, at(81));
+          tl.fromTo(hook, { strokeDashoffset: H }, { strokeDashoffset: 0, duration: 0.75 * T, ease: "none" }, at(81));
+          tl.set("#ov-q-dot", { opacity: 1 }, at(81.75));
+          tl.fromTo("#ov-q-dot", { scale: 0, transformOrigin: "60px 178px" }, { scale: 1, duration: 3 * F, ease: "power3.out" }, at(81.75));
+          // 问号中心 (736, 490) → 钟下面 (1752, 300)，缩到 0.25
+          tl.to("#ov-q", { x: 1016, y: -190, scale: 0.25, duration: 8 * F, ease: "power3.inOut" }, at(82));
+          // 第 84 拍指针恢复锈红，越转越快，第 86 拍（第二段高潮第一拍）停在 20:22
+          tl.set(["#ov-hand", "#ov-tip"], { backgroundColor: RUST }, at(84));
+          tl.to("#ov-hand", { rotation: 360 + 305.6, duration: 2 * T, ease: "power2.in" }, at(84));
+
+          // —— 屏 13（第 86 拍）：放大定格；第 90 拍缩回 ——
+          moveClock(HERO, 86);
+          flash(86);
+          moveClock(CORNER, 90);
+
+          // —— 屏 17（第 114 拍）：每拍跳一格，第 118 拍停在 21:23 ——
+          moveClock(HERO, 114);
+          [114, 115, 116, 117].forEach((b, k) => step(360 + 305.6 + 3.75 * (k + 1), b));
+          flash(118);
+          moveClock(CORNER, 120);
+
+          // —— 屏 22（第 150 拍）：每拍沉沉地跳一格，第 154 拍停在 23:32 ——
+          moveClock(HERO, 150);
+          [150, 151, 152, 153].forEach((b, k) => step(360 + 320.6 + 8.125 * (k + 1), b));
+          flash(154);
+          moveClock(CORNER, 158);
+
+          // —— 屏 32（第 230 拍）：尾声。放大（慢一点），指针滑到离顶部一丝；放大镜里走完最后 8 秒 ——
+          moveClock(HERO, 230, 12);
+          tl.to("#ov-hand", { rotation: 360 + 359.967, duration: 1.5 * T, ease: "power2.out" }, at(230));
+          const leader = document.getElementById("ov-leader-path");
+          const LL = leader.getTotalLength();
+          leader.style.strokeDasharray = `${LL}`;
+          tl.set(leader, { visibility: "visible" }, at(231.5));
+          tl.fromTo(leader, { strokeDashoffset: LL }, { strokeDashoffset: 0, duration: 0.5 * T, ease: "none" }, at(231.5));
+          tl.set("#ov-loupe", { opacity: 1 }, at(231.5));
+          tl.fromTo("#ov-loupe", { scale: 0.4 }, { scale: 1, duration: 6 * F, ease: "power3.out" }, at(231.5));
+          for (let k = 1; k <= 8; k++) tl.to("#ov-needle", { x: 18 * k, duration: 3 * F, ease: "power4.out" }, at(232 + 0.5 * (k - 1)));
+          // 第 238 拍（屏 33）：放大镜收掉，钟回角落
+          tl.set(["#ov-loupe", leader], { opacity: 0 }, at(238));
+          moveClock(CORNER, 238);
+
+          // —— 屏 34（第 246 拍）：钟飞回基准位置；第 248–250 拍叠层石从钟心铺开，盖住地球、刻度和指针 ——
+          moveClock(BASE, 246, 8);
+          tl.fromTo("#ov-iris", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(50% at 50% 50%)", duration: 2 * T, ease: "power2.inOut" }, at(248));
+          // 第 250 拍交给第 7 幕纸上那张同位置的圆形贴片（它随整页一起拉远）
+          tl.set("#ov-clock", { opacity: 0 }, at(250));
+
+          // —— 屏 35（第 258 拍）：问号沿弧线飞进字里，落成「证据呢？」的问号 ——
+          // 落点：中心 (920.6, 597.6)，缩放 0.27；第 7 幕在同一位置有一枚一模一样的问号接手
+          tl.to("#ov-q", { x: 920.6 - 736, duration: 10 * F, ease: "power3.inOut" }, at(258));
+          tl.to("#ov-q", { y: 597.6 - 490, scale: 0.27, duration: 10 * F, ease: "back.in(1.4)" }, at(258));
+          tl.set("#ov-q", { opacity: 0 }, at(258) + 10 * F);
+
+          window.__timelines["overlay"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
