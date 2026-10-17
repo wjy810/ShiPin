@@ -358,6 +358,8 @@
           tl.set("#a5-shovel", { opacity: 0 }, at(136) + 7 * F);
           tl.set("#a5-card", { opacity: 1 }, at(136));
           tl.fromTo("#a5-card", { scale: 0 }, { scale: 1, duration: 10 * F, ease: "power3.out" }, at(136));
+          // 卡片弹满以后把底下的藏宝图和土收掉，免得海岸线从卡片下沿露出一截
+          tl.set(["#a5-map", "#a5-dirt"], { opacity: 0 }, at(136) + 10 * F);
           tl.fromTo(".a5-tape", { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out", stagger: 2 * F }, at(136.5));
 
           // —— 屏 21（第 142–149 拍）：照片放大移到中间，推近到鳍；第 144 拍圈鳍，第 146 拍划「手腕」 ——
