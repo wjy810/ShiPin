@@ -26,6 +26,9 @@ description: 用 HyperFrames 把「文案 + 配图 + 配乐」做成卡拍的横
 
 ## 流程（每步都有过关标准）
 
+下文的 `scripts/`、`assets/`、`references/` 都指本技能目录 `.claude/skills/notebook-explainer-video/`。
+（`成片/scripts/` 里另有项目自己的 `mixdown.py`、`finalize.py`，剪法写死在里面、参数也不同，只给这支片子用。）
+
 | 步 | 做什么 | 工具 | 过关标准 |
 |---|---|---|---|
 | 0 | 读全部材料，记下每张图的限制 | — | 能说出每屏用哪张图、哪些不能做 |
