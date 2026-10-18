@@ -1,0 +1,270 @@
+<!doctype html>
+<!--
+  风格 A（野外记录本）一页纸的子合成模板。一幕 = 一页 = 一个子合成。
+  用法：复制成 compositions/act-N.html，把 page-01 / pg- 全部替换成本幕的 id 和前缀，
+  改 BPM、B0（本幕第一拍在全片的拍号）、END（下一幕推进来的那一拍）。
+  index.html 里的宿主：data-start = B0 × 拍长，data-duration = (END − B0) × 拍长 + 8 帧（翻页重叠）。
+  需要的素材：assets/fonts/*.woff2（片中用字的子集）、assets/images/paper-grain.png、照片的 *-print.jpg。
+-->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>第 N 幕</title>
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Noto Serif SC";
+          src: url("assets/fonts/NotoSerifSC-subset.woff2") format("woff2");
+          font-weight: 200 900;
+          font-display: block;
+        }
+        #page-01 {
+          --paper: #f1ebdd;
+          --ink: #23201a;
+          --rust: #9a3412;
+          --graphite: #635d53;
+          --card: #fbf8f1;
+          --tape: rgba(216, 195, 154, 0.88);
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Noto Serif SC", serif;
+          color: var(--ink);
+        }
+        #page-01 * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        /* —— 纸页：纸色、横格线（每 55px）、纸纹、左边三个活页孔 —— */
+        #page-01 .page {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: var(--paper);
+          box-shadow: 0 30px 80px rgba(35, 32, 26, 0.35);
+        }
+        #page-01 .ruled {
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 53px, rgba(35, 32, 26, 0.13) 53px, rgba(35, 32, 26, 0.13) 55px);
+        }
+        #page-01 .grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/paper-grain.png");
+        }
+        #page-01 .holes {
+          position: absolute;
+          left: 34px;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 150px 0;
+        }
+        #page-01 .holes i {
+          display: block;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: #d9d1bf;
+          box-shadow: inset 0 3px 6px rgba(35, 32, 26, 0.35);
+        }
+        /* —— 照片卡（证据）：相纸白边、投影、倾斜写在外层 .tilt 上，GSAP 只动里面的 .card —— */
+        #page-01 .tilt {
+          position: absolute;
+          right: 120px;
+          top: 112px;
+          width: 860px;
+          transform: rotate(2.2deg);
+        }
+        #page-01 .card {
+          display: block;
+          width: 100%;
+          padding: 20px;
+          background: var(--card);
+          box-shadow: 0 18px 44px rgba(35, 32, 26, 0.28);
+          transform-origin: 50% 0%;
+          opacity: 0;
+        }
+        #page-01 .frame {
+          display: block;
+          width: 820px;
+          height: 461px;
+          overflow: hidden;
+        }
+        #page-01 .frame img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #page-01 .tape {
+          position: absolute;
+          top: -22px;
+          width: 168px;
+          height: 46px;
+        }
+        #page-01 .tape.left {
+          left: 40px;
+          transform: rotate(-7deg);
+        }
+        #page-01 .tape.right {
+          right: 40px;
+          transform: rotate(6deg);
+        }
+        #page-01 .tape i {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: var(--tape);
+          transform-origin: 0% 50%;
+        }
+        /* —— 字：左下，最多两行，每组字一个 .w，初始透明 —— */
+        #page-01 .say {
+          position: absolute;
+          left: 120px;
+          bottom: 118px;
+          font-size: 100px;
+          font-weight: 900;
+          line-height: 1.2;
+          letter-spacing: -0.02em;
+        }
+        #page-01 .line {
+          display: block;
+          white-space: nowrap;
+        }
+        #page-01 .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #page-01 .rust {
+          color: var(--rust);
+        }
+        /* —— 墨线（示意、下划线、圈）：路径先藏着，draw() 描出来 —— */
+        #page-01 svg.ink {
+          position: absolute;
+          overflow: visible;
+        }
+        #page-01 svg.ink path {
+          visibility: hidden;
+          fill: none;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        /* —— 「示意」章 —— */
+        #page-01 .stamp {
+          position: absolute;
+          padding: 6px 16px;
+          border: 4px solid var(--rust);
+          color: var(--rust);
+          font-size: 40px;
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: 0.06em;
+          background: rgba(251, 248, 241, 0.85);
+          opacity: 0;
+        }
+      </style>
+
+      <div id="page-01" data-composition-id="page-01" data-width="1920" data-height="1080">
+        <div class="page" id="pg-page">
+          <div class="ruled"></div>
+          <div class="grain"></div>
+          <div class="holes" aria-hidden="true"><i></i><i></i><i></i></div>
+
+          <!-- 照片卡：来源、许可写在注释里 -->
+          <div class="tilt">
+            <div class="card" id="pg-card">
+              <div class="frame"><img id="pg-photo" src="assets/images/photo-print.jpg" alt="" /></div>
+              <div class="tape left"><i class="pg-tape"></i></div>
+              <div class="tape right"><i class="pg-tape"></i></div>
+            </div>
+          </div>
+
+          <!-- 字：照抄文案，强调词锈红，一屏最多一组 -->
+          <h1 class="say" id="pg-s1">
+            <span class="line"><span class="w rust" id="pg-w1">强调词</span><span class="w" id="pg-w2">第一行其余的字</span></span>
+            <span class="line" style="position: relative"
+              ><span class="w" id="pg-w3">第二行</span
+              ><svg class="ink" style="left: -6px; bottom: -30px; width: 330px; height: 44px" viewBox="0 0 330 44" aria-hidden="true">
+                <path id="pg-ul" d="M 8 30 C 80 18, 160 36, 240 24 S 300 22, 322 28" style="stroke: var(--rust); stroke-width: 9" /></svg
+            ></span>
+          </h1>
+
+          <!-- 示意图：墨线手绘 + 「示意」章（章里的字也要在字体子集里） -->
+          <svg class="ink" style="left: 200px; top: 160px; width: 600px; height: 300px" viewBox="0 0 600 300" aria-hidden="true">
+            <path id="pg-sketch" d="M 20 220 C 120 120, 220 260, 320 160 S 520 80, 580 140" style="stroke: var(--ink); stroke-width: 6" />
+          </svg>
+          <div class="stamp" id="pg-stamp" style="left: 640px; top: 420px">示意</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 128; // 1 拍（按配乐 BPM 改）
+          const F = 1 / 30; // 1 帧
+          const B0 = 0; // 本幕第一拍在全片的拍号
+          const END = 16; // 下一幕从这一拍推页进来
+          const at = (b) => (b - B0) * T; // 全片拍号 → 本幕时间
+          const tl = gsap.timeline({ paused: true });
+
+          // 急停落字：透明度直接切 1，从下方落到位，不淡入
+          const drop = (sel, b, dy = 60, f = 6) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { y: dy }, { y: 0, duration: f * F, ease: "power4.out" }, at(b));
+          };
+          // 描线：路径长度在搭建时量好，匀速描出（默认 1 拍）
+          const draw = (sel, b, beats = 1) => {
+            const p = document.querySelector(sel);
+            const len = p.getTotalLength();
+            p.style.strokeDasharray = `${len}`;
+            tl.set(p, { visibility: "visible" }, at(b));
+            tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: beats * T, ease: "none" }, at(b));
+          };
+          // 照片卡弹出：0 → 原大，不回弹
+          const pop = (sel, b, f = 10) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scale: 0, y: 12 }, { scale: 1, y: 0, duration: f * F, ease: "power3.out" }, at(b));
+          };
+          // 贴胶带：两条错开 2 帧
+          const tapes = (sel, b) => tl.fromTo(sel, { scaleX: 0 }, { scaleX: 1, duration: 7 * F, ease: "power3.out", stagger: 2 * F }, at(b));
+          // 盖章：倾斜写进补间里（不能和 CSS transform 并存）
+          const stamp = (sel, b) => {
+            tl.set(sel, { opacity: 1 }, at(b));
+            tl.fromTo(sel, { scale: 1.35, rotation: -4 }, { scale: 1, rotation: -4, duration: 4 * F, ease: "power2.out" }, at(b));
+          };
+          // 甩出：向上 80px、转 5°，第 5 帧直接消失
+          const flick = (sel, b, dir = 1) => {
+            tl.to(sel, { y: -80, rotation: 5 * dir, duration: 6 * F, ease: "power2.in" }, at(b));
+            tl.set(sel, { opacity: 0 }, at(b) + 5 * F);
+          };
+
+          // 推页入场（第一幕不要这一句）：和上一幕的推出同一帧、同一缓动
+          tl.fromTo("#pg-page", { x: 1920 }, { x: 0, duration: 8 * F, ease: "power4.out" }, 0);
+
+          // —— 屏 X（第 0–7 拍）——
+          pop("#pg-card", 0);
+          tapes(".pg-tape", 0.5);
+          drop("#pg-w1", 0, 80);
+          drop("#pg-w2", 0.5, 50);
+          drop("#pg-w3", 1, 70);
+          draw("#pg-ul", 2);
+          // —— 屏 Y（第 8–15 拍）——
+          flick("#pg-card", 8);
+          draw("#pg-sketch", 8, 2);
+          stamp("#pg-stamp", 10);
+
+          // 推页离场：下一幕推进来的同一拍
+          tl.to("#pg-page", { x: -1920, duration: 8 * F, ease: "power4.out" }, at(END));
+
+          window.__timelines["page-01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
