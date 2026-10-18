@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>S10 数字指纹</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #sc09-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3eee3;
+        }
+        #sc09-all {
+          position: absolute;
+          inset: 0;
+        }
+        #k-ledger {
+          position: absolute;
+          left: 80px;
+          top: -40px;
+          width: 1760px;
+          font: 400 22px/40px "JetBrains Mono", monospace;
+          color: rgba(201, 207, 223, 0.09);
+          white-space: pre;
+        }
+        #k-lens {
+          position: absolute;
+          left: 0;
+          top: 120px;
+          width: 520px;
+          height: 520px;
+          border-radius: 50%;
+          background: radial-gradient(closest-side, rgba(160, 172, 201, 0.12), rgba(160, 172, 201, 0.04) 70%, rgba(160, 172, 201, 0));
+          border: 1px solid rgba(160, 172, 201, 0.12);
+          opacity: 0;
+        }
+        .name-card {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 112px;
+          text-align: center;
+          opacity: 0;
+        }
+        .name-card .zh {
+          font: 600 54px/1.1 "Noto Serif SC", serif;
+          letter-spacing: 0.14em;
+        }
+        .name-card .en {
+          margin-top: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          font: 600 20px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.32em;
+          color: rgba(243, 238, 227, 0.66);
+        }
+        .name-card .en i {
+          display: block;
+          width: 60px;
+          height: 1px;
+          background: rgba(216, 180, 106, 0.8);
+        }
+        #k-main {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 252px;
+          text-align: center;
+          font: 600 44px/1.25 "Noto Serif SC", serif;
+          letter-spacing: 0.06em;
+          opacity: 0;
+        }
+        #k-pair {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 240px 600px;
+        }
+        .hist {
+          position: absolute;
+          top: 370px;
+          width: 540px;
+          height: 420px;
+          opacity: 0;
+        }
+        .hist h4 {
+          position: absolute;
+          left: 0;
+          width: 540px;
+          top: 0;
+          text-align: center;
+          font: 600 32px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.08em;
+        }
+        .hist h4 small {
+          font: 500 20px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.1em;
+          margin-left: 10px;
+          color: rgba(160, 172, 201, 1);
+        }
+        .hist .base {
+          position: absolute;
+          left: 0;
+          top: 380px;
+          width: 540px;
+          height: 1.5px;
+        }
+        .hist i {
+          position: absolute;
+          bottom: 40px;
+          width: 40px;
+          margin-left: -20px;
+          transform-origin: 50% 100%;
+        }
+        .hist b {
+          position: absolute;
+          bottom: 4px;
+          width: 40px;
+          margin-left: -20px;
+          text-align: center;
+          font: 700 24px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.75);
+        }
+        #h-real {
+          left: 300px;
+        }
+        #h-real .base {
+          background: rgba(216, 180, 106, 0.55);
+        }
+        #h-real i {
+          background: linear-gradient(to top, rgba(142, 110, 53, 0.6), rgba(242, 217, 153, 0.95));
+        }
+        #h-fake {
+          left: 1080px;
+        }
+        #h-fake .base {
+          background: rgba(111, 124, 153, 0.7);
+        }
+        #h-fake i {
+          background: linear-gradient(to top, rgba(111, 124, 153, 0.4), rgba(160, 172, 201, 0.95));
+        }
+        #k-neq {
+          position: absolute;
+          left: 900px;
+          top: 520px;
+          width: 120px;
+          height: 120px;
+          overflow: visible;
+          opacity: 0;
+        }
+        #k-neq path {
+          fill: none;
+          stroke: rgba(243, 238, 227, 0.8);
+          stroke-width: 7;
+          stroke-linecap: round;
+        }
+        #k-ev {
+          position: absolute;
+          left: 1150px;
+          top: 300px;
+          width: 700px;
+        }
+        .ev {
+          position: relative;
+          padding: 22px 0 22px 64px;
+          border-bottom: 1px solid rgba(216, 180, 106, 0.22);
+          opacity: 0;
+        }
+        .ev .no {
+          position: absolute;
+          left: 0;
+          top: 22px;
+          font: 700 40px/1 "Playfair Display", serif;
+          color: #d8b46a;
+        }
+        .ev .t {
+          font: 600 34px/1.2 "Noto Serif SC", serif;
+          letter-spacing: 0.04em;
+        }
+        .ev .t b {
+          color: #f2d999;
+        }
+        .ev .s {
+          margin-top: 10px;
+          font: 500 24px/1.4 "Noto Serif SC", serif;
+          color: rgba(243, 238, 227, 0.72);
+        }
+        .ev .c {
+          margin-top: 8px;
+          font: italic 500 20px/1.2 "Cormorant Garamond", serif;
+          letter-spacing: 0.03em;
+          color: rgba(243, 238, 227, 0.48);
+        }
+      </style>
+
+      <div id="sc09-root" data-composition-id="sc09" data-width="1920" data-height="1080">
+        <div id="sc09-all">
+          <div id="k-ledger" data-layout-ignore="true" aria-hidden="true"></div>
+          <div id="k-lens"></div>
+          <div class="name-card" id="k-name">
+            <div class="zh">数字指纹</div>
+            <div class="en"><i></i><span>A FINGERPRINT FOR REAL DATA</span><i></i></div>
+          </div>
+          <div id="k-main">人编出来的数，常常不符合这条规律</div>
+          <div id="k-pair">
+            <div class="hist" id="h-real"><h4>真实数据</h4><div class="base"></div></div>
+            <div class="hist" id="h-fake"><h4>编出来的数<small>示意</small></h4><div class="base"></div></div>
+            <svg id="k-neq" viewBox="0 0 120 120" aria-hidden="true"><path d="M 22 48 L 98 48 M 22 74 L 98 74 M 78 18 L 42 104" /></svg>
+          </div>
+          <div id="k-ev">
+            <div class="ev" id="ev-1"><span class="no">1</span><div class="t">会计取证</div><div class="s">用它从成千上万笔账目里，筛出可疑的那一批</div><div class="c">Nigrini, Benford's Law: Applications for Forensic Accounting, 2012</div></div>
+            <div class="ev" id="ev-2"><span class="no">2</span><div class="t">加拿大税务局</div><div class="s">在一些情况下，把它当作识别不合规的工具之一</div><div class="c">Law Times, "Benford's law a key weapon for detecting fraud"</div></div>
+            <div class="ev" id="ev-3"><span class="no">3</span><div class="t"><b>2011</b> · 欧盟各国的经济数据</div><div class="s">各国上报给欧盟统计局的数据里，希腊偏离得最远</div><div class="c">Rauch et al., German Economic Review, 2011</div></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 102.4;
+          const B0 = 192;
+          const at = (b) => (b - B0) * T;
+          const prand = (n) => {
+            const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+            return x - Math.floor(x);
+          };
+          // 背景账本：看起来像真实账目的金额（固定种子）
+          let ledger = "";
+          for (let r = 0; r < 30; r++) {
+            let line = "";
+            for (let c = 0; c < 9; c++) {
+              const v = Math.pow(10, 1 + prand(r * 31 + c * 7) * 5);
+              const s = v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              line += s.padStart(14, " ") + "    ";
+            }
+            ledger += line + "\n";
+          }
+          document.getElementById("k-ledger").textContent = ledger;
+          const REAL = [30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6];
+          const FAKE = [12.4, 11.6, 11.8, 11.2, 10.9, 11.4, 10.6, 10.2, 9.9]; // 示意：太“平均”
+          const fill = (id, vals) => {
+            const h = document.getElementById(id);
+            vals.forEach((v, k) => {
+              const x = 30 + k * 60;
+              const bar = document.createElement("i");
+              bar.style.left = x + "px";
+              bar.style.height = (v * 9.5).toFixed(1) + "px";
+              h.appendChild(bar);
+              const d = document.createElement("b");
+              d.style.left = x + "px";
+              d.textContent = k + 1;
+              h.appendChild(d);
+            });
+          };
+          fill("h-real", REAL);
+          fill("h-fake", FAKE);
+
+          const tl = gsap.timeline({ paused: true });
+          const SCENE = at(224) + 0.4;
+          tl.fromTo("#k-ledger", { y: 0 }, { y: -260, duration: SCENE, ease: "none" }, 0);
+          tl.to("#k-lens", { opacity: 1, duration: 1.2, ease: "power2.out" }, 0.3);
+          tl.fromTo("#k-lens", { x: 120, y: 60 }, { x: 1300, y: 220, duration: SCENE - 0.3, ease: "sine.inOut" }, 0.3);
+          tl.fromTo("#k-name", { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 0.15);
+          tl.fromTo("#k-main", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, at(194));
+          tl.fromTo("#h-real", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, at(195));
+          tl.fromTo("#h-real i", { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power3.out", stagger: 0.06 }, at(195.3));
+          tl.fromTo("#h-fake", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, at(197));
+          tl.fromTo("#h-fake i", { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power3.out", stagger: 0.06 }, at(197.3));
+          tl.fromTo("#k-neq", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, at(199));
+          // 让出右边：两张图缩到左边，证据一条条出来
+          tl.to("#k-main", { opacity: 0, y: -10, duration: 0.5, ease: "power2.in" }, at(202.5));
+          tl.to("#k-pair", { scale: 0.62, x: -10, y: -40, duration: 1.0, ease: "power3.inOut" }, at(202.5));
+          [204, 208, 212].forEach((b, k) => {
+            tl.fromTo("#ev-" + (k + 1), { opacity: 0, x: 24, filter: "blur(6px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, at(b));
+          });
+          tl.to("#sc09-all", { opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, at(224) - 0.05);
+          window.__timelines["sc09"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

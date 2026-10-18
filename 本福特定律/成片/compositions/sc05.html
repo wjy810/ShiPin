@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>S6 乘法的世界</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #sc05-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3eee3;
+        }
+        #sc05-all {
+          position: absolute;
+          inset: 0;
+        }
+        .name-card {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          text-align: center;
+          opacity: 0;
+        }
+        .name-card .zh {
+          font: 600 54px/1.1 "Noto Serif SC", serif;
+          letter-spacing: 0.14em;
+        }
+        .name-card .en {
+          margin-top: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          font: 600 20px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.32em;
+          color: rgba(243, 238, 227, 0.66);
+        }
+        .name-card .en i {
+          display: block;
+          width: 60px;
+          height: 1px;
+          background: rgba(216, 180, 106, 0.8);
+        }
+        #m-name {
+          top: 112px;
+        }
+        #m-main {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 256px;
+          text-align: center;
+          font: 500 42px/1.2 "Noto Serif SC", serif;
+          letter-spacing: 0.08em;
+          color: rgba(243, 238, 227, 0.9);
+          opacity: 0;
+        }
+        #m-main .gold {
+          color: #f2d999;
+          font-weight: 700;
+        }
+        #m-counter {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 344px;
+          text-align: center;
+          font: 700 168px/1 "Playfair Display", serif;
+          font-variant-numeric: lining-nums tabular-nums;
+          letter-spacing: 0.01em;
+          color: rgba(243, 238, 227, 0.9);
+          opacity: 0;
+        }
+        #m-counter .lead {
+          color: #f2d999;
+          text-shadow: 0 0 34px rgba(216, 180, 106, 0.55);
+        }
+        #m-meta {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 530px;
+          text-align: center;
+          font: 500 26px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.14em;
+          color: rgba(243, 238, 227, 0.55);
+          opacity: 0;
+        }
+        #m-meta b {
+          font: 600 28px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.85);
+          letter-spacing: 0.02em;
+        }
+        /* 轨道：宽 1400，从 x 260 开始；每段宽 = 1400·log10((d+1)/d) */
+        #m-track {
+          position: absolute;
+          left: 260px;
+          top: 640px;
+          width: 1400px;
+          height: 36px;
+          border: 1px solid rgba(216, 180, 106, 0.4);
+        }
+        .seg {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          border-right: 1px solid rgba(5, 6, 11, 0.9);
+          transform-origin: 0 50%;
+        }
+        .seg-d {
+          position: absolute;
+          top: -40px;
+          width: 60px;
+          margin-left: -30px;
+          text-align: center;
+          font: 700 26px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.8);
+          opacity: 0;
+        }
+        .seg-y {
+          position: absolute;
+          top: 50px;
+          width: 120px;
+          margin-left: -60px;
+          text-align: center;
+          font: 500 20px/1 "Noto Serif SC", serif;
+          color: rgba(243, 238, 227, 0.55);
+          opacity: 0;
+        }
+        #m-head {
+          position: absolute;
+          top: -10px;
+          width: 2px;
+          height: 56px;
+          margin-left: -1px;
+          background: #fff6de;
+          box-shadow: 0 0 14px rgba(247, 231, 188, 0.9);
+          opacity: 0;
+        }
+        .callout {
+          position: absolute;
+          font: 500 30px/1.3 "Noto Serif SC", serif;
+          letter-spacing: 0.04em;
+          opacity: 0;
+        }
+        .callout b {
+          font: 700 34px/1 "Playfair Display", serif;
+          color: #f2d999;
+        }
+        .callout i {
+          position: absolute;
+          width: 1.5px;
+          background: linear-gradient(to bottom, rgba(216, 180, 106, 0.9), rgba(216, 180, 106, 0.1));
+        }
+        #m-c1 {
+          left: 260px;
+          top: 742px;
+        }
+        #m-c1 i {
+          left: 210px;
+          top: -64px;
+          height: 58px;
+        }
+        #m-c9 {
+          right: 260px;
+          top: 742px;
+          text-align: right;
+        }
+        #m-c9 i {
+          right: 26px;
+          top: -64px;
+          height: 58px;
+        }
+        #m-hill {
+          position: absolute;
+          left: 260px;
+          top: 838px;
+          font: 500 21px/1.4 "Noto Serif SC", serif;
+          color: rgba(243, 238, 227, 0.5);
+          opacity: 0;
+        }
+        #m-hill em {
+          font: italic 500 20px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.04em;
+        }
+        #m-next {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 252px;
+          text-align: center;
+          font: 600 50px/1.2 "Noto Serif SC", serif;
+          letter-spacing: 0.1em;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="sc05-root" data-composition-id="sc05" data-width="1920" data-height="1080">
+        <div id="sc05-all">
+          <div class="name-card" id="m-name">
+            <div class="zh">乘法的世界</div>
+            <div class="en"><i></i><span>A WORLD THAT MULTIPLIES</span><i></i></div>
+          </div>
+          <div id="m-main">因为很多数，是<span class="gold">“乘”</span>着长大的</div>
+          <div id="m-counter"><span class="lead" id="m-lead">1</span><span id="m-rest">00</span></div>
+          <div id="m-meta">每年涨 <b>10%</b> · 第 <b id="m-year">0.0</b> 年</div>
+          <div id="m-track"><div id="m-head"></div></div>
+          <div class="callout" id="m-c1"><i></i>从 1 到 2：要 <b>翻一倍</b></div>
+          <div class="callout" id="m-c9"><i></i>从 9 到 10：只要再涨 <b>11%</b></div>
+          <div id="m-hill">1995 年，数学家希尔给出了严格的统计推导 · <em>Hill, Statistical Science</em></div>
+          <div id="m-next">把这条路，画在一把尺子上——</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 102.4;
+          const B0 = 96;
+          const at = (b) => (b - B0) * T;
+          const W = 1400;
+          const track = document.getElementById("m-track");
+          const SHADES = ["#f2d999", "#c9a964", "#b4954f", "#a18443", "#91773b", "#846c36", "#786332", "#6e5b2e", "#65542b"];
+          for (let d = 1; d <= 9; d++) {
+            const x0 = W * Math.log10(d), w = W * Math.log10((d + 1) / d);
+            const seg = document.createElement("div");
+            seg.className = "seg";
+            seg.id = "seg-" + d;
+            seg.style.left = x0.toFixed(2) + "px";
+            seg.style.width = w.toFixed(2) + "px";
+            seg.style.background = d === 1 ? "linear-gradient(90deg, #f7e7bc, #d8b46a)" : SHADES[d - 1];
+            track.appendChild(seg);
+            const lab = document.createElement("div");
+            lab.className = "seg-d";
+            lab.id = "segd-" + d;
+            lab.style.left = (x0 + w / 2).toFixed(1) + "px";
+            lab.textContent = d;
+            track.appendChild(lab);
+            const yrs = Math.log((d + 1) / d) / Math.log(1.1);
+            const y = document.createElement("div");
+            y.className = "seg-y";
+            y.id = "segy-" + d;
+            y.style.left = (x0 + w / 2).toFixed(1) + "px";
+            y.textContent = yrs.toFixed(1) + (d === 1 || d === 9 ? " 年" : "");
+            if (d === 1 || d === 9) y.style.color = "rgba(242,217,153,0.95)";
+            track.appendChild(y);
+          }
+
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#m-name", { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 0.15);
+          tl.fromTo("#m-main", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, at(98));
+          tl.fromTo("#m-counter", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, at(99.5));
+          tl.fromTo("#m-meta", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, at(100));
+          tl.fromTo("#m-track", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, at(99.5));
+          // 增长：u 从 0 到 1 匀速（指数增长），数值 = 100·10^u；轨道按时间填满
+          const G0 = at(100.5), GD = 12 * T;
+          const lead = document.getElementById("m-lead"), rest = document.getElementById("m-rest"), year = document.getElementById("m-year");
+          const head = document.getElementById("m-head");
+          const g = { u: 0 };
+          tl.set(head, { opacity: 1 }, G0);
+          tl.to(g, {
+            u: 1, duration: GD, ease: "none",
+            onUpdate: () => {
+              const v = Math.min(999, Math.floor(100 * Math.pow(10, g.u)));
+              const s = g.u >= 1 ? "1,000" : String(v);
+              lead.textContent = s[0];
+              rest.textContent = s.slice(1);
+              year.textContent = (g.u * Math.log(10) / Math.log(1.1)).toFixed(1);
+              head.style.left = (W * g.u).toFixed(1) + "px";
+            },
+          }, G0);
+          for (let d = 1; d <= 9; d++) {
+            const a = Math.log10(d), b = Math.log10(d + 1);
+            tl.fromTo("#seg-" + d, { scaleX: 0 }, { scaleX: 1, duration: GD * (b - a), ease: "none" }, G0 + GD * a);
+            tl.fromTo("#segd-" + d, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, G0 + GD * a);
+            tl.fromTo("#segy-" + d, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, G0 + GD * b - 0.1);
+          }
+          tl.to(head, { opacity: 0, duration: 0.3 }, G0 + GD + 0.1);
+          tl.to("#m-counter", { color: "#f2d999", duration: 0.4 }, G0 + GD);
+          // 注释
+          tl.fromTo("#m-c1", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, at(114));
+          tl.fromTo("#m-c9", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, at(116));
+          tl.fromTo("#m-hill", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.out" }, at(118));
+          // 第 32 小节（滚奏）：轨道升起，交给对数尺
+          tl.to(["#m-name", "#m-main", "#m-counter", "#m-meta", "#m-c1", "#m-c9", "#m-hill"], { opacity: 0, filter: "blur(6px)", duration: 0.6, ease: "power2.in" }, at(123.5));
+          tl.to(".seg-y", { opacity: 0, duration: 0.4, ease: "power2.in" }, at(123.5));
+          tl.fromTo("#m-next", { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, at(124));
+          tl.to("#m-track", { y: -100, duration: 3 * T, ease: "power2.inOut" }, at(124.5));
+          tl.to("#m-next", { opacity: 0, duration: 0.4, ease: "power2.in" }, at(128) - 0.3);
+          tl.to("#sc05-all", { opacity: 0, duration: 0.4, ease: "power2.in" }, at(128) + 0.0);
+          window.__timelines["sc05"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
