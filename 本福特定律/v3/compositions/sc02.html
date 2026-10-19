@@ -58,29 +58,8 @@
           position: absolute;
           left: 0;
           width: 1920px;
-          top: 330px;
+          top: 370px;
           text-align: center;
-        }
-        #t-kicker {
-          display: inline-flex;
-          align-items: center;
-          gap: 18px;
-          font: 500 26px/1 "Noto Serif SC", serif;
-          letter-spacing: 0.32em;
-          color: rgba(243, 238, 227, 0.62);
-          opacity: 0;
-        }
-        #t-kicker .seal {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 1.5px solid rgba(216, 180, 106, 0.85);
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          font: 700 22px/1 "Playfair Display", serif;
-          color: #d8b46a;
-          letter-spacing: 0;
         }
         #t-title {
           margin-top: 38px;
@@ -143,7 +122,6 @@
         <div id="t-flash"></div>
         <div id="t-sparks"></div>
         <div id="t-block">
-          <div id="t-kicker"><span class="seal">1</span><span>Vibe知识大赏</span></div>
           <div id="t-title"><span>偏</span><span>心</span><span>的</span><span>数</span><span>字</span></div>
           <div id="t-rule"></div>
           <div id="t-en">THE LOPSIDED DIGITS</div>
@@ -191,7 +169,6 @@
           tl.fromTo("#t-rosette", { opacity: 0, scale: 0.7, rotation: -20 }, { opacity: 0.42, scale: 0.95, rotation: 0, duration: 1.4, ease: "power3.out" }, 0.05);
           tl.fromTo("#t-rosette", { rotation: 0 }, { rotation: 14, duration: at(40) - 1.45, ease: "none", immediateRender: false }, 1.45);
           tl.fromTo("#t-scrim", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.1);
-          tl.fromTo("#t-kicker", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.15);
           tl.fromTo("#t-title span", { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out", stagger: 0.07 }, 0.1);
           tl.fromTo("#t-rule", { scaleX: 0 }, { scaleX: 1, duration: 1.0, ease: "power3.inOut" }, at(33));
           tl.fromTo("#t-en", { opacity: 0, y: 10, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.1, ease: "power3.out" }, at(33));

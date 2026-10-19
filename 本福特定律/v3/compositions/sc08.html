@@ -30,19 +30,6 @@
           opacity: 0;
           transform-origin: 960px 900px;
         }
-        .ai-tag {
-          position: absolute;
-          right: 100px;
-          top: 872px;
-          padding: 6px 14px;
-          border: 1px solid rgba(201, 207, 223, 0.35);
-          border-radius: 999px;
-          font: 500 18px/1 "Noto Serif SC", serif;
-          letter-spacing: 0.12em;
-          color: rgba(201, 207, 223, 0.8);
-          background: rgba(5, 6, 11, 0.55);
-          opacity: 0;
-        }
         .burst {
           position: absolute;
           width: 900px;
@@ -217,7 +204,6 @@
       <div id="sc08-root" data-composition-id="sc08" data-width="1920" data-height="1080">
         <div id="sc08-all">
           <img id="p-earth" src="assets/images/ai/earth-night.webp" alt="" aria-hidden="true" />
-          <div class="ai-tag" id="p-tag">AI 示意图 · 夜晚的地球</div>
           <div id="p-main">我们拿 <b>2023</b> 年 <b>217</b> 个国家和地区的人口，试了一下</div>
           <div id="p-src">数据 · 世界银行 <em>World Development Indicators</em></div>
           <div id="p-axis"><div class="ln"></div></div>
@@ -327,8 +313,6 @@
           tl.fromTo("#p-earth", { opacity: 0, y: 120 }, { opacity: 0.9, y: 0, duration: 1.4, ease: "power3.out" }, 0);
           tl.fromTo("#p-earth", { scale: 1.0 }, { scale: 1.05, duration: SCENE, ease: "none" }, 0);
           tl.to("#p-earth", { opacity: 0.42, duration: 1.0, ease: "power2.inOut" }, at(180.3));
-          tl.fromTo("#p-tag", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.5);
-          tl.to("#p-tag", { opacity: 0, duration: 0.5, ease: "power2.in" }, at(183));
           tl.fromTo("#p-src", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, at(176.8));
           tl.fromTo("#p-axis", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, at(176.8));
           tl.fromTo("#p-min", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at(178.5));

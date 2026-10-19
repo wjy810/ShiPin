@@ -43,19 +43,6 @@
             linear-gradient(90deg, rgba(5, 6, 11, 0.8) 0%, rgba(5, 6, 11, 0.2) 36%, rgba(5, 6, 11, 0) 60%, rgba(5, 6, 11, 0.35) 100%),
             linear-gradient(180deg, rgba(5, 6, 11, 0.3) 0%, rgba(5, 6, 11, 0) 30%, rgba(5, 6, 11, 0) 64%, rgba(5, 6, 11, 0.85) 100%);
         }
-        .ai-tag {
-          position: absolute;
-          right: 100px;
-          top: 872px;
-          padding: 6px 14px;
-          border: 1px solid rgba(201, 207, 223, 0.35);
-          border-radius: 999px;
-          font: 500 18px/1 "Noto Serif SC", serif;
-          letter-spacing: 0.12em;
-          color: rgba(201, 207, 223, 0.8);
-          background: rgba(5, 6, 11, 0.55);
-          opacity: 0;
-        }
         .burst {
           position: absolute;
           width: 900px;
@@ -344,7 +331,6 @@
         <div id="sc04-all">
           <img id="b-photo" src="assets/images/ai/lab-1938.jpg" alt="" aria-hidden="true" />
           <div id="b-scrim"></div>
-          <div class="ai-tag" id="b-tag">AI 示意图 · 1930 年代的实验室</div>
           <div id="b-block">
             <div id="b-kicker">57 年后</div>
             <div id="b-year" class="gold-metal">1938</div>
@@ -460,8 +446,6 @@
           tl.fromTo("#b-photo", { scale: 1.0 }, { scale: 1.06, duration: SCENE, ease: "none" }, 0);
           tl.to("#b-photo", { opacity: 0.2, duration: 1.2, ease: "power2.inOut" }, at(71.5));
           tl.to("#b-photo", { opacity: 0.1, duration: 1.2, ease: "power2.inOut" }, at(76));
-          tl.fromTo("#b-tag", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.4);
-          tl.to("#b-tag", { opacity: 0, duration: 0.5, ease: "power2.in" }, at(71));
           tl.fromTo("#b-block", { opacity: 0, x: -24, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 0.1);
           // 转盘：卡片依次出现，整体缓慢旋转
           tl.fromTo("#b-ring", { rotationY: 0, rotationX: -8 }, { rotationY: -150, rotationX: -8, duration: at(73), ease: "none" }, 0);

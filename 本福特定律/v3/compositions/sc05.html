@@ -67,19 +67,6 @@
           background: radial-gradient(closest-side, rgba(5, 6, 11, 0.7), rgba(5, 6, 11, 0) 100%);
           opacity: 0;
         }
-        .ai-tag {
-          position: absolute;
-          right: 100px;
-          top: 872px;
-          padding: 6px 14px;
-          border: 1px solid rgba(201, 207, 223, 0.35);
-          border-radius: 999px;
-          font: 500 18px/1 "Noto Serif SC", serif;
-          letter-spacing: 0.12em;
-          color: rgba(201, 207, 223, 0.8);
-          background: rgba(5, 6, 11, 0.55);
-          opacity: 0;
-        }
         #m-name {
           top: 112px;
         }
@@ -238,7 +225,6 @@
         <div id="sc05-all">
           <img id="m-shell" src="assets/images/ai/nautilus.webp" alt="" aria-hidden="true" />
           <div id="m-scrim"></div>
-          <div class="ai-tag" id="m-tag">AI 示意图 · 鹦鹉螺：按比例长大的对数螺线</div>
           <div class="name-card" id="m-name">
             <div class="zh">乘法的世界</div>
             <div class="en"><i></i><span>A WORLD THAT MULTIPLIES</span><i></i></div>
@@ -291,8 +277,7 @@
           tl.fromTo("#m-shell", { opacity: 0, scale: 1.4 }, { opacity: 0.19, scale: 1.2, duration: 1.6, ease: "power2.out" }, 0.1);
           tl.fromTo("#m-shell", { rotation: 8 }, { rotation: -26, duration: at(124), ease: "none" }, 0);
           tl.fromTo("#m-scrim", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.out" }, at(99.5));
-          tl.fromTo("#m-tag", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.8);
-          tl.to(["#m-shell", "#m-tag", "#m-scrim"], { opacity: 0, duration: 0.8, ease: "power2.in" }, at(123.5));
+          tl.to(["#m-shell", "#m-scrim"], { opacity: 0, duration: 0.8, ease: "power2.in" }, at(123.5));
           tl.fromTo("#m-name", { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 0.15);
           tl.fromTo("#m-main", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, at(98));
           tl.fromTo("#m-counter", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, at(99.5));
