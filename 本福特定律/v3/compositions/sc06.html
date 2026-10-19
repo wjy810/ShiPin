@@ -59,6 +59,19 @@
           -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 4%, #000 30%, #000 62%, rgba(0, 0, 0, 0) 86%);
           mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 4%, #000 30%, #000 62%, rgba(0, 0, 0, 0) 86%);
         }
+        .ai-tag {
+          position: absolute;
+          right: 100px;
+          top: 872px;
+          padding: 6px 14px;
+          border: 1px solid rgba(201, 207, 223, 0.35);
+          border-radius: 999px;
+          font: 500 18px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.12em;
+          color: rgba(201, 207, 223, 0.8);
+          background: rgba(5, 6, 11, 0.55);
+          opacity: 0;
+        }
         .burst {
           position: absolute;
           width: 900px;
@@ -296,6 +309,7 @@
       <div id="sc06-root" data-composition-id="sc06" data-width="1920" data-height="1080">
         <div id="sc06-all">
           <img id="r-photo" src="assets/images/ai/slide-rule.jpg" alt="" aria-hidden="true" />
+          <div class="ai-tag" id="r-tag">AI 示意图 · 计算尺：刻度也是按对数排的</div>
           <div class="name-card" id="r-name">
             <div class="zh">对数尺</div>
             <div class="en"><i></i><span>THE LOG RULER</span><i></i></div>
@@ -428,6 +442,8 @@
           // —— 尺子 ——
           tl.fromTo("#r-photo", { opacity: 0, scale: 1.08, x: 40 }, { opacity: 0.3, scale: 1.0, x: -40, duration: at(135.6), ease: "sine.out" }, 0);
           tl.to("#r-photo", { opacity: 0, duration: 0.8, ease: "power2.in" }, at(135.6));
+          tl.fromTo("#r-tag", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, at(129));
+          tl.to("#r-tag", { opacity: 0, duration: 0.5, ease: "power2.in" }, at(135.6));
           tl.fromTo("#r-name", { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 0.1);
           tl.to(["#rseg-2", "#rseg-3", "#rseg-4", "#rseg-5", "#rseg-6", "#rseg-7", "#rseg-8"], { opacity: 0.22, duration: 0.8, ease: "power2.inOut" }, at(128.5));
           tl.fromTo("#r-ticks line", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out", stagger: 0.012 }, at(128.5));

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>信息层：水印、章节、进度、字幕</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #hud-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3eee3;
+        }
+        /* 顶边进度细线 */
+        #hud-progress {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 2px;
+          background: linear-gradient(90deg, rgba(216, 180, 106, 0), rgba(216, 180, 106, 0.75) 12%, #f7e7bc);
+          transform-origin: 0 50%;
+          opacity: 0.7;
+        }
+        /* 章节 */
+        .ch {
+          position: absolute;
+          right: 72px;
+          top: 50px;
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+          opacity: 0;
+          white-space: nowrap;
+        }
+        .ch b {
+          font: 700 22px/1 "Playfair Display", serif;
+          color: #d8b46a;
+          margin-right: 4px;
+        }
+        .ch .zh {
+          font: 500 22px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.12em;
+          color: rgba(243, 238, 227, 0.72);
+        }
+        .ch .dot {
+          color: rgba(216, 180, 106, 0.7);
+          font-size: 20px;
+        }
+        .ch .en {
+          font: 600 15px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.24em;
+          color: rgba(243, 238, 227, 0.5);
+        }
+        /* 字幕带 */
+        #hud-shade {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 230px;
+          background: linear-gradient(to bottom, rgba(5, 6, 11, 0), rgba(5, 6, 11, 0.62) 70%);
+        }
+        .sub {
+          position: absolute;
+          left: 210px;
+          width: 1500px;
+          top: 914px;
+          text-align: center;
+          opacity: 0;
+        }
+        .sub .zh {
+          font: 500 40px/1.25 "Noto Serif SC", serif;
+          letter-spacing: 0.04em;
+          color: #f3eee3;
+          text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+        }
+        .sub .en {
+          margin-top: 10px;
+          font: italic 500 26px/1.2 "Cormorant Garamond", serif;
+          letter-spacing: 0.02em;
+          color: rgba(243, 238, 227, 0.66);
+        }
+      </style>
+
+      <div id="hud-root" data-composition-id="hud" data-width="1920" data-height="1080">
+        <div id="hud-shade"></div>
+        <div id="hud-progress"></div>
+          <div class="ch" id="hud-ch-0"><b>01</b><span class="zh">发现</span><span class="dot">·</span><span class="en">DISCOVERY</span></div>
+          <div class="ch" id="hud-ch-1"><b>02</b><span class="zh">原理</span><span class="dot">·</span><span class="en">WHY IT HAPPENS</span></div>
+          <div class="ch" id="hud-ch-2"><b>03</b><span class="zh">边界</span><span class="dot">·</span><span class="en">THE LIMITS</span></div>
+          <div class="ch" id="hud-ch-3"><b>04</b><span class="zh">应用</span><span class="dot">·</span><span class="en">IN PRACTICE</span></div>
+          <div class="ch" id="hud-ch-4"><span class="zh">文献线索</span><span class="dot">·</span><span class="en">REFERENCES</span></div>
+          <div class="sub" id="hud-sub-0"><p class="zh">随手抓一把真实世界的数字，只看第一位。</p><p class="en">Grab any real-world numbers. Look only at the first digit.</p></div>
+          <div class="sub" id="hud-sub-1"><p class="zh">直觉会说：1 到 9 机会均等，各占约 11%。</p><p class="en">Intuition says every digit gets an equal share, about 11% each.</p></div>
+          <div class="sub" id="hud-sub-2"><p class="zh">1881 年，纽康发现：对数表的前几页，总被翻得更脏。</p><p class="en">In 1881, Simon Newcomb noticed the first pages of logarithm tables were the most worn.</p></div>
+          <div class="sub" id="hud-sub-3"><p class="zh">本福特把约 2 万个数放在一起：首位是 1 的，占 30.1%。</p><p class="en">Benford pooled about 20,000 numbers: 30.1% began with 1.</p></div>
+          <div class="sub" id="hud-sub-4"><p class="zh">从 1 长到 2 要翻一倍，从 9 长到 10 只要再涨 11%。</p><p class="en">From 1 to 2 takes a doubling; from 9 to 10, just 11% more.</p></div>
+          <div class="sub" id="hud-sub-5"><p class="zh">在对数尺上，1 到 2 这一段，就占了整把尺子的 30.1%。</p><p class="en">On a log scale, the stretch from 1 to 2 covers 30.1% of the ruler.</p></div>
+          <div class="sub" id="hud-sub-6"><p class="zh">范围被框死、或被人为编排的数，不服从它。</p><p class="en">Numbers boxed into a narrow range, or assigned by people, don't follow it.</p></div>
+          <div class="sub" id="hud-sub-7"><p class="zh">217 个国家和地区的人口：首位是 1 的占 31.3%，理论值 30.1%。</p><p class="en">Populations of 217 countries and territories: 31.3% start with 1, against 30.1% predicted.</p></div>
+          <div class="sub" id="hud-sub-8"><p class="zh">人编出来的数，常常不符合这条规律——它成了查账的工具。</p><p class="en">Made-up numbers often break this pattern, so auditors use it.</p></div>
+          <div class="sub" id="hud-sub-9"><p class="zh">它只是筛子，不是判决书。</p><p class="en">It's a sieve, not a verdict.</p></div>
+          <div class="sub" id="hud-sub-10"><p class="zh">真实世界留下的数字，都带着同一种偏心。</p><p class="en">Numbers left by the real world all share the same tilt.</p></div>
+      </div>
+
+      <script>
+        (function () {
+          const DUR = 157.5;
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#hud-progress", { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: "none" }, 0);
+          const SUBS = [
+            [0.6, 9.2],
+            [9.75, 18.55],
+            [24.0, 37.3],
+            [38.0, 56.05],
+            [56.8, 74.8],
+            [75.5, 93.55],
+            [94.3, 102.9],
+            [103.7, 112.3],
+            [113.0, 131.05],
+            [131.8, 140.4],
+            [141.2, 149.8]
+          ];
+          SUBS.forEach(([a, b], i) => {
+            const el = "#hud-sub-" + i;
+            tl.fromTo(el, { opacity: 0, y: 14, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, a);
+            tl.to(el, { opacity: 0, filter: "blur(4px)", duration: 0.4, ease: "power2.in" }, b - 0.4);
+          });
+          const CH = [
+            [18.75, 56.25],
+            [56.25, 93.75],
+            [93.75, 112.5],
+            [112.5, 150.0],
+            [150.0, 157.5]
+          ];
+          CH.forEach(([a, b], i) => {
+            const el = "#hud-ch-" + i;
+            tl.fromTo(el, { opacity: 0, x: 16 }, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, a + 0.3);
+            if (i < CH.length - 1) tl.to(el, { opacity: 0, duration: 0.35, ease: "power2.in" }, b - 0.35);
+          });
+          // 片尾和文献页一起暗下去
+          tl.to(["#hud-progress", "#hud-ch-4", "#hud-shade"], { opacity: 0, duration: 1.3, ease: "power2.in" }, DUR - 1.3);
+          window.__timelines["hud"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

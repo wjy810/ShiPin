@@ -31,6 +31,19 @@
           background: linear-gradient(90deg, rgba(5, 6, 11, 0.86) 0%, rgba(5, 6, 11, 0.4) 34%, rgba(5, 6, 11, 0.12) 62%, rgba(5, 6, 11, 0.45) 100%),
             linear-gradient(180deg, rgba(5, 6, 11, 0.35) 0%, rgba(5, 6, 11, 0) 30%, rgba(5, 6, 11, 0) 66%, rgba(5, 6, 11, 0.85) 100%);
         }
+        .ai-tag {
+          position: absolute;
+          right: 100px;
+          top: 872px;
+          padding: 6px 14px;
+          border: 1px solid rgba(201, 207, 223, 0.35);
+          border-radius: 999px;
+          font: 500 18px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.12em;
+          color: rgba(201, 207, 223, 0.8);
+          background: rgba(5, 6, 11, 0.55);
+          opacity: 0;
+        }
         #y-block {
           position: absolute;
           left: 140px;
@@ -224,6 +237,7 @@
         <div id="sc03-all" style="position: absolute; inset: 0">
         <img id="y-photo" src="assets/images/ai/study-1881.jpg" alt="" aria-hidden="true" />
         <div id="y-scrim"></div>
+        <div class="ai-tag" id="y-tag">AI 示意图 · 1880 年代的书房</div>
         <div id="y-block">
           <div id="y-year">1881</div>
           <div id="y-who">天文学家 西蒙·纽康</div>
@@ -284,6 +298,8 @@
           tl.fromTo("#y-photo", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0);
           tl.fromTo("#y-photo", { scale: 1.0 }, { scale: 1.07, duration: at(64) + 0.4, ease: "none" }, 0);
           tl.to("#y-photo", { opacity: 0.26, duration: 1.4, ease: "power2.inOut" }, at(42.5));
+          tl.fromTo("#y-tag", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.4);
+          tl.to("#y-tag", { opacity: 0, duration: 0.5, ease: "power2.in" }, at(42.6));
           tl.fromTo("#y-block", { opacity: 0, x: -24, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 0.1);
           for (let d = 1; d <= 9; d++) {
             tl.fromTo("#pg-" + d, { opacity: 0, z: -400 }, { opacity: 1, z: 0, duration: 0.8, ease: "power3.out" }, at(43) + (d - 1) * 0.22);
