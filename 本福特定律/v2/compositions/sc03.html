@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>S4 1881 纽康的对数表</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #sc03-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3eee3;
+        }
+        #y-photo {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          opacity: 0;
+          transform-origin: 980px 600px;
+        }
+        #y-scrim {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, rgba(5, 6, 11, 0.86) 0%, rgba(5, 6, 11, 0.4) 34%, rgba(5, 6, 11, 0.12) 62%, rgba(5, 6, 11, 0.45) 100%),
+            linear-gradient(180deg, rgba(5, 6, 11, 0.35) 0%, rgba(5, 6, 11, 0) 30%, rgba(5, 6, 11, 0) 66%, rgba(5, 6, 11, 0.85) 100%);
+        }
+        .ai-tag {
+          position: absolute;
+          right: 100px;
+          top: 872px;
+          padding: 6px 14px;
+          border: 1px solid rgba(201, 207, 223, 0.35);
+          border-radius: 999px;
+          font: 500 18px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.12em;
+          color: rgba(201, 207, 223, 0.8);
+          background: rgba(5, 6, 11, 0.55);
+          opacity: 0;
+        }
+        #y-block {
+          position: absolute;
+          left: 140px;
+          top: 118px;
+          opacity: 0;
+        }
+        #y-year {
+          font: 700 128px/1 "Playfair Display", serif;
+          letter-spacing: 0.02em;
+          background: linear-gradient(176deg, #fff6de 0%, #f4e1b2 22%, #e7cf98 42%, #fffbe9 58%, #e3c88f 78%, #f6e7c0 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0 8px 28px rgba(107, 74, 26, 0.5));
+        }
+        #y-who {
+          margin-top: 14px;
+          font: 500 34px/1.2 "Noto Serif SC", serif;
+          letter-spacing: 0.08em;
+        }
+        #y-en {
+          margin-top: 10px;
+          font: 600 18px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.3em;
+          color: rgba(243, 238, 227, 0.55);
+        }
+        #y-main {
+          position: absolute;
+          right: 140px;
+          top: 150px;
+          text-align: right;
+          font: 600 60px/1.2 "Noto Serif SC", serif;
+          letter-spacing: 0.06em;
+          opacity: 0;
+        }
+        #y-main .gold {
+          color: #f2d999;
+        }
+        #y-stage {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          perspective: 2200px;
+          perspective-origin: 960px 420px;
+        }
+        #y-fan {
+          position: absolute;
+          left: 520px;
+          top: 286px;
+          width: 1000px;
+          height: 480px;
+          transform-style: preserve-3d;
+        }
+        .pgw {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 330px;
+          height: 440px;
+          transform-style: preserve-3d;
+        }
+        .pg {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 330px;
+          height: 440px;
+          background: #e8dcc0 url("assets/images/ai/paper.jpg") center / cover;
+          box-shadow: -18px 22px 40px rgba(0, 0, 0, 0.55);
+          border-radius: 3px;
+          overflow: hidden;
+          color: #3a2c19;
+          opacity: 0;
+        }
+        .pg .hd {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          padding: 18px 22px 8px;
+          border-bottom: 1px solid rgba(58, 44, 25, 0.45);
+          font: 600 13px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.22em;
+        }
+        .pg .hd b {
+          font: 700 34px/1 "Playfair Display", serif;
+          letter-spacing: 0;
+        }
+        .pg table {
+          margin: 10px 18px 0;
+          border-collapse: collapse;
+          font: 500 15px/1.32 "Cormorant Garamond", serif;
+          font-variant-numeric: tabular-nums lining-nums;
+        }
+        .pg td {
+          padding: 0 6px;
+          text-align: right;
+        }
+        .pg td:first-child {
+          font-weight: 600;
+          border-right: 1px solid rgba(58, 44, 25, 0.35);
+          padding-right: 8px;
+        }
+        .pg .grime {
+          position: absolute;
+          inset: 0;
+          background: url("assets/images/grime.png") right bottom / 160% 160%;
+          mix-blend-mode: multiply;
+          -webkit-mask-image: radial-gradient(ellipse 95% 80% at 100% 100%, #000 18%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.12) 100%);
+          mask-image: radial-gradient(ellipse 95% 80% at 100% 100%, #000 18%, rgba(0, 0, 0, 0.55) 55%, rgba(0, 0, 0, 0.12) 100%);
+          opacity: 0;
+        }
+        .pg .edge {
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 70px;
+          background: linear-gradient(to left, rgba(70, 48, 22, 0.75), rgba(70, 48, 22, 0));
+          opacity: 0;
+        }
+        #y-meter {
+          position: absolute;
+          left: 520px;
+          top: 742px;
+          width: 1000px;
+          height: 60px;
+          opacity: 0;
+        }
+        .wm {
+          position: absolute;
+          bottom: 0;
+          width: 40px;
+          margin-left: -20px;
+          text-align: center;
+        }
+        .wm i {
+          display: block;
+          width: 14px;
+          margin: 0 auto 6px;
+          background: linear-gradient(to top, #8e6e35, #f2d999);
+          transform-origin: 50% 100%;
+        }
+        .wm b {
+          font: 700 22px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.75);
+        }
+        #y-meter-lab {
+          position: absolute;
+          left: 520px;
+          top: 816px;
+          width: 1000px;
+          display: flex;
+          justify-content: space-between;
+          font: 500 22px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.1em;
+          color: rgba(243, 238, 227, 0.55);
+          opacity: 0;
+        }
+        #y-note {
+          position: absolute;
+          left: 140px;
+          top: 620px;
+          width: 330px;
+          font: 500 30px/1.5 "Noto Serif SC", serif;
+          letter-spacing: 0.04em;
+          color: rgba(243, 238, 227, 0.82);
+          opacity: 0;
+        }
+        #y-note .gold {
+          color: #f2d999;
+          font-family: "Playfair Display", serif;
+          font-weight: 700;
+        }
+        #y-stamp {
+          position: absolute;
+          right: 140px;
+          top: 238px;
+          padding: 7px 14px;
+          border: 1.5px solid rgba(216, 180, 106, 0.7);
+          border-radius: 4px;
+          font: 500 19px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.12em;
+          color: #d8b46a;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="sc03-root" data-composition-id="sc03" data-width="1920" data-height="1080">
+        <div id="sc03-all" style="position: absolute; inset: 0">
+        <img id="y-photo" src="assets/images/ai/study-1881.jpg" alt="" aria-hidden="true" />
+        <div id="y-scrim"></div>
+        <div class="ai-tag" id="y-tag">AI 示意图 · 1880 年代的书房</div>
+        <div id="y-block">
+          <div id="y-year">1881</div>
+          <div id="y-who">天文学家 西蒙·纽康</div>
+          <div id="y-en">SIMON NEWCOMB · ASTRONOMER</div>
+        </div>
+        <div id="y-main">越靠前的页，<span class="gold">越脏</span></div>
+        <div id="y-stage"><div id="y-fan" data-layout-allow-overlap="true" data-layout-allow-occlusion="true"></div></div>
+        <div id="y-meter"></div>
+        <div id="y-meter-lab"><span>← 1 开头的页 · 最脏</span><span>9 开头的页 · 最干净 →</span></div>
+        <div id="y-note">人们要查的数，更多以 <span class="gold">1</span>、<span class="gold">2</span> 开头</div>
+        <div id="y-stamp">示意 · 按纽康 1881 年论文的描述重绘</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 102.4;
+          const B0 = 40;
+          const at = (b) => (b - B0) * T;
+          const benford = [30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6];
+          // 九页对数表：第 d 页从 N = d·100 开始，四位尾数（真实的常用对数）
+          const fan = document.getElementById("y-fan");
+          const meter = document.getElementById("y-meter");
+          const STEP = 84;
+          for (let d = 1; d <= 9; d++) {
+            const pg = document.createElement("div");
+            pg.className = "pg";
+            pg.id = "pg-" + d;
+            let rows = "";
+            for (let r = 0; r < 15; r++) {
+              const N = d * 100 + r;
+              let cells = "<td>" + N + "</td>";
+              for (let c = 0; c < 6; c++) {
+                const m = Math.log10((N * 10 + c) / 1000) % 1;
+                cells += "<td>" + String(Math.round(m * 10000) % 10000).padStart(4, "0") + "</td>";
+              }
+              rows += "<tr>" + cells + "</tr>";
+            }
+            pg.innerHTML = '<div class="hd"><span>LOGARITHMS</span><b>' + d + "</b></div><table>" + rows + '</table><div class="grime"></div><div class="edge"></div>';
+            const k = d - 1;
+            const w = document.createElement("div");
+            w.className = "pgw";
+            w.style.transform = "translate3d(" + k * STEP + "px," + k * -6 + "px," + -k * 34 + "px) rotateY(-14deg)";
+            w.style.zIndex = String(20 - d);
+            w.appendChild(pg);
+            fan.appendChild(w);
+            const wm = document.createElement("div");
+            wm.className = "wm";
+            wm.style.left = 165 + k * STEP + "px";
+            wm.innerHTML = '<i style="height:' + Math.round(benford[k] * 1.9 + 6) + 'px"></i><b>' + d + "</b>";
+            meter.appendChild(wm);
+          }
+
+          const tl = gsap.timeline({ paused: true });
+          // 镜头：整组慢慢转过来、推近
+          tl.fromTo("#y-fan", { rotationY: -17, rotationX: 8, x: 24, y: 8, scale: 0.95 }, { rotationY: -8, rotationX: 4, x: -10, y: 0, scale: 1.02, duration: at(64) + 0.4, ease: "sine.inOut" }, 0);
+          // 开场 2 秒：AI 生成的书房照片——摊开的对数表，前几页翻得发黑；书页飞进来时照片退成背景
+          tl.fromTo("#y-photo", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0);
+          tl.fromTo("#y-photo", { scale: 1.0 }, { scale: 1.07, duration: at(64) + 0.4, ease: "none" }, 0);
+          tl.to("#y-photo", { opacity: 0.26, duration: 1.4, ease: "power2.inOut" }, at(42.5));
+          tl.fromTo("#y-tag", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.4);
+          tl.to("#y-tag", { opacity: 0, duration: 0.5, ease: "power2.in" }, at(42.6));
+          tl.fromTo("#y-block", { opacity: 0, x: -24, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 0.1);
+          for (let d = 1; d <= 9; d++) {
+            tl.fromTo("#pg-" + d, { opacity: 0, z: -400 }, { opacity: 1, z: 0, duration: 0.8, ease: "power3.out" }, at(43) + (d - 1) * 0.22);
+          }
+          tl.fromTo("#y-main", { opacity: 0, y: 16, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, at(46));
+          // 磨损按本福特比例出现：第 1 页最脏
+          for (let d = 1; d <= 9; d++) {
+            const lvl = 0.14 + (benford[d - 1] / 30.1) * 0.8;
+            tl.to("#pg-" + d + " .grime", { opacity: lvl, duration: 1.4, ease: "power2.out" }, at(48) + (d - 1) * 0.12);
+            tl.to("#pg-" + d + " .edge", { opacity: lvl, duration: 1.4, ease: "power2.out" }, at(48) + (d - 1) * 0.12);
+          }
+          tl.to("#y-meter", { opacity: 1, duration: 0.5, ease: "power2.out" }, at(50));
+          tl.fromTo("#y-meter .wm i", { scaleY: 0 }, { scaleY: 1, duration: 0.9, ease: "power3.out", stagger: 0.08 }, at(50));
+          tl.fromTo("#y-meter-lab", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, at(51));
+          tl.fromTo("#y-note", { opacity: 0, y: 14, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, at(54));
+          tl.fromTo("#y-stamp", { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, at(56));
+          // 离场
+          tl.to("#sc03-all", { opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, at(64) - 0.05);
+          window.__timelines["sc03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>转场光效</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #fx-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        .fx-flare {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          opacity: 0;
+          transform-origin: 960px 540px;
+        }
+      </style>
+
+      <div id="fx-root" data-composition-id="fx" data-width="1920" data-height="1080"></div>
+
+      <script>
+        (function () {
+          // 换场时一道横向金色光斑扫过（AI 生成的光斑图，按亮度抠成透明 PNG/WebP，普通叠放即等于滤色）。
+          // [全片拍号, 亮度, 纵向位置]：拍号对准合成之间的切点，和 build_audio.py 里的气流 / 冲击音效同一拍。
+          const T = 60 / 102.4;
+          const EV = [
+            [32, 1.0, 0], [40, 0.6, -60], [64, 0.6, 40], [96, 0.7, -30], [128, 0.85, 0],
+            [160, 0.6, 50], [176, 0.55, -40], [192, 0.75, 0], [224, 0.85, 20], [240, 1.0, 0], [248, 0.65, -20],
+          ];
+          const root = document.getElementById("fx-root");
+          const tl = gsap.timeline({ paused: true });
+          EV.forEach(([b, k, dy], i) => {
+            const img = document.createElement("img");
+            img.className = "fx-flare";
+            img.id = "fx-flare-" + i;
+            img.src = "assets/images/ai/flare.webp";
+            img.alt = "";
+            root.appendChild(img);
+            const t = b * T;
+            const dir = i % 2 ? -1 : 1;
+            tl.fromTo(img, { opacity: 0, scaleX: 0.4, scaleY: 0.8, x: -200 * dir, y: dy }, { opacity: k, scaleX: 1.25, scaleY: 1, x: 120 * dir, y: dy, duration: 0.3, ease: "power2.out" }, Math.max(0, t - 0.2));
+            tl.to(img, { opacity: 0, scaleX: 1.7, x: 360 * dir, duration: 0.6, ease: "power2.in" }, t + 0.1);
+          });
+          window.__timelines["fx"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

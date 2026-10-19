@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>环境层</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #bg-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: radial-gradient(ellipse 120% 90% at 50% 115%, #0d1430 0%, #080b19 42%, #05060b 72%);
+        }
+        #bg-root .layer {
+          position: absolute;
+          inset: 0;
+        }
+        #bg-glow-gold {
+          position: absolute;
+          left: 460px;
+          top: -420px;
+          width: 1000px;
+          height: 900px;
+          border-radius: 50%;
+          background: radial-gradient(closest-side, rgba(216, 180, 106, 0.14), rgba(216, 180, 106, 0.05) 55%, rgba(216, 180, 106, 0) 100%);
+        }
+        #bg-gold-wrap {
+          position: absolute;
+          inset: 0;
+        }
+        #bg-glow-navy {
+          position: absolute;
+          left: -320px;
+          top: 520px;
+          width: 1300px;
+          height: 900px;
+          border-radius: 50%;
+          background: radial-gradient(closest-side, rgba(52, 78, 168, 0.22), rgba(52, 78, 168, 0.06) 60%, rgba(52, 78, 168, 0) 100%);
+        }
+        #bg-glow-cold {
+          position: absolute;
+          left: 1100px;
+          top: 300px;
+          width: 1100px;
+          height: 1000px;
+          border-radius: 50%;
+          background: radial-gradient(closest-side, rgba(111, 124, 153, 0.18), rgba(111, 124, 153, 0) 100%);
+          opacity: 0;
+        }
+        #bg-rays {
+          position: absolute;
+          left: 960px;
+          top: -200px;
+          width: 0;
+          height: 0;
+        }
+        #bg-rays i {
+          position: absolute;
+          left: -40px;
+          top: 0;
+          width: 80px;
+          height: 1700px;
+          transform-origin: 40px 0;
+          background: linear-gradient(to bottom, rgba(247, 231, 188, 0.07), rgba(247, 231, 188, 0) 80%);
+          filter: blur(18px);
+        }
+        #bg-guil {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 2560px;
+          height: 1440px;
+          opacity: 0.075;
+          -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, #000 30%, rgba(0, 0, 0, 0.35) 100%);
+          mask-image: radial-gradient(ellipse 60% 55% at 50% 50%, #000 30%, rgba(0, 0, 0, 0.35) 100%);
+        }
+        #bg-dust {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+        }
+        #bg-grain {
+          position: absolute;
+          inset: 0;
+          background-image: url("assets/images/grain.png");
+          background-size: 512px 512px;
+          opacity: 0.07;
+          mix-blend-mode: overlay;
+        }
+        #bg-vignette {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 75% 70% at 50% 48%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.62) 100%);
+        }
+      </style>
+
+      <div id="bg-root" data-composition-id="bg" data-width="1920" data-height="1080">
+        <div class="layer" id="bg-glows">
+          <div id="bg-glow-navy"></div>
+          <div id="bg-gold-wrap"><div id="bg-glow-gold"></div></div>
+          <div id="bg-glow-cold"></div>
+        </div>
+        <img id="bg-guil" src="assets/images/ai/guilloche.webp" alt="" aria-hidden="true" />
+        <div id="bg-rays" aria-hidden="true"><i id="bg-ray-1"></i><i id="bg-ray-2"></i><i id="bg-ray-3"></i></div>
+        <canvas id="bg-dust" width="1920" height="1080"></canvas>
+        <div id="bg-grain"></div>
+        <div id="bg-vignette"></div>
+      </div>
+
+      <script>
+        (function () {
+          const DUR = 157.5;
+          const T = 60 / 102.4;
+          const prand = (n) => {
+            const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+            return x - Math.floor(x);
+          };
+          // 尘埃里的数字本身也服从本福特分布（彩蛋）
+          const benford = [0.301, 0.176, 0.125, 0.097, 0.079, 0.067, 0.058, 0.051, 0.046];
+          const pickDigit = (u) => {
+            let acc = 0;
+            for (let d = 0; d < 9; d++) {
+              acc += benford[d];
+              if (u <= acc) return String(d + 1);
+            }
+            return "9";
+          };
+          const N = 190;
+          const P = [];
+          for (let i = 0; i < N; i++) {
+            const layer = i % 10 < 5 ? 0 : i % 10 < 8 ? 1 : 2; // 远 / 中 / 近
+            const size = [15, 30, 78][layer] * (0.75 + prand(i * 7.1) * 0.6);
+            P.push({
+              ch: pickDigit(prand(i * 3.3)),
+              x0: prand(i * 1.7) * 1920,
+              y0: prand(i * 2.9) * 1240 - 80,
+              vy: [5, 9, 15][layer] * (0.7 + prand(i * 5.3) * 0.6),
+              sway: [6, 14, 26][layer] * prand(i * 9.1),
+              per: 9 + prand(i * 4.7) * 14,
+              ph: prand(i * 6.1) * Math.PI * 2,
+              size,
+              alpha: [0.13, 0.11, 0.06][layer] * (0.55 + prand(i * 8.3) * 0.7),
+              gold: prand(i * 11.7) < 0.1,
+              italic: layer > 0,
+            });
+          }
+          const cv = document.getElementById("bg-dust");
+          const ctx = cv.getContext("2d");
+          const grain = document.getElementById("bg-grain");
+          function draw(t) {
+            ctx.clearRect(0, 0, 1920, 1080);
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            for (let i = 0; i < N; i++) {
+              const p = P[i];
+              let y = p.y0 - p.vy * t;
+              y = ((y % 1240) + 1240) % 1240 - 80;
+              const x = p.x0 + Math.sin((t / p.per) * Math.PI * 2 + p.ph) * p.sway;
+              // 上下边缘淡出
+              const edge = Math.min(1, Math.max(0, (y + 60) / 160), Math.max(0, (1100 - y) / 220));
+              ctx.globalAlpha = p.alpha * edge;
+              ctx.fillStyle = p.gold ? "#d8b46a" : "#f3eee3";
+              ctx.font = (p.italic ? "italic 500 " : "500 ") + p.size.toFixed(1) + 'px "Cormorant Garamond", serif';
+              ctx.fillText(p.ch, x, y);
+            }
+            ctx.globalAlpha = 1;
+            // 颗粒：每帧换一个由帧号决定的偏移
+            const f = Math.floor(t * 30);
+            grain.style.backgroundPosition = Math.floor(prand(f * 1.3) * 512) + "px " + Math.floor(prand(f * 2.7) * 512) + "px";
+          }
+
+          function build() {
+            const tl = gsap.timeline({ paused: true });
+            const drive = { t: 0 };
+            tl.to(drive, { t: DUR, duration: DUR, ease: "none", onUpdate: () => draw(drive.t) }, 0);
+            // 光晕缓慢呼吸 / 漂移（有限次数）
+            tl.fromTo("#bg-glow-gold", { scale: 0.92, opacity: 0.75 }, { scale: 1.08, opacity: 1, duration: 11, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(DUR / 11) - 1) }, 0);
+            tl.fromTo("#bg-glow-navy", { x: -40, y: 20 }, { x: 60, y: -30, duration: 17, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(DUR / 17) - 1) }, 0);
+            // 扭索纹：整片缓慢横移（AI 生成的花纹，见 assets/说明.md）
+            tl.fromTo("#bg-guil", { x: -80, y: -180 }, { x: -560, y: -150, duration: DUR, ease: "none" }, 0);
+            // 光束：极慢转动
+            tl.fromTo("#bg-ray-1", { rotation: -24 }, { rotation: -14, duration: DUR, ease: "none" }, 0);
+            tl.fromTo("#bg-ray-2", { rotation: 6 }, { rotation: 14, duration: DUR, ease: "none" }, 0);
+            tl.fromTo("#bg-ray-3", { rotation: 28 }, { rotation: 20, duration: DUR, ease: "none" }, 0);
+            // 章节情绪：第 49–56 小节（重低音段、查假账）偏冷偏暗；最终高潮回暖
+            const at = (b) => b * T;
+            tl.to("#bg-glow-cold", { opacity: 1, duration: 2 * T, ease: "power2.inOut" }, at(192));
+            tl.to("#bg-gold-wrap", { opacity: 0.35, duration: 2 * T, ease: "power2.inOut" }, at(192));
+            tl.to("#bg-glow-cold", { opacity: 0, duration: 2 * T, ease: "power2.inOut" }, at(224));
+            tl.to("#bg-gold-wrap", { opacity: 1, duration: 2 * T, ease: "power2.inOut" }, at(224));
+            draw(0);
+            window.__timelines["bg"] = tl;
+          }
+          if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+          else build();
+        })();
+      </script>
+    </template>
+  </body>
+</html>
