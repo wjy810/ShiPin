@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>S9 217 个国家和地区的人口</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #sc08-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3eee3;
+        }
+        #sc08-all {
+          position: absolute;
+          inset: 0;
+        }
+        /* 夜晚的地球（AI 生成）：地平线压在柱子的底线下面 */
+        #p-earth {
+          position: absolute;
+          left: 0;
+          top: 250px;
+          width: 1920px;
+          height: 1080px;
+          opacity: 0;
+          transform-origin: 960px 900px;
+        }
+        .ai-tag {
+          position: absolute;
+          right: 100px;
+          top: 872px;
+          padding: 6px 14px;
+          border: 1px solid rgba(201, 207, 223, 0.35);
+          border-radius: 999px;
+          font: 500 18px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.12em;
+          color: rgba(201, 207, 223, 0.8);
+          background: rgba(5, 6, 11, 0.55);
+          opacity: 0;
+        }
+        .burst {
+          position: absolute;
+          width: 900px;
+          height: 900px;
+          opacity: 0;
+          pointer-events: none;
+        }
+        #p-main {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 128px;
+          text-align: center;
+          font: 600 46px/1.25 "Noto Serif SC", serif;
+          letter-spacing: 0.05em;
+          opacity: 0;
+        }
+        #p-main b {
+          font: 700 54px/1 "Playfair Display", serif;
+          color: #f2d999;
+        }
+        #p-src {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 206px;
+          text-align: center;
+          font: 500 21px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.14em;
+          color: rgba(243, 238, 227, 0.5);
+          opacity: 0;
+        }
+        #p-src em {
+          font: italic 500 21px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.06em;
+        }
+        #p-cv {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+        }
+        #p-axis {
+          position: absolute;
+          left: 260px;
+          top: 470px;
+          width: 1400px;
+          height: 40px;
+          opacity: 0;
+        }
+        #p-axis .ln {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1400px;
+          height: 1.5px;
+          background: rgba(216, 180, 106, 0.5);
+        }
+        #p-axis span {
+          position: absolute;
+          top: 14px;
+          width: 90px;
+          margin-left: -45px;
+          text-align: center;
+          font: 500 19px/1 "Noto Serif SC", serif;
+          color: rgba(243, 238, 227, 0.5);
+        }
+        #p-axis span::before {
+          content: "";
+          position: absolute;
+          left: 44px;
+          top: -14px;
+          width: 1.5px;
+          height: 8px;
+          background: rgba(216, 180, 106, 0.6);
+        }
+        .p-call {
+          position: absolute;
+          font: 500 24px/1.3 "Noto Serif SC", serif;
+          color: rgba(243, 238, 227, 0.78);
+          opacity: 0;
+        }
+        .p-call b {
+          font: 600 26px/1 "Playfair Display", serif;
+          color: #f3eee3;
+        }
+        #p-min {
+          left: 236px;
+          top: 290px;
+        }
+        #p-max {
+          right: 236px;
+          top: 290px;
+          text-align: right;
+        }
+        #p-cols {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          opacity: 0;
+        }
+        .p-d {
+          position: absolute;
+          top: 814px;
+          width: 60px;
+          margin-left: -30px;
+          text-align: center;
+          font: 700 30px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.85);
+        }
+        .p-n {
+          position: absolute;
+          width: 80px;
+          margin-left: -40px;
+          text-align: center;
+          font: 600 22px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.8);
+          opacity: 0;
+        }
+        .p-exp {
+          position: absolute;
+          width: 60px;
+          margin-left: -30px;
+          border-top: 2px dashed rgba(247, 231, 188, 0.7);
+          opacity: 0;
+        }
+        #p-base {
+          position: absolute;
+          left: 500px;
+          top: 802px;
+          width: 920px;
+          height: 1.5px;
+          background: rgba(216, 180, 106, 0.55);
+        }
+        #p-res {
+          position: absolute;
+          left: 1470px;
+          top: 470px;
+          width: 360px;
+          text-align: center;
+          opacity: 0;
+        }
+        #p-res .k {
+          font: 500 30px/1.3 "Noto Serif SC", serif;
+          letter-spacing: 0.06em;
+        }
+        #p-res .k b {
+          font: 700 38px/1 "Playfair Display", serif;
+        }
+        #p-res .big {
+          margin-top: 8px;
+          font: 700 116px/1 "Playfair Display", serif;
+          background: linear-gradient(176deg, #fff6de 0%, #f4e1b2 22%, #e7cf98 42%, #fffbe9 58%, #e3c88f 78%, #f6e7c0 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0 8px 26px rgba(107, 74, 26, 0.5));
+        }
+        #p-res .th {
+          margin-top: 12px;
+          font: 500 26px/1 "Noto Serif SC", serif;
+          color: rgba(243, 238, 227, 0.62);
+        }
+        #p-res .th b {
+          font: 600 28px/1 "Playfair Display", serif;
+          color: rgba(247, 231, 188, 0.95);
+        }
+      </style>
+
+      <div id="sc08-root" data-composition-id="sc08" data-width="1920" data-height="1080">
+        <div id="sc08-all">
+          <img id="p-earth" src="assets/images/ai/earth-night.webp" alt="" aria-hidden="true" />
+          <div class="ai-tag" id="p-tag">AI 示意图 · 夜晚的地球</div>
+          <div id="p-main">我们拿 <b>2023</b> 年 <b>217</b> 个国家和地区的人口，试了一下</div>
+          <div id="p-src">数据 · 世界银行 <em>World Development Indicators</em></div>
+          <div id="p-axis"><div class="ln"></div></div>
+          <div class="p-call" id="p-min">最少 · 图瓦卢 <b>9,816</b></div>
+          <div class="p-call" id="p-max">最多 · 印度 <b>14.4</b> 亿</div>
+          <canvas id="p-cv" width="1920" height="1080"></canvas>
+          <div id="p-cols"><div id="p-base"></div></div>
+          <img class="burst" id="p-burst" src="assets/images/ai/burst.webp" alt="" aria-hidden="true" style="left: 1200px; top: 110px" />
+          <div id="p-res">
+            <div class="k">首位是 1 的：<b>68</b> 个</div>
+            <div class="big">31.3%</div>
+            <div class="th">本福特的预测 · <b>30.1%</b></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 102.4;
+          const B0 = 176;
+          const at = (b) => (b - B0) * T;
+          const prand = (n) => {
+            const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+            return x - Math.floor(x);
+          };
+          const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+          const ease3 = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+          // 世界银行 WDI：SP.POP.TOTL，2023 年，217 个国家和地区（按 ISO3 排序）
+          const POP = [107359,41454761,36749906,2411658,80856,10483751,45538401,2964300,47521,93316,26659922,9131761,10153958,13689450,11779946,14111034,23025776,171466990,6446596,1577059,399440,3185073,9178298,411106,64698,12244159,211140729,282336,458949,786385,2480244,5152421,40049088,8888822,167691,19658835,1410710000,31165654,28372687,105789731,6182885,52321152,850387,522331,5105525,11019931,154654,73038,1344976,10864042,83287273,1152944,66510,5946952,11331265,46164219,17980083,114535772,3470390,48352528,1370286,128691692,5583911,924145,68372286,54398,112630,2484789,68526000,3715483,33787914,38471,14405468,2697845,2153339,1847549,10407351,117081,56865,18124838,166506,826353,7536100,10644851,3859686,11637398,9592186,281190067,84165,1438069596,5311538,90608707,45074049,385663,9849000,58984216,2839786,11439213,124516650,20330104,55339003,7099750,17423880,132530,46758,51712619,4853420,7664993,5773493,5493031,7305659,179285,39846,22037000,2311472,2871585,666430,1883710,678800,27515,37712505,38956,2457783,31195932,525994,129739759,38827,1827816,23769127,552747,54133798,623529,3481145,45143,33635160,5022441,1248647,21104482,35126298,2963095,289870,26159867,227882945,6823613,17877117,5519601,29694614,11875,5200000,5049269,247504495,4458759,33845617,114891199,17727,10389635,36687353,3203794,26418204,10578174,6844146,5165775,281118,2656032,19061062,143826130,13954471,33702731,50042791,18077573,5917648,800005,8460512,6309624,33860,18358615,6623183,11483374,230871,628886,5426740,2120461,10536632,1230506,42749,119773,23594623,46198,19319064,8223850,71702435,10389799,7364438,1384286,104597,1367510,12200431,85325965,9816,66617606,48656601,37732836,3388081,336755052,35652307,101323,28300854,38985,104917,100352192,320409,216663,1682668,39390799,63212384,20723965,16340822];
+          const BEN = [30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6];
+          const X0 = 260, PXD = 200; // 10^3 在 x 260，每个数量级 200px
+          const axis = document.getElementById("p-axis");
+          ["1千", "1万", "10万", "100万", "1千万", "1亿", "10亿", "100亿"].forEach((lab, k) => {
+            const s = document.createElement("span");
+            s.style.left = k * PXD + "px";
+            s.textContent = lab;
+            axis.appendChild(s);
+          });
+          // 每个点：散点位置 → 直方图位置（每列 4 个一排）
+          const COLX = (d) => 560 + (d - 1) * 100;
+          const BASE = 802;
+          const seen = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+          const DOTS = POP.map((p, i) => {
+            const d = +String(p)[0];
+            const k = seen[d - 1]++;
+            return {
+              d,
+              sx: X0 + (Math.log10(p) - 3) * PXD,
+              sy: 400 + (prand(i * 3.3) - 0.5) * 120,
+              tx: COLX(d) - 16.5 + (k % 4) * 11,
+              ty: BASE - 7 - Math.floor(k / 4) * 11,
+              delay: prand(i * 5.9) * 0.9,
+            };
+          });
+          const cols = document.getElementById("p-cols");
+          for (let d = 1; d <= 9; d++) {
+            const lab = document.createElement("div");
+            lab.className = "p-d";
+            lab.style.left = COLX(d) + "px";
+            lab.textContent = d;
+            cols.appendChild(lab);
+            const n = seen[d - 1];
+            const top = BASE - Math.ceil(n / 4) * 11;
+            const c = document.createElement("div");
+            c.className = "p-n";
+            c.style.left = COLX(d) + "px";
+            c.style.top = top - 32 + "px";
+            c.textContent = n;
+            cols.appendChild(c);
+            const e = document.createElement("div");
+            e.className = "p-exp";
+            e.style.left = COLX(d) + "px";
+            e.style.top = (BASE - ((217 * BEN[d - 1]) / 100 / 4) * 11).toFixed(1) + "px";
+            cols.appendChild(e);
+          }
+          const cv = document.getElementById("p-cv");
+          const ctx = cv.getContext("2d");
+          const SHOW = at(177), FALL = at(180.5);
+          function draw(t) {
+            ctx.clearRect(0, 0, 1920, 1080);
+            for (let i = 0; i < DOTS.length; i++) {
+              const p = DOTS[i];
+              const appear = clamp((t - SHOW - (p.sx - X0) / 1400 * 1.4) / 0.35, 0, 1);
+              if (appear <= 0) continue;
+              const u = ease3(clamp((t - FALL - p.delay) / 1.3, 0, 1));
+              const x = p.sx + (p.tx - p.sx) * u;
+              const y = p.sy + (p.ty - p.sy) * u - Math.sin(u * Math.PI) * 60;
+              ctx.globalAlpha = appear * (p.d === 1 ? 1 : 0.62);
+              ctx.fillStyle = p.d === 1 ? "#f2d999" : "#c9cfdf";
+              if (p.d === 1) {
+                ctx.shadowColor = "rgba(216,180,106,0.8)";
+                ctx.shadowBlur = 8;
+              }
+              ctx.beginPath();
+              ctx.arc(x, y, 4.6, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.shadowBlur = 0;
+            }
+            ctx.globalAlpha = 1;
+          }
+
+          const tl = gsap.timeline({ paused: true });
+          const SCENE = at(192) + 0.4;
+          const drive = { t: 0 };
+          tl.to(drive, { t: SCENE, duration: SCENE, ease: "none", onUpdate: () => draw(drive.t) }, 0);
+          tl.fromTo("#p-main", { opacity: 0, y: 12, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, 0.15);
+          tl.fromTo("#p-earth", { opacity: 0, y: 120 }, { opacity: 0.9, y: 0, duration: 1.4, ease: "power3.out" }, 0);
+          tl.fromTo("#p-earth", { scale: 1.0 }, { scale: 1.05, duration: SCENE, ease: "none" }, 0);
+          tl.to("#p-earth", { opacity: 0.42, duration: 1.0, ease: "power2.inOut" }, at(180.3));
+          tl.fromTo("#p-tag", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0.5);
+          tl.to("#p-tag", { opacity: 0, duration: 0.5, ease: "power2.in" }, at(183));
+          tl.fromTo("#p-src", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, at(176.8));
+          tl.fromTo("#p-axis", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, at(176.8));
+          tl.fromTo("#p-min", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at(178.5));
+          tl.fromTo("#p-max", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at(179));
+          tl.to(["#p-axis", "#p-min", "#p-max"], { opacity: 0, duration: 0.5, ease: "power2.in" }, at(180.3));
+          tl.to("#p-cols", { opacity: 1, duration: 0.5, ease: "power2.out" }, at(180.5));
+          tl.fromTo(".p-n", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.06 }, at(183));
+          tl.fromTo(".p-exp", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out", stagger: 0.05 }, at(183.5));
+          tl.fromTo("#p-burst", { opacity: 0, scale: 0.3 }, { opacity: 0.72, scale: 0.9, duration: 0.35, ease: "power3.out" }, at(184) - 0.05);
+          tl.to("#p-burst", { opacity: 0.2, scale: 0.8, rotation: 18, duration: 1.8, ease: "power2.out" }, at(184) + 0.3);
+          tl.fromTo("#p-res", { opacity: 0, x: 20, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, at(184));
+          tl.to("#sc08-all", { opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, at(192) - 0.05);
+          draw(0);
+          window.__timelines["sc08"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

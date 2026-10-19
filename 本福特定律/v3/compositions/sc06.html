@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>S7 对数尺 + 2 的幂</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #sc06-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3eee3;
+        }
+        #sc06-all {
+          position: absolute;
+          inset: 0;
+        }
+        .name-card {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          text-align: center;
+          opacity: 0;
+        }
+        .name-card .zh {
+          font: 600 54px/1.1 "Noto Serif SC", serif;
+          letter-spacing: 0.14em;
+        }
+        .name-card .en {
+          margin-top: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          font: 600 20px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.32em;
+          color: rgba(243, 238, 227, 0.66);
+        }
+        .name-card .en i {
+          display: block;
+          width: 60px;
+          height: 1px;
+          background: rgba(216, 180, 106, 0.8);
+        }
+        /* 计算尺（AI 生成）：开头几拍当底，实验开始前退掉 */
+        #r-photo {
+          position: absolute;
+          left: 0;
+          top: 120px;
+          width: 1920px;
+          height: 1080px;
+          opacity: 0;
+          transform-origin: 960px 540px;
+          -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 4%, #000 30%, #000 62%, rgba(0, 0, 0, 0) 86%);
+          mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 4%, #000 30%, #000 62%, rgba(0, 0, 0, 0) 86%);
+        }
+        .ai-tag {
+          position: absolute;
+          right: 100px;
+          top: 872px;
+          padding: 6px 14px;
+          border: 1px solid rgba(201, 207, 223, 0.35);
+          border-radius: 999px;
+          font: 500 18px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.12em;
+          color: rgba(201, 207, 223, 0.8);
+          background: rgba(5, 6, 11, 0.55);
+          opacity: 0;
+        }
+        .burst {
+          position: absolute;
+          width: 900px;
+          height: 900px;
+          opacity: 0;
+          pointer-events: none;
+        }
+        #r-name {
+          top: 112px;
+        }
+        #r-main {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 262px;
+          text-align: center;
+          font: 600 50px/1.2 "Noto Serif SC", serif;
+          letter-spacing: 0.06em;
+          opacity: 0;
+        }
+        #r-main b {
+          font: 700 58px/1 "Playfair Display", serif;
+          color: #f2d999;
+        }
+        /* 尺子组：坐标和上一屏的轨道一致（x 260，y 540，宽 1400） */
+        #r-ruler {
+          position: absolute;
+          left: 260px;
+          top: 540px;
+          width: 1400px;
+          height: 36px;
+          transform-origin: 700px 18px;
+        }
+        .rseg {
+          position: absolute;
+          top: 0;
+          height: 36px;
+          border-right: 1px solid rgba(5, 6, 11, 0.9);
+        }
+        #r-ticks {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1400px;
+          height: 120px;
+          overflow: visible;
+        }
+        #r-ticks line {
+          stroke: rgba(247, 231, 188, 0.85);
+          stroke-width: 1.5;
+        }
+        .rlab {
+          position: absolute;
+          top: 66px;
+          width: 60px;
+          margin-left: -30px;
+          text-align: center;
+          font: 700 26px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.85);
+          opacity: 0;
+        }
+        .brace {
+          position: absolute;
+          bottom: 46px;
+          height: 22px;
+          border: 1.5px solid #d8b46a;
+          border-bottom: none;
+          border-radius: 6px 6px 0 0;
+          opacity: 0;
+        }
+        .brace b {
+          position: absolute;
+          left: 50%;
+          bottom: 30px;
+          transform: translateX(-50%);
+          white-space: nowrap;
+          font: 700 46px/1 "Playfair Display", serif;
+          color: #f2d999;
+        }
+        .brace span {
+          position: absolute;
+          left: 50%;
+          bottom: 84px;
+          transform: translateX(-50%);
+          white-space: nowrap;
+          font: 500 22px/1 "Noto Serif SC", serif;
+          color: rgba(243, 238, 227, 0.6);
+        }
+        /* 实验 */
+        #x-head {
+          position: absolute;
+          left: 220px;
+          top: 300px;
+          font: 500 30px/1.3 "Noto Serif SC", serif;
+          letter-spacing: 0.06em;
+          opacity: 0;
+        }
+        #x-head b {
+          font: 700 34px/1 "Playfair Display", serif;
+          color: #f2d999;
+        }
+        #x-n {
+          position: absolute;
+          left: 220px;
+          top: 356px;
+          font: 700 72px/1 "Playfair Display", serif;
+          font-variant-numeric: lining-nums tabular-nums;
+          color: rgba(243, 238, 227, 0.92);
+          opacity: 0;
+        }
+        #x-n small {
+          font: italic 500 40px/1 "Cormorant Garamond", serif;
+          color: rgba(243, 238, 227, 0.6);
+          margin-right: 10px;
+        }
+        #x-list {
+          position: absolute;
+          left: 220px;
+          top: 460px;
+          width: 740px;
+          height: 360px;
+          overflow: hidden;
+          -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), #000 45%, #000 100%);
+          mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), #000 45%, #000 100%);
+          opacity: 0;
+        }
+        .xr {
+          display: flex;
+          gap: 18px;
+          height: 45px;
+          align-items: baseline;
+          font: 400 26px/45px "JetBrains Mono", monospace;
+          white-space: nowrap;
+          color: rgba(201, 207, 223, 0.7);
+        }
+        .xr em {
+          font-style: normal;
+          width: 120px;
+          color: rgba(201, 207, 223, 0.45);
+        }
+        .xr b {
+          color: #f2d999;
+          font-weight: 500;
+        }
+        #x-chart {
+          position: absolute;
+          left: 1010px;
+          top: 360px;
+          width: 700px;
+          height: 470px;
+          opacity: 0;
+        }
+        .xb {
+          position: absolute;
+          bottom: 50px;
+          width: 50px;
+          margin-left: -25px;
+        }
+        .xb i {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 50px;
+          height: 0;
+          background: linear-gradient(to top, rgba(142, 110, 53, 0.6), rgba(242, 217, 153, 0.95));
+        }
+        .xb u {
+          position: absolute;
+          left: -6px;
+          width: 62px;
+          height: 0;
+          border-top: 2px dashed rgba(247, 231, 188, 0.75);
+          text-decoration: none;
+        }
+        .xb .c {
+          position: absolute;
+          left: -30px;
+          width: 110px;
+          text-align: center;
+          font: 600 22px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.85);
+        }
+        .xb .d {
+          position: absolute;
+          left: -30px;
+          width: 110px;
+          bottom: -42px;
+          text-align: center;
+          font: 700 30px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.85);
+        }
+        #x-axis {
+          position: absolute;
+          left: 1010px;
+          top: 780px;
+          width: 700px;
+          height: 1.5px;
+          background: rgba(216, 180, 106, 0.55);
+          opacity: 0;
+        }
+        #x-legend {
+          position: absolute;
+          left: 1010px;
+          top: 316px;
+          width: 700px;
+          text-align: right;
+          font: 500 20px/1 "Noto Serif SC", serif;
+          color: rgba(243, 238, 227, 0.55);
+          opacity: 0;
+        }
+        #x-legend u {
+          display: inline-block;
+          width: 34px;
+          border-top: 2px dashed rgba(247, 231, 188, 0.75);
+          vertical-align: middle;
+          margin-right: 8px;
+          text-decoration: none;
+        }
+        #x-result {
+          position: absolute;
+          left: 1010px;
+          top: 230px;
+          width: 700px;
+          text-align: center;
+          font: 600 38px/1.3 "Noto Serif SC", serif;
+          letter-spacing: 0.04em;
+          opacity: 0;
+        }
+        #x-result b {
+          font: 700 50px/1 "Playfair Display", serif;
+          color: #f2d999;
+        }
+      </style>
+
+      <div id="sc06-root" data-composition-id="sc06" data-width="1920" data-height="1080">
+        <div id="sc06-all">
+          <img id="r-photo" src="assets/images/ai/slide-rule.jpg" alt="" aria-hidden="true" />
+          <div class="ai-tag" id="r-tag">AI 示意图 · 计算尺：刻度也是按对数排的</div>
+          <div class="name-card" id="r-name">
+            <div class="zh">对数尺</div>
+            <div class="en"><i></i><span>THE LOG RULER</span><i></i></div>
+          </div>
+          <div id="r-main">1 到 2 这一段，占了整把尺子的 <b>30.1%</b></div>
+          <div id="r-ruler">
+            <svg id="r-ticks" viewBox="0 0 1400 120" aria-hidden="true"></svg>
+            <div class="brace" id="br-1"><span>1 → 2</span><b>30.1%</b></div>
+            <div class="brace" id="br-9"><span>9 → 10</span><b>4.6%</b></div>
+          </div>
+
+          <div id="x-head">验证：<b>2</b> 的 1 次方，一直算到 1000 次方</div>
+          <div id="x-n"><small>n =</small><span id="x-nv">1</span></div>
+          <div id="x-list"></div>
+          <div id="x-legend"><u></u>本福特定律的预测</div>
+          <div id="x-axis"></div>
+          <img class="burst" id="x-burst" src="assets/images/ai/burst.webp" alt="" aria-hidden="true" style="left: 606px; top: 0px" />
+          <div id="x-chart"></div>
+          <div id="x-result">首位是 1 的：<b>301</b> 个 · 正好 <b>30.1%</b></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 102.4;
+          const B0 = 128;
+          const at = (b) => (b - B0) * T;
+          const W = 1400;
+          const L10 = Math.log10;
+          // —— 尺子：先摆成和上一屏轨道一样的九段，再加刻度 ——
+          const ruler = document.getElementById("r-ruler");
+          const SHADES = ["#f2d999", "#c9a964", "#b4954f", "#a18443", "#91773b", "#846c36", "#786332", "#6e5b2e", "#65542b"];
+          for (let d = 1; d <= 9; d++) {
+            const s = document.createElement("div");
+            s.className = "rseg";
+            s.id = "rseg-" + d;
+            s.style.left = (W * L10(d)).toFixed(2) + "px";
+            s.style.width = (W * L10((d + 1) / d)).toFixed(2) + "px";
+            s.style.background = d === 1 ? "linear-gradient(90deg, #f7e7bc, #d8b46a)" : SHADES[d - 1];
+            ruler.insertBefore(s, ruler.firstChild);
+          }
+          const svg = document.getElementById("r-ticks");
+          let lines = "";
+          for (let d = 1; d <= 10; d++) {
+            const x = (W * L10(d)).toFixed(2);
+            lines += '<line class="tk-major" x1="' + x + '" y1="-14" x2="' + x + '" y2="56" />';
+            if (d < 10) {
+              for (let k = 1; k < 10; k++) {
+                const v = d + k / 10;
+                const xm = (W * L10(v)).toFixed(2);
+                const len = k === 5 ? 22 : 12;
+                if (d >= 5 && k % 2 === 1) continue;
+                lines += '<line class="tk-minor" x1="' + xm + '" y1="' + (36 - len) + '" x2="' + xm + '" y2="36" style="opacity:.7" />';
+              }
+            }
+          }
+          svg.innerHTML = lines;
+          for (let d = 1; d <= 10; d++) {
+            const l = document.createElement("div");
+            l.className = "rlab";
+            l.style.left = (W * L10(d)).toFixed(1) + "px";
+            l.textContent = d;
+            ruler.appendChild(l);
+          }
+          const br1 = document.getElementById("br-1"), br9 = document.getElementById("br-9");
+          br1.style.left = "0px";
+          br1.style.width = (W * L10(2)).toFixed(1) + "px";
+          br9.style.left = (W * L10(9)).toFixed(1) + "px";
+          br9.style.width = (W * L10(10 / 9)).toFixed(1) + "px";
+
+          // —— 2 的幂：BigInt 算准每一个数 ——
+          const NMAX = 1000;
+          const STR = [""];
+          let p = 1n;
+          for (let n = 1; n <= NMAX; n++) {
+            p *= 2n;
+            STR.push(p.toString());
+          }
+          const CNT = [[0, 0, 0, 0, 0, 0, 0, 0, 0]];
+          for (let n = 1; n <= NMAX; n++) {
+            const c = CNT[n - 1].slice();
+            c[+STR[n][0] - 1]++;
+            CNT.push(c);
+          }
+          const list = document.getElementById("x-list");
+          const ROWS = 8;
+          const rowEls = [];
+          for (let i = 0; i < ROWS; i++) {
+            const r = document.createElement("div");
+            r.className = "xr";
+            list.appendChild(r);
+            rowEls.push(r);
+          }
+          const fmt = (n) => {
+            const s = STR[n];
+            const body = s.length > 17 ? s.slice(1, 15) + "…" : s.slice(1);
+            const tail = s.length > 17 ? '<span style="color:rgba(201,207,223,.4)"> (' + s.length + " 位)</span>" : "";
+            return "<em>2<sup style='font-size:15px'>" + n + "</sup></em><span><b>" + s[0] + "</b>" + body + tail + "</span>";
+          };
+          const chart = document.getElementById("x-chart");
+          const HPX = 1.1;
+          const BEN = [30.1, 17.6, 12.5, 9.7, 7.9, 6.7, 5.8, 5.1, 4.6];
+          const bars = [];
+          for (let d = 1; d <= 9; d++) {
+            const b = document.createElement("div");
+            b.className = "xb";
+            b.style.left = 40 + (d - 1) * 77 + "px";
+            const exp = BEN[d - 1] * 10 * HPX;
+            b.innerHTML = '<i></i><u style="bottom:' + exp.toFixed(1) + 'px"></u><span class="c">0</span><span class="d">' + d + "</span>";
+            chart.appendChild(b);
+            bars.push({ i: b.querySelector("i"), c: b.querySelector(".c") });
+          }
+          const nv = document.getElementById("x-nv");
+          function show(n) {
+            nv.textContent = String(n);
+            for (let i = 0; i < ROWS; i++) {
+              const k = n - (ROWS - 1 - i);
+              rowEls[i].innerHTML = k >= 1 ? fmt(k) : "";
+            }
+            const c = CNT[n];
+            for (let d = 0; d < 9; d++) {
+              const h = c[d] * HPX;
+              bars[d].i.style.height = h.toFixed(1) + "px";
+              bars[d].c.style.bottom = (h + 10).toFixed(1) + "px";
+              bars[d].c.textContent = String(c[d]);
+            }
+          }
+
+          const tl = gsap.timeline({ paused: true });
+          // —— 尺子 ——
+          tl.fromTo("#r-photo", { opacity: 0, scale: 1.08, x: 40 }, { opacity: 0.3, scale: 1.0, x: -40, duration: at(135.6), ease: "sine.out" }, 0);
+          tl.to("#r-photo", { opacity: 0, duration: 0.8, ease: "power2.in" }, at(135.6));
+          tl.fromTo("#r-tag", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, at(129));
+          tl.to("#r-tag", { opacity: 0, duration: 0.5, ease: "power2.in" }, at(135.6));
+          tl.fromTo("#r-name", { opacity: 0, y: 14, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 0.1);
+          tl.to(["#rseg-2", "#rseg-3", "#rseg-4", "#rseg-5", "#rseg-6", "#rseg-7", "#rseg-8"], { opacity: 0.22, duration: 0.8, ease: "power2.inOut" }, at(128.5));
+          tl.fromTo("#r-ticks line", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power1.out", stagger: 0.012 }, at(128.5));
+          tl.fromTo(".rlab", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", stagger: 0.06 }, at(129));
+          tl.fromTo("#br-1", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at(130));
+          tl.fromTo("#br-9", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at(131));
+          tl.fromTo("#r-main", { opacity: 0, y: 12, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, at(132));
+          // —— 尺子收到顶上，开始实验 ——
+          tl.to(["#r-name", "#r-main"], { opacity: 0, y: -10, duration: 0.5, ease: "power2.in" }, at(136));
+          tl.to("#r-ruler", { y: -385, scale: 0.6, duration: 1.0, ease: "power3.inOut" }, at(136));
+          tl.to(".brace span", { opacity: 0, duration: 0.4, ease: "power2.in" }, at(136));
+          tl.fromTo("#x-head", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, at(137));
+          tl.fromTo(["#x-n", "#x-list"], { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, at(137.5));
+          tl.fromTo(["#x-chart", "#x-axis", "#x-legend"], { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, at(137.5));
+          const run = { n: 1 };
+          tl.to(run, { n: NMAX, duration: 12 * T, ease: "power2.in", onUpdate: () => show(Math.max(1, Math.min(NMAX, Math.round(run.n)))) }, at(138));
+          tl.fromTo("#x-burst", { opacity: 0, scale: 0.3 }, { opacity: 0.7, scale: 0.8, duration: 0.35, ease: "power3.out" }, at(151) - 0.05);
+          tl.to("#x-burst", { opacity: 0, scale: 0.7, rotation: 20, duration: 2.2, ease: "power2.out" }, at(151) + 0.3);
+          tl.fromTo("#x-result", { opacity: 0, scale: 1.08, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, at(151));
+          tl.to(bars.map((b) => b.i).slice(0, 1), { boxShadow: "0 0 46px rgba(247,231,188,0.85)", duration: 0.5, ease: "power2.out" }, at(151));
+          // 离场
+          tl.to("#sc06-all", { opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, at(160) - 0.05);
+          show(1);
+          window.__timelines["sc06"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

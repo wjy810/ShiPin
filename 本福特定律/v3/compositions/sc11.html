@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>S12 收尾</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #sc11-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3eee3;
+        }
+        #sc11-all {
+          position: absolute;
+          inset: 0;
+        }
+        .gold-metal {
+          background: linear-gradient(100deg, #e3c88f 0%, #f4e1b2 30%, #e7cf98 40%, #fffbe9 47%, #ffffff 50%, #fffbe9 53%, #e7cf98 60%, #f4e1b2 70%, #e3c88f 100%);
+          background-size: 320% 100%;
+          background-position: 100% 0;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0 10px 36px rgba(107, 74, 26, 0.55));
+        }
+        #e-halo {
+          position: absolute;
+          left: 560px;
+          top: -20px;
+          width: 800px;
+          height: 800px;
+          border-radius: 50%;
+          background: radial-gradient(closest-side, rgba(247, 231, 188, 0.32), rgba(216, 180, 106, 0.08) 50%, rgba(216, 180, 106, 0) 100%);
+          opacity: 0;
+        }
+        /* 金色的 1（AI 生成的雕塑质感，按亮度抠成透明）；倒影在引语上方淡掉 */
+        #e-one {
+          position: absolute;
+          left: 300px;
+          top: -40px;
+          width: 1400px;
+          height: 788px;
+          opacity: 0;
+          -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 76%, rgba(0, 0, 0, 0) 85%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 76%, rgba(0, 0, 0, 0) 85%);
+        }
+        #e-rosette {
+          position: absolute;
+          left: 460px;
+          top: -70px;
+          width: 1000px;
+          height: 1000px;
+          opacity: 0;
+        }
+        #e-scrim {
+          position: absolute;
+          left: 240px;
+          top: 270px;
+          width: 1440px;
+          height: 480px;
+          border-radius: 50%;
+          background: radial-gradient(closest-side, rgba(5, 6, 11, 0.88), rgba(5, 6, 11, 0.62) 55%, rgba(5, 6, 11, 0) 100%);
+          opacity: 0;
+        }
+        #e-quote {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 640px;
+          text-align: center;
+          font: 600 66px/1.2 "Noto Serif SC", serif;
+          letter-spacing: 0.1em;
+          opacity: 0;
+        }
+        #e-quote b {
+          font: 700 74px/1 "Playfair Display", serif;
+          color: #f2d999;
+        }
+        #e-en {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 748px;
+          text-align: center;
+          font: 600 24px/1 "Cormorant Garamond", serif;
+          letter-spacing: 0.46em;
+          padding-left: 0.46em;
+          color: rgba(243, 238, 227, 0.66);
+          opacity: 0;
+        }
+        #e-card {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 300px;
+          text-align: center;
+          opacity: 0;
+        }
+        #e-kicker {
+          display: inline-flex;
+          align-items: center;
+          gap: 16px;
+          font: 500 24px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.32em;
+          color: rgba(243, 238, 227, 0.6);
+        }
+        #e-kicker .seal {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          border: 1.5px solid rgba(216, 180, 106, 0.85);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font: 700 21px/1 "Playfair Display", serif;
+          color: #d8b46a;
+          letter-spacing: 0;
+        }
+        #e-title {
+          margin-top: 30px;
+          font: 700 128px/1.1 "Noto Serif SC", serif;
+          letter-spacing: 0.14em;
+          padding-left: 0.14em;
+        }
+        #e-ask {
+          margin-top: 54px;
+          font: 500 40px/1.3 "Noto Serif SC", serif;
+          letter-spacing: 0.06em;
+          color: rgba(243, 238, 227, 0.9);
+        }
+        #e-ask2 {
+          margin-top: 14px;
+          font: 500 24px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.2em;
+          color: rgba(216, 180, 106, 0.85);
+        }
+      </style>
+
+      <div id="sc11-root" data-composition-id="sc11" data-width="1920" data-height="1080">
+        <div id="sc11-all">
+          <div id="e-halo"></div>
+          <img id="e-one" src="assets/images/ai/one-gold.webp" alt="" aria-hidden="true" />
+          <img id="e-rosette" src="assets/images/ai/rosette.webp" alt="" aria-hidden="true" />
+          <div id="e-scrim"></div>
+          <div id="e-quote">世界的数字，偏爱从 <b>1</b> 开始。</div>
+          <div id="e-en">THE WORLD LEANS TOWARD ONE</div>
+          <div id="e-card">
+            <div id="e-kicker"><span class="seal">1</span><span>Vibe知识大赏</span></div>
+            <div id="e-title" class="gold-metal">偏心的数字</div>
+            <div id="e-ask">你会拿它去检查哪一份数据？</div>
+            <div id="e-ask2">评论区聊聊</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 102.4;
+          const B0 = 240;
+          const at = (b) => (b - B0) * T;
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#e-halo", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }, 0.05);
+          tl.fromTo("#e-one", { opacity: 0, scale: 1.4, filter: "blur(20px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.0, ease: "power3.out" }, 0.05);
+          tl.fromTo("#e-quote", { opacity: 0, y: 16, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, at(242));
+          tl.fromTo("#e-en", { opacity: 0, y: 10, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out" }, at(243));
+          tl.fromTo("#e-one", { y: 0 }, { y: -18, duration: at(248), ease: "sine.inOut" }, 0);
+          // 片名回归 + 提问
+          tl.to(["#e-one", "#e-halo", "#e-quote", "#e-en"], { opacity: 0, filter: "blur(10px)", duration: 0.6, ease: "power2.in" }, at(247.6));
+          tl.fromTo("#e-rosette", { opacity: 0, scale: 0.75, rotation: -24 }, { opacity: 0.34, scale: 0.95, rotation: 0, duration: 1.3, ease: "power3.out" }, at(247.8));
+          tl.fromTo("#e-rosette", { rotation: 0 }, { rotation: 10, duration: at(256) - at(247.8) - 1.3, ease: "none", immediateRender: false }, at(247.8) + 1.3);
+          tl.fromTo("#e-scrim", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.out" }, at(247.8));
+          tl.fromTo("#e-card", { opacity: 0, scale: 1.04, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, at(248));
+          tl.to("#e-title", { backgroundPosition: "0% 0", duration: 1.6, ease: "power2.inOut" }, at(249));
+          tl.fromTo("#e-ask", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, at(250));
+          tl.fromTo("#e-ask2", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, at(251));
+          tl.to("#sc11-all", { opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.in" }, at(256) - 0.05);
+          window.__timelines["sc11"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

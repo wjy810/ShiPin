@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>偏心的数字 · Vibe知识大赏</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: normal; font-display: block; src: url("assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 600; font-style: normal; font-display: block; src: url("assets/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 500; font-style: italic; font-display: block; src: url("assets/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-weight: 600; font-style: italic; font-display: block; src: url("assets/fonts/cormorant-garamond-latin-600-italic.woff2") format("woff2"); }
+@font-face { font-family: "Playfair Display"; font-weight: 600; font-style: normal; font-display: block; src: url("assets/fonts/playfair-display-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Playfair Display"; font-weight: 700; font-style: normal; font-display: block; src: url("assets/fonts/playfair-display-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; font-style: normal; font-display: block; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 500; font-style: normal; font-display: block; src: url("assets/fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #05060b;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #05060b;
+      }
+      [data-composition-id="main"] > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+      }
+      #bg {
+        z-index: 0;
+      }
+      #fx {
+        z-index: 15;
+      }
+      #hud {
+        z-index: 20;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      偏心的数字（本福特定律）· Vibe知识大赏
+      配乐降速到 0.8 倍：102.4 BPM，1 拍 = 0.5859375 秒，1 小节 = 2.34375 秒。全片第 n 拍（从 0 数）起点 = n × 0.5859375 秒。
+      每屏一个子合成，在小节第 1 拍切换，前后重叠 0.4 秒做溶解。详细分镜见 ../分镜.md。
+    -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="157.5" data-width="1920" data-height="1080">
+      <!-- 常驻环境层：深色底、光晕、数字尘埃、颗粒、暗角 -->
+      <div id="bg" data-composition-id="bg" data-composition-src="compositions/bg.html" data-start="0" data-duration="157.5" data-track-index="0" data-width="1920" data-height="1080"></div>
+
+      <!-- S1–S2 冷开场 + 心里作答 Q1：全片第 0–32 拍 -->
+      <div id="sc01" data-composition-id="sc01" data-composition-src="compositions/sc01.html" data-start="0.000000" data-duration="19.150000" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <!-- S3 片名：全片第 32–40 拍 -->
+      <div id="sc02" data-composition-id="sc02" data-composition-src="compositions/sc02.html" data-start="18.750000" data-duration="5.087500" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <!-- S4 1881 纽康的对数表：全片第 40–64 拍 -->
+      <div id="sc03" data-composition-id="sc03" data-composition-src="compositions/sc03.html" data-start="23.437500" data-duration="14.462500" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <!-- S5 1938 本福特 + 揭晓 30.1%：全片第 64–96 拍 -->
+      <div id="sc04" data-composition-id="sc04" data-composition-src="compositions/sc04.html" data-start="37.500000" data-duration="19.150000" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <!-- S6 乘法的世界：全片第 96–128 拍 -->
+      <div id="sc05" data-composition-id="sc05" data-composition-src="compositions/sc05.html" data-start="56.250000" data-duration="19.150000" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <!-- S7 对数尺 + 2 的幂：全片第 128–160 拍 -->
+      <div id="sc06" data-composition-id="sc06" data-composition-src="compositions/sc06.html" data-start="75.000000" data-duration="19.150000" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <!-- S8 适用条件：全片第 160–176 拍 -->
+      <div id="sc07" data-composition-id="sc07" data-composition-src="compositions/sc07.html" data-start="93.750000" data-duration="9.775000" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <!-- S9 217 个国家和地区：全片第 176–192 拍 -->
+      <div id="sc08" data-composition-id="sc08" data-composition-src="compositions/sc08.html" data-start="103.125000" data-duration="9.775000" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <!-- S10 数字指纹：全片第 192–224 拍 -->
+      <div id="sc09" data-composition-id="sc09" data-composition-src="compositions/sc09.html" data-start="112.500000" data-duration="19.150000" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <!-- S11 一把筛子：全片第 224–240 拍 -->
+      <div id="sc10" data-composition-id="sc10" data-composition-src="compositions/sc10.html" data-start="131.250000" data-duration="9.775000" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <!-- S12 收尾：全片第 240–256 拍 -->
+      <div id="sc11" data-composition-id="sc11" data-composition-src="compositions/sc11.html" data-start="140.625000" data-duration="9.775000" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <!-- S13 文献线索：全片第 256–末 拍 -->
+      <div id="sc12" data-composition-id="sc12" data-composition-src="compositions/sc12.html" data-start="150.000000" data-duration="7.500000" data-track-index="2" data-width="1920" data-height="1080"></div>
+
+      <!-- 转场光效：换场时一道金色光斑扫过（v2） -->
+      <div id="fx" data-composition-id="fx" data-composition-src="compositions/fx.html" data-start="0" data-duration="157.5" data-track-index="4" data-width="1920" data-height="1080"></div>
+
+      <!-- 常驻信息层：水印、章节、进度细线、中英双语字幕 -->
+      <div id="hud" data-composition-id="hud" data-composition-src="compositions/hud.html" data-start="0" data-duration="157.5" data-track-index="5" data-width="1920" data-height="1080"></div>
+
+      <!-- 声音：降速配乐 + 合成音效，事先混成一条（scripts/build_audio.py） -->
+      <audio id="soundtrack" data-timeline-role="music" src="assets/audio/mix.flac" data-start="0" data-duration="157.5" data-track-index="10"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

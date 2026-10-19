@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>S1–S2 冷开场 + 心里作答 Q1</title>
+  </head>
+  <body>
+    <template>
+      <style>
+/* FONTS:BEGIN */
+@font-face { font-family: "Noto Serif SC"; font-weight: 200 900; font-style: normal; font-display: block; src: url("assets/fonts/noto-serif-sc-film.woff2") format("woff2"); }
+/* FONTS:END */
+        #sc01-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3eee3;
+          font-family: "Noto Serif SC", serif;
+        }
+        /* 金色星云（AI 生成）：中间留暗给字，开场慢慢拉远；问答时变暗；穿过“1”时跟着推近（视差，推得比前景慢） */
+        #s1-nebula {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          opacity: 0;
+          transform-origin: 960px 540px;
+        }
+        #sc01-cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+        #sc01-flight {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+        }
+        .s1-line {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          text-align: center;
+          font-weight: 600;
+          font-size: 76px;
+          line-height: 1.2;
+          letter-spacing: 0.06em;
+          color: #f3eee3;
+          text-shadow: 0 6px 40px rgba(0, 0, 0, 0.85);
+          opacity: 0;
+        }
+        .s1-line .gold {
+          color: #f2d999;
+        }
+        #s1-a {
+          top: 452px;
+        }
+        #s1-b {
+          top: 452px;
+        }
+        /* —— Q1 —— */
+        #q1 {
+          position: absolute;
+          inset: 0;
+        }
+        #q1-tag {
+          position: absolute;
+          left: 860px;
+          top: 140px;
+          width: 200px;
+          height: 46px;
+          border: 1.5px solid rgba(216, 180, 106, 0.8);
+          border-radius: 23px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          font: 500 22px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.14em;
+          color: #d8b46a;
+          opacity: 0;
+        }
+        #q1-tag b {
+          font: 700 20px/1 "Playfair Display", serif;
+          letter-spacing: 0.04em;
+        }
+        #q1-q {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 214px;
+          text-align: center;
+          font: 600 66px/1.2 "Noto Serif SC", serif;
+          letter-spacing: 0.05em;
+          opacity: 0;
+        }
+        #q1-q .gold {
+          font-family: "Playfair Display", serif;
+          font-weight: 700;
+          color: #f2d999;
+          padding: 0 6px;
+        }
+        .q1-opt {
+          position: absolute;
+          top: 336px;
+          width: 230px;
+          height: 112px;
+          border: 1.5px solid rgba(243, 238, 227, 0.22);
+          border-radius: 14px;
+          background: rgba(10, 13, 28, 0.55);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          opacity: 0;
+        }
+        .q1-opt i {
+          font: italic 600 34px/1 "Cormorant Garamond", serif;
+          color: rgba(243, 238, 227, 0.5);
+        }
+        .q1-opt span {
+          font: 700 56px/1 "Playfair Display", serif;
+          color: #f3eee3;
+        }
+        #q1-optA {
+          left: 565px;
+        }
+        #q1-optB {
+          left: 845px;
+        }
+        #q1-optC {
+          left: 1125px;
+        }
+        /* 1–9 的槽位和“直觉”柱 */
+        #q1-row {
+          position: absolute;
+          left: 360px;
+          top: 462px;
+          width: 1200px;
+          height: 280px;
+        }
+        .slot {
+          position: absolute;
+          bottom: 0;
+          width: 120px;
+          margin-left: -60px;
+          text-align: center;
+          opacity: 0;
+        }
+        .slot .bar {
+          display: block;
+          width: 64px;
+          height: 84px;
+          margin: 0 auto 14px;
+          background: linear-gradient(to top, rgba(111, 124, 153, 0.55), rgba(111, 124, 153, 0.18));
+          border-top: 2px solid rgba(160, 172, 201, 0.85);
+          transform-origin: 50% 100%;
+        }
+        .slot .pct {
+          display: block;
+          font: 600 22px/1 "Playfair Display", serif;
+          color: rgba(160, 172, 201, 0.85);
+          margin-bottom: 10px;
+          opacity: 0;
+        }
+        .slot b {
+          display: block;
+          font: 700 92px/1 "Playfair Display", serif;
+          color: rgba(243, 238, 227, 0.82);
+        }
+        #q1-note {
+          position: absolute;
+          left: 0;
+          width: 1920px;
+          top: 778px;
+          text-align: center;
+          font: 500 22px/1 "Noto Serif SC", serif;
+          letter-spacing: 0.3em;
+          color: rgba(160, 172, 201, 0.95);
+          opacity: 0;
+        }
+      </style>
+
+      <div id="sc01-root" data-composition-id="sc01" data-width="1920" data-height="1080">
+        <img id="s1-nebula" src="assets/images/ai/nebula.webp" alt="" aria-hidden="true" />
+        <div id="sc01-cam">
+          <canvas id="sc01-flight" width="1920" height="1080"></canvas>
+          <div class="s1-line" id="s1-a">随手抓一把真实世界的数字</div>
+          <div class="s1-line" id="s1-b">只看它们的<span class="gold">第一位</span></div>
+
+          <div id="q1">
+            <div id="q1-tag"><span>心里作答</span><b>Q1</b></div>
+            <div id="q1-q">首位是 <span class="gold">1</span> 的数，大约占多少？</div>
+            <div class="q1-opt" id="q1-optA"><i>A</i><span>11%</span></div>
+            <div class="q1-opt" id="q1-optB"><i>B</i><span>20%</span></div>
+            <div class="q1-opt" id="q1-optC"><i>C</i><span>30%</span></div>
+            <div id="q1-row">
+              <div class="slot" id="slot-1" style="left: 0px"><span class="pct">11%</span><span class="bar"></span><b>1</b></div>
+              <div class="slot" id="slot-2" style="left: 150px"><span class="pct">11%</span><span class="bar"></span><b>2</b></div>
+              <div class="slot" id="slot-3" style="left: 300px"><span class="pct">11%</span><span class="bar"></span><b>3</b></div>
+              <div class="slot" id="slot-4" style="left: 450px"><span class="pct">11%</span><span class="bar"></span><b>4</b></div>
+              <div class="slot" id="slot-5" style="left: 600px"><span class="pct">11%</span><span class="bar"></span><b>5</b></div>
+              <div class="slot" id="slot-6" style="left: 750px"><span class="pct">11%</span><span class="bar"></span><b>6</b></div>
+              <div class="slot" id="slot-7" style="left: 900px"><span class="pct">11%</span><span class="bar"></span><b>7</b></div>
+              <div class="slot" id="slot-8" style="left: 1050px"><span class="pct">11%</span><span class="bar"></span><b>8</b></div>
+              <div class="slot" id="slot-9" style="left: 1200px"><span class="pct">11%</span><span class="bar"></span><b>9</b></div>
+            </div>
+            <div id="q1-note">直觉 · <span style="font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: 0.24em">INTUITION</span></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T = 60 / 102.4;
+          const F = 1 / 30;
+          const B0 = 0;
+          const at = (b) => (b - B0) * T;
+          const prand = (n) => {
+            const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+            return x - Math.floor(x);
+          };
+          const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+          const smooth = (a, b, v) => {
+            const x = clamp((v - a) / (b - a), 0, 1);
+            return x * x * (3 - 2 * x);
+          };
+          const ease3 = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
+          // 真实世界的数（人口、长度、常数……），首位各不相同
+          const NUMS = [
+            "1,438,069,596", "9,816", "6,300 km", "828 m", "299,792,458", "186,282", "3.14159", "2,147,483,647",
+            "1,024", "40,075 km", "8,849 m", "365.25", "4,184", "1,366", "17,098,242 km²", "9,596,961 km²",
+            "5,895 m", "384,400 km", "149,597,870 km", "12,742 km", "8,611 m", "21,196 km", "1,881", "1,938",
+            "2,718", "1,618", "6,371 km", "7,000", "13.8", "1,140", "86,400", "3,600", "52.6", "1,000,000",
+            "2,560", "1.6", "4,096", "5,380", "1,213", "9.81", "2,450", "1,730", "6,022", "11,034 m",
+            "3,500", "1,320", "4,810 m", "1,989", "1,412,175,000", "2,975", "8,000,000,000", "1,200", "7,400",
+            "1,050", "3,850 km", "1,766", "2,201", "14,300", "16,384", "1,293", "6,500", "1,545", "19,800",
+          ];
+          const N = 66;
+          const ITEMS = [];
+          for (let i = 0; i < N; i++) {
+            const s = NUMS[i % NUMS.length];
+            ITEMS.push({
+              s,
+              d: s[0],
+              x: (prand(i * 3.1) - 0.5) * 3000,
+              y: (prand(i * 5.7) - 0.5) * 1700,
+              z0: 300 + prand(i * 7.9) * 2700,
+            });
+          }
+          const ZN = 260, ZF = 3000, FOC = 900, V0 = 170;
+          const T1 = at(16); // 开始减速、首位数字飞向槽位
+          const TAU = 1.1;
+          const camZ = (t) => (t < T1 ? V0 * t : V0 * T1 + V0 * TAU * (1 - Math.exp(-(t - T1) / TAU)));
+          const proj = (it, t) => {
+            const span = ZF - ZN;
+            const z = ZN + ((((it.z0 - camZ(t) - ZN) % span) + span) % span);
+            const k = FOC / z;
+            return { sx: 960 + it.x * k, sy: 540 + it.y * k, size: 30 * k, z };
+          };
+          // 槽位中心（和 DOM 的 #q1-row 对齐）：x = 360 + 150*(d-1)，y ≈ 556+300-46
+          const slotX = (d) => 360 + 150 * (d - 1);
+          const SLOT_Y = 696;
+
+          const cv = document.getElementById("sc01-flight");
+          const ctx = cv.getContext("2d");
+          function draw(t) {
+            ctx.clearRect(0, 0, 1920, 1080);
+            const g = smooth(at(8), at(9.5), t); // 只看第一位
+            const fadeAll = 1 - smooth(T1, T1 + 1.0, t); // 整个数淡出
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "left";
+            const list = ITEMS.map((it, i) => ({ it, i, p: proj(it, t) }));
+            list.sort((a, b) => b.p.z - a.p.z);
+            for (const { it, i, p } of list) {
+              if (p.size < 4) continue;
+              const depthA = smooth(ZF, ZF - 700, p.z) * smooth(ZN, ZN + 260, p.z);
+              let a = 0.88 * depthA;
+              if (a <= 0.01) continue;
+              ctx.font = '500 ' + p.size.toFixed(1) + 'px "JetBrains Mono", monospace';
+              const w = ctx.measureText(it.s).width;
+              const x = p.sx - w / 2;
+              const w1 = ctx.measureText(it.d).width;
+              // 首位数字：飞向槽位（T1 之后）
+              let fx = x, fy = p.sy, fsize = p.size, fa = a;
+              if (t > T1) {
+                const pf = proj(it, T1);
+                ctx.font = '500 ' + pf.size.toFixed(1) + 'px "JetBrains Mono", monospace';
+                const wf = ctx.measureText(it.s).width;
+                const x0 = pf.sx - wf / 2;
+                const delay = (i % 12) * 0.06;
+                const u = ease3(clamp((t - T1 - delay) / 1.5, 0, 1));
+                const tx = slotX(+it.d), ty = SLOT_Y - 120;
+                fx = x0 + (tx - x0) * u;
+                fy = pf.sy + (ty - pf.sy) * u - Math.sin(u * Math.PI) * 120;
+                fsize = pf.size + (26 - pf.size) * u;
+                const a0 = 0.88 * smooth(ZF, ZF - 700, pf.z) * smooth(ZN, ZN + 260, pf.z);
+                fa = a0 * (1 - smooth(0.75, 1, u));
+                ctx.font = '500 ' + p.size.toFixed(1) + 'px "JetBrains Mono", monospace';
+              }
+              // 其余数字
+              const restA = a * (1 - 0.82 * g) * fadeAll;
+              if (restA > 0.01) {
+                ctx.globalAlpha = restA;
+                ctx.fillStyle = "#c9cfdf";
+                ctx.fillText(it.s.slice(1), x + w1, p.sy);
+              }
+              // 第一位
+              if (fa > 0.01) {
+                ctx.globalAlpha = Math.min(1, fa * (1 + 0.15 * g));
+                const r = Math.round(201 + (242 - 201) * g), gg = Math.round(207 + (217 - 207) * g), b = Math.round(223 + (153 - 223) * g);
+                ctx.fillStyle = "rgb(" + r + "," + gg + "," + b + ")";
+                ctx.font = (g > 0.5 ? "700 " : "500 ") + fsize.toFixed(1) + 'px "JetBrains Mono", monospace';
+                if (g > 0.05 && fsize > 16) {
+                  ctx.shadowColor = "rgba(216,180,106,0.9)";
+                  ctx.shadowBlur = 14 * g * Math.min(2, fsize / 30);
+                }
+                ctx.fillText(it.d, fx, fy);
+                ctx.shadowBlur = 0;
+              }
+            }
+            ctx.globalAlpha = 1;
+          }
+
+          function build() {
+            const tl = gsap.timeline({ paused: true });
+            const drive = { t: 0 };
+            const SCENE = (32 - B0) * T + 0.4;
+            tl.to(drive, { t: SCENE, duration: SCENE, ease: "none", onUpdate: () => draw(drive.t) }, 0);
+
+            // 整屏镜头缓推
+            tl.fromTo("#sc01-cam", { scale: 1 }, { scale: 1.035, duration: at(16), ease: "none" }, 0);
+
+            // —— S1 ——
+            tl.fromTo("#s1-a", { opacity: 0, y: 18, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out" }, at(1));
+            tl.to("#s1-a", { opacity: 0, y: -16, filter: "blur(8px)", duration: 0.5, ease: "power2.in" }, at(7.5));
+            tl.fromTo("#s1-b", { opacity: 0, y: 18, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, at(8));
+            tl.to("#s1-b", { opacity: 0, y: -16, filter: "blur(8px)", duration: 0.5, ease: "power2.in" }, at(15.4));
+
+            // —— S2：心里作答 ——
+            tl.to("#sc01-cam", { scale: 1, duration: 1.2, ease: "power2.inOut" }, at(16));
+            tl.fromTo("#s1-nebula", { opacity: 0 }, { opacity: 0.8, duration: 1.8, ease: "power2.out" }, 0);
+            tl.fromTo("#s1-nebula", { scale: 1.16, rotation: -2 }, { scale: 1.0, rotation: 1, duration: at(30.75), ease: "sine.out" }, 0);
+            tl.to("#s1-nebula", { opacity: 0.42, duration: 1.4, ease: "power2.inOut" }, at(16));
+            tl.to("#s1-nebula", { scale: 1.7, opacity: 0, duration: 32 * T - at(30.75) + 0.4, ease: "power3.in" }, at(30.75));
+            [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach((d, k) => {
+              tl.fromTo("#slot-" + d, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at(16) + 0.9 + k * 0.05);
+              tl.fromTo("#slot-" + d + " .bar", { scaleY: 0 }, { scaleY: 1, duration: 0.8, ease: "power3.out" }, at(24) + k * 0.06);
+              tl.fromTo("#slot-" + d + " .pct", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, at(24.5) + k * 0.06);
+            });
+            tl.fromTo("#q1-tag", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at(18));
+            tl.fromTo("#q1-q", { opacity: 0, y: 16, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, at(18.5));
+            ["#q1-optA", "#q1-optB", "#q1-optC"].forEach((sel, k) => {
+              tl.fromTo(sel, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at(20 + k));
+            });
+            tl.fromTo("#q1-note", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, at(25.5));
+            // 思考：三个选项轮流亮一下
+            ["#q1-optA", "#q1-optB", "#q1-optC"].forEach((sel, k) => {
+              tl.to(sel, { borderColor: "rgba(216,180,106,0.9)", duration: 0.25, ease: "power1.out" }, at(28 + k * 0.5));
+              tl.to(sel, { borderColor: "rgba(243,238,227,0.22)", duration: 0.35, ease: "power1.in" }, at(28 + k * 0.5) + 0.3);
+            });
+
+            // —— 推进穿过“1”：交给片名 ——
+            tl.to(["#q1-tag", "#q1-q", ".q1-opt", "#q1-note", "#slot-2", "#slot-3", "#slot-4", "#slot-5", "#slot-6", "#slot-7", "#slot-8", "#slot-9"], { opacity: 0, filter: "blur(6px)", duration: 0.6, ease: "power2.in" }, at(30.5));
+            tl.to("#slot-1 .bar, #slot-1 .pct", { opacity: 0, duration: 0.4, ease: "power2.in" }, at(30.5));
+            tl.to("#slot-1 b", { color: "#f2d999", textShadow: "0 0 40px rgba(216,180,106,0.9)", duration: 0.5, ease: "power2.out" }, at(30.5));
+            tl.to("#sc01-cam", { scale: 9, x: (960 - 360) * 8, y: (540 - 696) * 8, opacity: 0, filter: "blur(10px)", duration: 32 * T - at(30.75) + 0.4, ease: "power3.in" }, at(30.75));
+
+            draw(0);
+            window.__timelines["sc01"] = tl;
+          }
+          if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+          else build();
+        })();
+      </script>
+    </template>
+  </body>
+</html>
